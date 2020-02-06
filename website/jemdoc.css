@@ -5,10 +5,11 @@ table#tlayout {
 	border-collapse: separate;
 	background: white;
     height:100%;
+    width:100%;
 }
 
 html {
-    height:50%;
+    height:calc(100% - 0.5em);
 }
 
 body {
@@ -29,7 +30,7 @@ body {
 	white-space: nowrap;
 	text-align: left;
 	vertical-align: top;
-    width:auto;
+    width:150px;
 }
 
 #layout-menu td {
@@ -45,7 +46,8 @@ body {
 	background: white;
 	text-align: left;
 	vertical-align: top;
-	min-width: 400px;
+	min-width: 300px;
+    width:auto;
 }
 
 #layout-menu a {
@@ -374,4 +376,27 @@ img {
 table.imgtable, table.imgtable td {
 	border: none;
 	text-align: left;
+}
+
+/* Hidden solution block */
+.solutionblock .blockcontent {
+    display:none;
+}
+
+.solutionblock:hover > .blockcontent {
+    display:block;
+}
+
+.solutionblock:hover .solutionhelp {
+    display:none;
+}
+
+div.solutionblock > div.blocktitle {
+	font-weight: bold;
+	color: #006500;
+    color: #52bd7b;
+}
+
+div.solutionblock > div.blockcontent {
+	background: #eeffee;
 }

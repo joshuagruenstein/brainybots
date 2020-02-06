@@ -2,11 +2,9 @@ from jemdoc import *
 import os, shutil
 
 CONF_FILE = 'mysite.conf'
-OUT_DIR = './build'
+OUT_DIR = '../docs'
 
-def make_file(filename):
-    #os.makedirs(OUT_DIR)
-    
+def make_file(filename):    
     outfile = os.path.join(
         OUT_DIR, filename+'.html'
     )
@@ -16,8 +14,6 @@ def make_file(filename):
     except FileExistsError:
         pass
  
-    
-
     f = controlstruct(
         io.open(filename+'.jemdoc', 'rb'),
         io.open(outfile, 'w'), parseconf([CONF_FILE]), filename

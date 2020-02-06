@@ -4,7 +4,7 @@
 <head>
 <meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link rel="stylesheet" href="../jemdoc.css" type="text/css" /><title>Bayesian Bananza</title>
+<link rel="stylesheet" href="../jemdoc.css" type="text/css" /><title>Bayesian Bonanza</title>
 <!-- MathJax -->
 <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async>
 </script>
@@ -24,13 +24,12 @@ MathJax.Hub.Config({
 <div class="menu-item"><a href="../docs.html">Robot&nbsp;Docs</a></div>
 <div class="menu-item"><a href="https://github.com/joshuagruenstein/brainybots" target="blank">Github</a></div>
 <div class="menu-category">Classes</div>
-<div class="menu-item"><a href="../classes/one.html" class="current">Bayesian&nbsp;Bananza</a></div>
+<div class="menu-item"><a href="../classes/one.html" class="current">Bayesian&nbsp;Bonanza</a></div>
 </td>
 <td id="layout-content">
 <div id="toptitle">
-<h1>Bayesian Bananza</h1>
+<h1>Bayesian Bonanza</h1>
 </div>
-<p><b>Introduction to Probability</b></p>
 <p>You probably know a little bit about probability from reasoning about every day events: </p>
 <ol>
 <li><p>The probability of flipping a heads with a fair coin is \(\frac{1}{2}\)</p>
@@ -39,7 +38,7 @@ MathJax.Hub.Config({
 </li>
 </ol>
 <p>In this class, this is a good way to think about probability- assigning a number or &ldquo;likelihood&rdquo; to a given event, that comes from a space of events we understand. For example, the space of events with one flip of a fair coin is \(\{H, T\}\) and to each element in that space, we assign the probability \(\frac{1}{2}.\) </p>
-<p><b>Conditional Probability</b></p>
+<h3>Conditional Probability</h3>
 <p>In the real world, we don't just deal with singular events- we deal with thousands of events, some of which are connected and some of which are not. We're often interested in reasoning about some event's likelihood based on some other event- the usage of partial information that we already have. </p>
 <p>In probability terms, we like to think about \(\mathbb{P}(A|B)\), or the probability that event \(A\) occurs given event \(B.\) <br /></p>
 <ol>
@@ -62,10 +61,20 @@ MathJax.Hub.Config({
 \[
 \mathbb{P}(A|B) = \frac{\mathbb{P}(A \cap B)}{\mathbb{P}(B)}
 \]
-</p><p>Notation note: \(A \cap B\), when \(A\) and \(B\) are sets, indicates the set of all elements belonging to both \(A\) and \(B.\)</p>
-<p>Conditional Probability <b>Practice Problem</b>
-<b>Total Probability Theorem</b>
-To set up this result, let's go back to our example with ice cream and the seasons. Let's say we're trying to find the probability you're eating ice cream at any given time during the year. All we know is the following</p>
+</p><div class="infoblock">
+<div class="blocktitle">Notation note</div>
+<div class="blockcontent">
+<p>\(A \cap B\), when \(A\) and \(B\) are sets, indicates the set of all elements belonging to both \(A\) and \(B.\)</p>
+</div></div>
+<h4>Practice Problem</h4>
+<p>Insert conditional probability practice problem here.</p>
+<div class="infoblock solutionblock">
+<div class="blocktitle">Solution<span class="solutionhelp"> (hover to show)</span>:</div>
+<div class="blockcontent">
+<p>Trivially by inspection, \(\hat x = \frac{3}{4}\).</p>
+</div></div>
+<h3>Total Probability Theorem</h3>
+<p>To set up this result, let's go back to our example with ice cream and the seasons. Let's say we're trying to find the probability you're eating ice cream at any given time during the year. All we know is the following</p>
 <ol>
 <li><p>Each season lasts for exactly \(\frac{1}{4}\) of the year</p>
 </li>
@@ -87,8 +96,8 @@ To set up this result, let's go back to our example with ice cream and the seaso
 \mathbb{P}(B) = \mathbb{P}(A_1)\mathbb{P}(B|A_1) + \mathbb{P}(A_1)\mathbb{P}(B|A_2) + &hellip; + \mathbb{P}(A_1)\mathbb{P}(B|A_n) 
 \]
 </p><p>where \(A_1, &hellip;, A_n\) forms a partition of the space. </p>
-<p><b>Bayes Rule</b>
-Bayes&rsquo; Rule allows us to begin our inference journey! It's a formula that follows from a rearrangement of the conditional probability formula: </p>
+<h3>Bayes Rule</h3>
+<p>Bayes&rsquo; Rule allows us to begin our inference journey! It's a formula that follows from a rearrangement of the conditional probability formula: </p>
 <p style="text-align:center">
 \[
 \mathbb{P}(A|B) = \frac{\mathbb{P}(B|A)\mathbb{P}(A)}{\mathbb{P}(B)}
@@ -100,14 +109,14 @@ Bayes&rsquo; Rule allows us to begin our inference journey! It's a formula that 
 <li><p>let B be the event that a person drank chicken noodle soup</p>
 </li>
 </ol>
-<p>Then, at MIT Medical, we probably know how many people have caught colds- \(P(A) = .6\), and we happen to know that half of all people drink chicken noodle soup-\(P(B) = .5\). And we probably know from our clinic data what proportion of sick people drank soup- \(P(B|A)= .3\). But what we really care about is knowing what proportion of people who drink soup get sick- this would tell us if soup helps! </p>
+<p>Then, at MIT Medical, we probably know how many people have caught colds: \(P(A) = 0.6\), and we happen to know that half of all people drink chicken noodle soup: \(P(B) = 0.5\). And we probably know from our clinic data what proportion of sick people drank soup: \(P(B|A)= 0.3\). But what we really care about is knowing what proportion of people who drink soup get sick- this would tell us if soup helps! </p>
 <p>Using Bayes Rule, we can compute that </p>
 <p style="text-align:center">
 \[
 \begin{aligned}
 \mathbb{P}(A|B) &amp;= \frac{\mathbb{P}(B|A)\mathbb{P}(A)}{\mathbb{P}(B)} \\
-&amp;= \frac{.3\cdot .6}{.5}\\
-&amp;= .36\\
+&amp;= \frac{0.3\cdot 0.6}{0.5}\\
+&amp;= 0.36\\
 \end{aligned}
 \]
 </p><p>so soup helps!</p>
