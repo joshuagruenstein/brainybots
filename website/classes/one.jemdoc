@@ -1,4 +1,74 @@
 # jemdoc: menu{MENU}{one.html}, nofooter
 == Bayesian Bananza
 
-Insert stuff here
+*Introduction to Probability*
+
+You probably know a little bit about probability from reasoning about every day events: 
+. The probability of flipping a heads with a fair coin is $\frac{1}{2}$
+. The probability that it'll rain tomorrow is $30\%$ 
+
+
+In this class, this is a good way to think about probability- assigning a number or "likelihood" to a given event, that comes from a space of events we understand. For example, the space of events with one flip of a fair coin is $\{H, T\}$ and to each element in that space, we assign the probability $\frac{1}{2}.$ 
+
+
+*Conditional Probability*
+
+In the real world, we don't just deal with singular events- we deal with thousands of events, some of which are connected and some of which are not. We're often interested in reasoning about some event's likelihood based on some other event- the usage of partial information that we already have. 
+
+In probability terms, we like to think about $\mathbb{P}(A|B)$, or the probability that event $A$ occurs given event $B.$ \n
+. The likelihood that you're eating ice cream given that it's summer is higher than the likelihood that you're eating ice cream given that it's winter (maybe). 
+. *Practice Problem*: Assume we have a fair 6-sided die 
+.. What's the probability that our roll is odd? 
+.. What's the probability our roll is a 1?
+.. What's the probability our roll is a 1 given that we know our roll is odd? 
+    
+Conditional probability definition: 
+
+\(
+\mathbb{P}(A|B) = \frac{\mathbb{P}(A \cap B)}{\mathbb{P}(B)}
+\)
+
+Notation note: $A \cap B$, when $A$ and $B$ are sets, indicates the set of all elements belonging to both $A$ and $B.$
+
+Conditional Probability *Practice Problem*
+*Total Probability Theorem*
+To set up this result, let's go back to our example with ice cream and the seasons. Let's say we're trying to find the probability you're eating ice cream at any given time during the year. All we know is the following
+. Each season lasts for exactly $\frac{1}{4}$ of the year
+. When it's summer you're eating ice cream $\frac{3}{4}$ of the time 
+. When it's winter you're eating ice cream $\frac{1}{4}$ of the time
+. In spring or fall, you're eating ice cream $\frac{1}{2}$ of the time
+
+To get the total probability you're eating ice cream at any point during the year, you'd probably do the following: 
+\(
+\frac{1}{4}\cdot\frac{3}{4} + \frac{1}{4}\cdot \frac{1}{4} + \frac{1}{4}\cdot\frac{1}{2} + \frac{1}{4}\cdot\frac{1}{2}
+\)
+Note that this only works because summer, winter, spring, and fall together cover the entire year (and don't overlap), forming what we call a "partition" of the year. The total probability theorem states: 
+\(
+\mathbb{P}(B) = \mathbb{P}(A_1)\mathbb{P}(B|A_1) + \mathbb{P}(A_1)\mathbb{P}(B|A_2) + ... + \mathbb{P}(A_1)\mathbb{P}(B|A_n) 
+\)
+where $A_1, ..., A_n$ forms a partition of the space. 
+
+*Bayes Rule*
+Bayes' Rule allows us to begin our inference journey! It's a formula that follows from a rearrangement of the conditional probability formula: 
+\(
+\mathbb{P}(A|B) = \frac{\mathbb{P}(B|A)\mathbb{P}(A)}{\mathbb{P}(B)}
+\)
+
+For example, consider the following: 
+. let A be the event that a person caught a cold
+. let B be the event that a person drank chicken noodle soup
+
+Then, at MIT Medical, we probably know how many people have caught colds- $P(A) = .6$, and we happen to know that half of all people drink chicken noodle soup-$P(B) = .5$. And we probably know from our clinic data what proportion of sick people drank soup- $P(B|A)= .3$. But what we really care about is knowing what proportion of people who drink soup get sick- this would tell us if soup helps! 
+
+Using Bayes Rule, we can compute that 
+\(
+\begin{aligned}
+\mathbb{P}(A|B) &= \frac{\mathbb{P}(B|A)\mathbb{P}(A)}{\mathbb{P}(B)} \\
+&= \frac{.3\cdot .6}{.5}\\
+&= .36\\
+\end{aligned}
+\)
+
+so soup helps!
+
+
