@@ -31,6 +31,23 @@ Conditional probability definition:
 Notation note: $A \cap B$, when $A$ and $B$ are sets, indicates the set of all elements belonging to both $A$ and $B.$
 
 Conditional Probability *Practice Problem*
+
+The Monty Hall Problem- you are standing in front of three doors, and told that a prize lies behind one of the three doors, with equal probability. You pick one of the doors, and the host then opens one of the remaining doors, showing you that there is no prize behind it. Then the host offers you two options:
+. Stay with your first pick
+. Switch to the last door
+
+What's the best strategy? \n
+Under the first strategy, our probability of winning (call this event A) is just $\frac{1}{3}$. But under the second strategy, letting event $B$ be the event that the door the host opens does not have the prize, we can compute 
+
+\(
+\begin{aligned}
+\mathbb{P}(A|B) &= \frac{\mathbb{P}(A \cap B)}{\mathbb{P}(B)} \\
+&= \frac{\frac{4}{9}}{\frac{2}{3}}\\
+&= \frac{2}{3}
+\end{aligned}
+)\
+
+so one should always switch!
 *Total Probability Theorem*
 To set up this result, let's go back to our example with ice cream and the seasons. Let's say we're trying to find the probability you're eating ice cream at any given time during the year. All we know is the following
 . Each season lasts for exactly $\frac{1}{4}$ of the year
