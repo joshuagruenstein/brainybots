@@ -83,21 +83,27 @@ MathJax.Hub.Config({
 \[
 \begin{aligned}
 \mathbb{P}(A|B) &amp;= \frac{\mathbb{P}(A \cap B)}{\mathbb{P}(B)} \\
+&amp;= \frac{\frac{4}{9}}{\frac{2}{3}} \\
+&amp;= \frac{2}{3}
 \end{aligned}
-)\
-
-so one should always switch!
-&nbsp;&nbsp;&nbsp;
-
-=== Total Probability Theorem
-To set up this result, let's go back to our example with ice cream and the seasons. Let's say we're trying to find the probability you're eating ice cream at any given time during the year. All we know is the following
-. Each season lasts for exactly \(\frac{1}{4}\) of the year
-. When it's summer you're eating ice cream \(\frac{3}{4}\) of the time 
-. When it's winter you're eating ice cream \(\frac{1}{4}\) of the time
-. In spring or fall, you're eating ice cream \(\frac{1}{2}\) of the time
-
-To get the total probability you're eating ice cream at any point during the year, you'd probably do the following: 
-\(
+\]
+</p><p>so one should always switch!</p>
+</div></div>
+<h3>Total Probability Theorem</h3>
+<p>To set up this result, let's go back to our example with ice cream and the seasons. Let's say we're trying to find the probability you're eating ice cream at any given time during the year. All we know is the following</p>
+<ol>
+<li><p>Each season lasts for exactly \(\frac{1}{4}\) of the year</p>
+</li>
+<li><p>When it's summer you're eating ice cream \(\frac{3}{4}\) of the time </p>
+</li>
+<li><p>When it's winter you're eating ice cream \(\frac{1}{4}\) of the time</p>
+</li>
+<li><p>In spring or fall, you're eating ice cream \(\frac{1}{2}\) of the time</p>
+</li>
+</ol>
+<p>To get the total probability you're eating ice cream at any point during the year, you'd probably do the following: </p>
+<p style="text-align:center">
+\[
 \frac{1}{4}\cdot\frac{3}{4} + \frac{1}{4}\cdot \frac{1}{4} + \frac{1}{4}\cdot\frac{1}{2} + \frac{1}{4}\cdot\frac{1}{2}
 \]
 </p><p>Note that this only works because summer, winter, spring, and fall together cover the entire year (and don't overlap), forming what we call a &ldquo;partition&rdquo; of the year. The total probability theorem states: </p>
