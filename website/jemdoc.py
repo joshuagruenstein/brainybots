@@ -221,6 +221,9 @@ def standardconf():
   [infoblock]
   <div class="infoblock">
   
+  [solutionblock]
+  <div class="infoblock solutionblock">
+
   [codeblock]
   <div class="codeblock">
   
@@ -1497,10 +1500,15 @@ def procfile(f):
           g[0] = br(g[0], f)
 
         if len(g) in (0, 1): # info block.
-          out(f.outf, f.conf['infoblock'])
+          if len(g) == 1 and g[0] == 'Solution':
+            out(f.outf, f.conf['solutionblock'])
+          else:
+            out(f.outf, f.conf['infoblock'])
           infoblock = True
           
           if len(g) == 1: # info block.
+            if g[0] == 'Solution':
+                g[0] += '<span class="solutionhelp"> (hover to show)</span>:'
             hb(f.outf, f.conf['blocktitle'], g[0])
 
           out(f.outf, f.conf['infoblockcontent'])
