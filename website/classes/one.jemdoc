@@ -18,10 +18,13 @@ In the real world, we don't just deal with singular events- we deal with thousan
 # Also we should code up a default-hidden block for answers
 In probability terms, we like to think about $\mathbb{P}(A|B)$, or the probability that event $A$ occurs given event $B.$ \n
 . The likelihood that you're eating ice cream given that it's summer is higher than the likelihood that you're eating ice cream given that it's winter (maybe). 
-. *Practice Problem*: Assume we have a fair 6-sided die 
-.. What's the probability that our roll is odd? 
-.. What's the probability our roll is a 1?
-.. What's the probability our roll is a 1 given that we know our roll is odd? 
+
+==== Practice:
+
+Assume we have a fair 6-sided die 
+. What's the probability that our roll is odd? 
+. What's the probability our roll is a 1?
+. What's the probability our roll is a 1 given that we know our roll is odd? 
     
 Conditional probability definition: 
 
@@ -34,7 +37,40 @@ Conditional probability definition:
 $A \cap B$, when $A$ and $B$ are sets, indicates the set of all elements belonging to both $A$ and $B.$
 ~~~
 
+
 ==== Practice: 
+
+We toss a fair coin three times and define the following events on the outcome of those three tosses: 
+
+- A is the event that we toss more heads than tails
+- B is the event that the first flip is a head
+
+What's the probability that we toss more heads than tails given that the first flip is a head? What if the first flip is tails?
+
+~~~
+{Solution}
+
+The first question asks for $\mathbb{P}(A|B)$, which we know we can rewrite as
+\(
+\mathbb{P}(A|B) = \frac{\mathbb{P}(A \cap B)}{\mathbb{P}(B)}
+\)
+
+Now, we compute $\mathbb{P}(B)$ and $\mathbb{P}(A\cap B)$. First, we can enumerate all the possible outcomes of the three tosses: 
+- $HHH, HHT, HTH, THH, HTT, THT, TTH, TTT$
+
+Now, the sequences in which the first flip is a head are $HHH, HHT, HTH, HTT,$ so $\mathbb{P}(B) = \frac{1}{2}$. Now, to compute $\mathbb{P}(A\cap B)$ we look for the sequences that both have more heads than tails and begin with a head. The satisfying sequences are 
+\(
+HHH, HHT, HTH
+\)
+so we see that $\mathbb{P}(A\cap B) = \frac{3}{8}$ so 
+\(
+\begin{aligned}
+\mathbb{P}(A|B) &= \frac{\mathbb{P}(A \cap B)}{\mathbb{P}(B)} \\
+&= \frac{\frac{3}{8}}{\frac{1}{2}}\\
+&= \frac{3}{4}
+\end{aligned}
+\)
+~~~
 
 You are standing in front of three doors, and told that a prize lies behind one of the three doors, with equal probability. You pick one of the doors, and the host then opens one of the remaining doors, showing you that there is no prize behind it. Then the host offers you two options:
 . Stay with your first pick
@@ -57,11 +93,12 @@ Under the first strategy, our probability of winning (call this event A) is just
 
 so one should always switch!
 ~~~
+
 === Independence
 
 In the probability world, we often care about whether two events are independent or dependent. Note this concept is not the same as causation- we define independence as when the occurrence of one event does not affect the likelihood of the occurrence of a second event. We can define this nicely using conditional probability! 
 
-Independence definition- A is independent of event B when:  
+A is independent of event B when:  
 
 \(
 \mathbb{P}(A) = \mathbb{P}(A|B)
