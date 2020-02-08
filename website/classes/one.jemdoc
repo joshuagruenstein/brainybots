@@ -6,16 +6,13 @@ You probably know a little bit about probability from reasoning about every day 
 . The probability that it'll rain tomorrow is $30\%$ 
 
 
-In this class, this is a good way to think about probability- assigning a number or "likelihood" to a given event, that comes from a space of events we understand. For example, the space of events with one flip of a fair coin is $\{H, T\}$ and to each element in that space, we assign the probability $\frac{1}{2}.$ 
+In this class, this is a good way to think about probability: assigning a number or "likelihood" to a given event, that comes from a space of events we understand. For example, the space of events with one flip of a fair coin is $\{H, T\}$ and to each element in that space, we assign the probability $\frac{1}{2}.$ 
 
 
 === Conditional Probability
 
-In the real world, we don't just deal with singular events- we deal with thousands of events, some of which are connected and some of which are not. We're often interested in reasoning about some event's likelihood based on some other event- the usage of partial information that we already have. 
+In the real world, we don't just deal with singular events; we deal with thousands of events, some of which are connected and some of which are not. We're often interested in reasoning about some event's likelihood based on some other event: the usage of partial information that we already have. 
 
-# TODO: maybe work on this block (eg seperate practice problem,
-# intuitively explain condition probability)
-# Also we should code up a default-hidden block for answers
 In probability terms, we like to think about $\mathbb{P}(A|B)$, or the probability that event $A$ occurs given event $B.$ \n
 - The likelihood that you're eating ice cream given that it's summer is higher than the likelihood that you're eating ice cream given that it's winter (maybe). 
 
@@ -316,7 +313,7 @@ ctx.fillText("μ+σ", 130, 97);
 
 The Gaussin pdf (pictured above) is specified completely by two parameters, the mean $\mu$ and the standard deviation $\sigma$ of the distribution. The mean is where the distribution is centered, and the standard deviation is a measure of how "spread out" the distribution is. We'll write the Gaussian distribution with mean $\mu$ and standard deviation $\sigma$ as $\mathcal{N}(\mu, \sigma).$ Then, the probability that the distribution takes a specific value $x$ will be written as $\mathcal{N}(x; \mu, \sigma)$.
 
-== Lab: where am I?
+== Lab \#1: where am I?
 
 For our first lab, we will be applying our newfound probability knowledge to identify where our robots have been hidden.  
 
@@ -371,24 +368,30 @@ By pressing +shift\+enter+ again, a new empty cell should be created.  The follo
 ~~~
 {}{pyint}
 >>> bot.getDistance() # shift-enter to run
-8.4
+12.6
 ~~~
 
 === Estimation!
 
 Now that we can read from our robot's distance sensors, we have all we need to compute the probability of being in each room!
 
-To begin, let's define $A$ as a /discrete/ random variable that represents the room the robot is in, with $A=0$ as the short room and $A=1$ as the long room.  We'll also define $B$ as a /gaussian/ random variable with $\sigma=5$, with the mean $\mu=50$ if we are in the short room and $\mu=100$ if we are in the long room.  This is because we don't expect our sensor reading to be perfect; in fact, we might expect around 5 centimeters of error in our reading.  In mathematical terms, assuming a sensor reading of $d$ centimeters: 
+To begin, let's define $A$ as a /discrete/ random variable that represents the room the robot is in, with $A=0$ as the short room and $A=1$ as the long room.  We'll also define $B$ as a /gaussian/ random variable with $\sigma=5$.  Use a tape measure to identify the mean of this Gaussian for each room, with $\mu_0$ as the distance to the wall for the short room and $\mu_1$ as the distance to the wall for the long room. We represent our sensor reading as a random variable because we don't expect our measurement to be perfect; in this case, we expect around 5 centimeters of error in our reading.  In mathematical terms, assuming a sensor reading of $d$ centimeters: 
 
 \(
 \begin{aligned}
 P(A) &= 0.5 \text{ (uniform prior across rooms)} \\
-P(B=d | A=0) &= \mathcal N (d ; \mu=50,\sigma=5) \\
-P(B=d | A=1) &= \mathcal N (d ; \mu=100,\sigma=5)
+P(B=d | A=0) &= \mathcal N (d ; \mu=\mu_0,\sigma=5) \\
+P(B=d | A=1) &= \mathcal N (d ; \mu=\mu_1,\sigma=5)
 \end{aligned}
 \)
 
 Given this, use Bayes rule and the total probability theorem to compute the probability the robot is in each room in a cell in the Jupyter notebook!
+
+~~~
+{Implementation hint}
+To get $\mathcal N (x; \mu,\sigma)$ in Python, you can use +gaussian(x, mu, sigma)+.
+~~~
+
 
 ~~~
 {Solution}

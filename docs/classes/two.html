@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="../jemdoc.css" type="text/css" /><title>Decisions, Decisions, Decisions</title>
+<!-- MathJax -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async>
+</script>
+<script src="https://cdn.jsdelivr.net/npm/roughjs@4.0.4/bundled/rough.min.js"></script>
+<script>
+function get_illustration(id, width=400, height=200) {
+    const canvas = document.getElementById(id);
+    const ctx = canvas.getContext("2d");
+    const pixelRatio = window.devicePixelRatio || 1;
+    canvas.width = pixelRatio*width;
+    canvas.height = pixelRatio*height;
+    ctx.scale(pixelRatio, pixelRatio);
+    ctx.mozImageSmoothingEnabled = false;
+    ctx.imageSmoothingEnabled = false;
+    const rc = rough.canvas(canvas);
+    return [ctx, rc];
+}
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+	  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+<!-- End MathJax -->
+</head>
+<body>
+<table summary="Table for page layout." id="tlayout">
+<tr valign="top">
+<td id="layout-menu">
+<div class="menu-category">Information</div>
+<div class="menu-item"><a href="../index.html">Home</a></div>
+<div class="menu-item"><a href="../docs.html">Robot&nbsp;Docs</a></div>
+<div class="menu-item"><a href="https://github.com/joshuagruenstein/brainybots" target="blank">Github</a></div>
+<div class="menu-category">Classes</div>
+<div class="menu-item"><a href="../classes/one.html">Bayesian&nbsp;Bonanza</a></div>
+<div class="menu-item"><a href="../classes/two.html" class="current">Decisions,&nbsp;Decisions</a></div>
+</td>
+<td id="layout-content">
+<div id="toptitle">
+<h1>Decisions, Decisions, Decisions</h1>
+</div>
+<p>Today's class builds upon the probability fundamentals from class one, and introduces methods of <i>decision making</i> using inferred probabilities.</p>
+<h2>Lab #2: trapped in the closet?</h2>
+<p>Your robot is lost in a deviously complex maze, and requires your help to identify where it is!  This week's lab is similar to last week's: using distance sensor data, you will identify your robot's position.  However, rather than being in one of two rooms, your robot can now be in any of 9 spots in the maze, and facing any of 4 directions (north, west, south, or east), for a total of \(9\times 4=36\) total possible states to discriminate between!</p>
+<canvas class="illustration" id="rooms" style="height:400px"></canvas>
+<p class="caption">The robot maze, which will stay constant throughout the class.  The robot is collecting a measurement at position 4 and angle 90 (east).</p>
+<script>
+(function() {
+const [ctx, rc] = get_illustration('rooms', width=400, height=400);
+
+ctx.font = '60px sans-serif';
+ctx.textAlign = 'center';
+ctx.fillStyle = "grey";
+
+for (let i=0; i<9; i++) {
+    //i%3 + i//3
+    if (i==4) continue;
+    ctx.fillText(i, 80+120*(i%3), 70+120*Math.floor(i/3)+30);
+}
+
+
+// maze
+rc.rectangle(20, 20, 360, 360);
+rc.line(20,140,260,140);
+rc.line(140,140,140,260);
+rc.line(260,260,380,260);
+rc.line(260,260,260,380);
+
+// robot
+rc.circle(200, 200, 48, { roughness: 0.5, fill: 'blue' });
+
+const sline = { roughness: 1.5, stroke: 'red', strokeWidth:0.5 };
+
+rc.line(230, 200, 370, 200, sline);
+rc.line(230, 205, 370, 215, sline);
+rc.line(230, 195, 370, 185, sline);
+
+
+})();
+</script>
+<p>In addition, this week we will allow rotating the distance sensor to get more measurements at different angles.  We can do that using the following syntax in Jupyter on the robots:</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+<span class="pycommand">&gt;&gt;&gt; bot.setTurret(45) <span class = "comment"># angle between -90 and 90, 0 is straight</span></span>
+None
+<span class="pycommand">&gt;&gt;&gt; bot.getDistance() <span class = "comment"># read from sensor in centimeters</span></span>
+32.12
+</pre></div></div>
+<p>We also provide an API for calculating the expected sensor reading for a position in the maze, so you don't have to hardcode distances for each state like in last week's lab.  We can encode a possible state of the robot as a position \(p\) (an integer between \(0\) and \(8\), see diagram) and an angle \(a\) in degrees (going clockwise with \(0^\circ\) pointing up).  Using this representation, we can get the sensor reading we might expect a robot in the top left cell (\(p=0\)) with its sensor pointing down (\(a=180\)) to measure:</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+<span class="pycommand">&gt;&gt;&gt; gridmaze.simulatedDistance(0, 180)</span>
+TODO: insert real value here
+</pre></div></div>
+<p>Building off of your implementation from last week's lab, write code to compute the probability of being in each possible state (position and orientation pair) after collecting some sensor readings.  Then,</p>
+<ol>
+<li><p>Calculate the likely state (position and orientation pair).</p>
+</li>
+<li><p>Calculate the most likely position for your robot.</p>
+</li>
+<li><p>Calculate the most likely orientation for your robot.</p>
+</li>
+</ol>
+<p>Discuss with your group the differences between each of these tasks, and ways you could accomplish them.  Is the most likely state the same as the most likely position and orientation?</p>
+<h2>Formalizing decision making</h2>
+<h3>Cost Minimization and Hypothesis Testing</h3>
+<p>In the real world, we make decisions based off of series of observations. For example, I might have three hypotheses about the weather right now: sunny, rainy or snowy. I can decide pretty quickly based off of one observation of going outside or even looking out the window. In the probability theory framework, we encode possible scenarios as a set of hypotheses</p>
+<p style="text-align:center">
+\[
+\mathcal{H} = \{H_0, H_1,&hellip;,H_n\}
+\]
+</p><p>where \(n\) is the number of hypotheses under consideration. First, we'll consider binary hypothesis testing, in which we are choosing between just two hypotheses </p>
+<p style="text-align:center">
+\[
+\mathcal{H} = \{H_0, H_1\}
+\]
+</p><p>Our general framework for decision making will be one of cost-minimization. I can assign cost function (which will depend on the problem context) and aim to make decision rules such that I can minimize my cost. We denote \(C_{ij}\) to be the cost of deciding that the correct hypothesis is \(H_i\) when the true hypothesis is \(H_j\). </p>
+<ul>
+<li><p>Let's say that I'm trying to figure out without looking if an m&amp;m is green (\(\mathcal{H}_0\)) or red (\(\mathcal{H}_1\)). There's not really any consequence if my decision is wrong, so a reasonable cost function is </p>
+</li>
+</ul>
+<p style="text-align:center">
+\[
+C_{00} = C_{11} = 0
+C_{01} = C_{10} = 1
+\]
+</p><ul>
+<li><p>But on the other hand, say I'm trying to determine if a patient is healthy (\(\mathcal{H}_0\)) or has cancer (\(\mathcal{H}_1\)). Then, our cost is no longer symmetric; it's much worse to decide that they are healthy when they have cancer than to decide that they have cancer when they are healthy (although neither is great). So a reasonable cost function might look like </p>
+</li>
+</ul>
+<p style="text-align:center">
+\[
+\begin{aligned}
+C_{00} = C_{11} &amp;= 0 \\
+C_{10} &amp;= 1000 \\
+C_{01} &amp;= 10
+\end{aligned}
+\]
+</p><h3>Decision Rules</h3>
+</td>
+</tr>
+</table>
+</body>
+</html>

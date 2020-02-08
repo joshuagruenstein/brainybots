@@ -417,3 +417,13 @@ canvas {
     margin: auto;
     display: block;
 }
+
+.caption {
+    width: calc(100% - 4em);
+    text-align:center;
+    margin:0 auto;
+    display:block;
+    font-style:italic;
+    margin-bottom:1em;
+    font-size:0.9em;
+}
