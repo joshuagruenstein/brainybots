@@ -279,4 +279,6 @@ Note that all pmfs must satisfy $\sum_x p_X(x) = 1$. For continuous random varia
 \( 
 \mathbb{P}(a \leq X \leq b) = \int_{a}^b f_X(x)
 \)
-(don't worry too much about this if you don't know calculus). The most common continuous random variable we'll be dealing with in this class is the normal random variable (or Gaussian).  
+(don't worry too much about this if you don't know calculus). The most common continuous random variable we'll be dealing with in this class is the normal random variable (or Gaussian). 
+
+The Gaussin pdf is specified completely by two parameters, the mean $\mu$ and the standard deviation $\sigma$ of the distribution. The mean is where the distribution is centered, and the standard deviation is a measure of how "spread out" the distribution is. We'll write the Gaussian distribution with mean $\mu$ and standard deviation $\sigma$ as $\mathcal{N}(\mu, \sigma).$ Then, the probability that the distribution takes a specific value $x$ will be written as $\mathcal{N}(x; \mu, \sigma)$.
