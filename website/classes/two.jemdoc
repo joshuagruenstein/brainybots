@@ -1,0 +1,11 @@
+# jemdoc: menu{MENU}{two.html}, nofooter
+== Decisions Decisions Decisions: It's all about Location
+
+In the real world, we make decisions based off of series of observations. For example, I might have three hypotheses about the weather right now- sunny, rainy or snowy. I can decide pretty quickly based off of one observation of going outside or even looking out the window. In the probability theory framework, we encode possible scenarios as a set of hypotheses
+\(
+\mathcal{H} = \{H_0, H_1,...,H_n\}
+\)
+where $n$ is the number of hypotheses under consideration. First, we'll consider binary hypothesis testing, in which we are choosing between just two hypotheses 
+\(
+\mathcal{H} = \{H_0, H_1\}
+\)
