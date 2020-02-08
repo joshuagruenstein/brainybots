@@ -378,13 +378,13 @@ By pressing +shift\+enter+ again, a new empty cell should be created.  The follo
 
 Now that we can read from our robot's distance sensors, we have all we need to compute the probability of being in each room!
 
-To begin, let's define $A$ as a /discrete/ random variable that represents the room the robot is in, with $A=0$ as the short room and $A=1$ as the long room.  We'll also define $B$ as a /gaussian/ random variable with $\sigma=5$, with the mean $\mu=50$ if we are in the short room and $\mu=100$ if we are in the long room.  This is because we don't expect our sensor reading to be perfect; in fact, we might expect around 5 centimeters of error in our reading.  In mathematical terms, assuming a sensor reading of $d$ centimeters: 
+To begin, let's define $A$ as a /discrete/ random variable that represents the room the robot is in, with $A=0$ as the short room and $A=1$ as the long room.  We'll also define $B$ as a /gaussian/ random variable with $\sigma=5$.  Use a tape measure to identify the mean of this Gaussian for each room, with $\mu_0$ as the distance to the wall for the short room and $\mu_1$ as the distance to the wall for the long room. We represent our sensor reading as a random variable because we don't expect our measurement to be perfect; in this case, we expect around 5 centimeters of error in our reading.  In mathematical terms, assuming a sensor reading of $d$ centimeters: 
 
 \(
 \begin{aligned}
 P(A) &= 0.5 \text{ (uniform prior across rooms)} \\
-P(B=d | A=0) &= \mathcal N (d ; \mu=50,\sigma=5) \\
-P(B=d | A=1) &= \mathcal N (d ; \mu=100,\sigma=5)
+P(B=d | A=0) &= \mathcal N (d ; \mu=\mu_0,\sigma=5) \\
+P(B=d | A=1) &= \mathcal N (d ; \mu=\mu_1,\sigma=5)
 \end{aligned}
 \)
 

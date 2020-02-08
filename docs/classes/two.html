@@ -4,7 +4,7 @@
 <head>
 <meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link rel="stylesheet" href="jemdoc.css" type="text/css" /><title>Robot Documentation</title>
+<link rel="stylesheet" href="../jemdoc.css" type="text/css" /><title>Decisions, Decisions, Decisions</title>
 <!-- MathJax -->
 <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async>
 </script>
@@ -35,19 +35,29 @@ MathJax.Hub.Config({
 <tr valign="top">
 <td id="layout-menu">
 <div class="menu-category">Information</div>
-<div class="menu-item"><a href="index.html">Home</a></div>
-<div class="menu-item"><a href="docs.html" class="current">Robot&nbsp;Docs</a></div>
+<div class="menu-item"><a href="../index.html">Home</a></div>
+<div class="menu-item"><a href="../docs.html">Robot&nbsp;Docs</a></div>
 <div class="menu-item"><a href="https://github.com/joshuagruenstein/brainybots" target="blank">Github</a></div>
 <div class="menu-category">Classes</div>
-<div class="menu-item"><a href="classes/one.html">Bayesian&nbsp;Bonanza</a></div>
-<div class="menu-item"><a href="classes/two.html">Decisions,&nbsp;Decisions</a></div>
+<div class="menu-item"><a href="../classes/one.html">Bayesian&nbsp;Bonanza</a></div>
+<div class="menu-item"><a href="../classes/two.html" class="current">Decisions,&nbsp;Decisions</a></div>
 </td>
 <td id="layout-content">
 <div id="toptitle">
-<h1>Robot Documentation</h1>
+<h1>Decisions, Decisions, Decisions</h1>
 </div>
-<p>Insert stuff here</p>
-</td>
+<h3>It's all about Location</h3>
+<p>In the real world, we make decisions based off of series of observations. For example, I might have three hypotheses about the weather right now- sunny, rainy or snowy. I can decide pretty quickly based off of one observation of going outside or even looking out the window. In the probability theory framework, we encode possible scenarios as a set of hypotheses</p>
+<p style="text-align:center">
+\[
+\mathcal{H} = \{H_0, H_1,&hellip;,H_n\}
+\]
+</p><p>where \(n\) is the number of hypotheses under consideration. First, we'll consider binary hypothesis testing, in which we are choosing between just two hypotheses </p>
+<p style="text-align:center">
+\[
+\mathcal{H} = \{H_0, H_1\}
+\]
+</p></td>
 </tr>
 </table>
 </body>
