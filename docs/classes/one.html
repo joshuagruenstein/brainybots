@@ -53,9 +53,9 @@ MathJax.Hub.Config({
 <li><p>The probability that it'll rain tomorrow is \(30\%\) </p>
 </li>
 </ol>
-<p>In this class, this is a good way to think about probability- assigning a number or &ldquo;likelihood&rdquo; to a given event, that comes from a space of events we understand. For example, the space of events with one flip of a fair coin is \(\{H, T\}\) and to each element in that space, we assign the probability \(\frac{1}{2}.\) </p>
+<p>In this class, this is a good way to think about probability: assigning a number or &ldquo;likelihood&rdquo; to a given event, that comes from a space of events we understand. For example, the space of events with one flip of a fair coin is \(\{H, T\}\) and to each element in that space, we assign the probability \(\frac{1}{2}.\) </p>
 <h3>Conditional Probability</h3>
-<p>In the real world, we don't just deal with singular events- we deal with thousands of events, some of which are connected and some of which are not. We're often interested in reasoning about some event's likelihood based on some other event- the usage of partial information that we already have. </p>
+<p>In the real world, we don't just deal with singular events; we deal with thousands of events, some of which are connected and some of which are not. We're often interested in reasoning about some event's likelihood based on some other event: the usage of partial information that we already have. </p>
 <p>In probability terms, we like to think about \(\mathbb{P}(A|B)\), or the probability that event \(A\) occurs given event \(B.\) <br /></p>
 <ul>
 <li><p>The likelihood that you're eating ice cream given that it's summer is higher than the likelihood that you're eating ice cream given that it's winter (maybe). </p>
@@ -365,7 +365,7 @@ ctx.fillText("μ+σ", 130, 97);
 })();
 </script>
 <p>The Gaussin pdf (pictured above) is specified completely by two parameters, the mean \(\mu\) and the standard deviation \(\sigma\) of the distribution. The mean is where the distribution is centered, and the standard deviation is a measure of how &ldquo;spread out&rdquo; the distribution is. We'll write the Gaussian distribution with mean \(\mu\) and standard deviation \(\sigma\) as \(\mathcal{N}(\mu, \sigma).\) Then, the probability that the distribution takes a specific value \(x\) will be written as \(\mathcal{N}(x; \mu, \sigma)\).</p>
-<h2>Lab: where am I?</h2>
+<h2>Lab #1: where am I?</h2>
 <p>For our first lab, we will be applying our newfound probability knowledge to identify where our robots have been hidden.  </p>
 <canvas class="illustration" id="rooms" style="height:150px"></canvas>
 <script>
@@ -406,7 +406,7 @@ sensor(215,370);
 <div class="codeblock">
 <div class="blockcontent"><pre>
 <span class="pycommand">&gt;&gt;&gt; bot.getDistance() <span class = "comment"># shift-enter to run</span></span>
-8.4
+12.6
 </pre></div></div>
 <h3>Estimation!</h3>
 <p>Now that we can read from our robot's distance sensors, we have all we need to compute the probability of being in each room!</p>
@@ -420,6 +420,11 @@ P(B=d | A=1) &amp;= \mathcal N (d ; \mu=\mu_1,\sigma=5)
 \end{aligned}
 \]
 </p><p>Given this, use Bayes rule and the total probability theorem to compute the probability the robot is in each room in a cell in the Jupyter notebook!</p>
+<div class="infoblock">
+<div class="blocktitle">Implementation hint</div>
+<div class="blockcontent">
+<p>To get \(\mathcal N (x; \mu,\sigma)\) in Python, you can use <tt>gaussian(x, mu, sigma)</tt>.</p>
+</div></div>
 <div class="infoblock solutionblock">
 <div class="blocktitle">Solution<span class="solutionhelp"> (hover to show)</span>:</div>
 <div class="blockcontent">
