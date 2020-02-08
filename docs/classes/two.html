@@ -46,7 +46,7 @@ MathJax.Hub.Config({
 <div id="toptitle">
 <h1>Decisions, Decisions, Decisions</h1>
 </div>
-<h3>It's all about Location</h3>
+<h3>Cost Minimization and Hypothesis Testing</h3>
 <p>In the real world, we make decisions based off of series of observations. For example, I might have three hypotheses about the weather right now- sunny, rainy or snowy. I can decide pretty quickly based off of one observation of going outside or even looking out the window. In the probability theory framework, we encode possible scenarios as a set of hypotheses</p>
 <p style="text-align:center">
 \[
@@ -57,7 +57,30 @@ MathJax.Hub.Config({
 \[
 \mathcal{H} = \{H_0, H_1\}
 \]
-</p></td>
+</p><p>Our general framework for decision making will be one of cost-minimization. I can assign cost function (which will depend on the problem context) and aim to make decision rules such that I can minimize my cost. We denote \(C_{ij}\) to be the cost of deciding that the correct hypothesis is \(H_i\) when the true hypothesis is \(H_j\). </p>
+<ul>
+<li><p>Let's say that I'm trying to figure out without looking if an m&amp;m is green (\(\mathcal{H}_0\)) or red (\(\mathcal{H}_1\)). There's not really any consequence if my decision is wrong, so a reasonable cost function is </p>
+</li>
+</ul>
+<p style="text-align:center">
+\[
+C_{00} = C_{11} = 0
+C_{01} = C_{10} = 1
+\]
+</p><ul>
+<li><p>But on the other hand, say I'm trying to determine if a patient is healthy (\(\mathcal{H}_0\)) or has cancer (\(\mathcal{H}_1\)). Then, our cost is no longer symmetric- it's much worse to decide that they are healthy when they have cancer than to decide that they have cancer when they are healthy (although neither is great). So a reasonable cost function might look like </p>
+</li>
+</ul>
+<p style="text-align:center">
+\[
+\begin{aligned}
+C_{00} = C_{11} &amp;= 0 \\
+C_{10} &amp;= 1000 \\
+C_{01} &amp;= 10
+\end{aligned}
+\]
+</p><h3>Decision Rules</h3>
+</td>
 </tr>
 </table>
 </body>
