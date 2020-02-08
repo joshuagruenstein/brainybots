@@ -56,10 +56,13 @@ MathJax.Hub.Config({
 <h3>Conditional Probability</h3>
 <p>In the real world, we don't just deal with singular events- we deal with thousands of events, some of which are connected and some of which are not. We're often interested in reasoning about some event's likelihood based on some other event- the usage of partial information that we already have. </p>
 <p>In probability terms, we like to think about \(\mathbb{P}(A|B)\), or the probability that event \(A\) occurs given event \(B.\) <br /></p>
-<ol>
+<ul>
 <li><p>The likelihood that you're eating ice cream given that it's summer is higher than the likelihood that you're eating ice cream given that it's winter (maybe). </p>
 </li>
-<li><p><b>Practice Problem</b>: Assume we have a fair 6-sided die </p>
+</ul>
+<p>Intuitively, to figure out what the probability is that \(A\) occurs given that \(B\) already occurred, we take the set of events where \(B\) has occurred, and just within that space, we look for the probability that \(A\) also occurred. Try it yourself: </p>
+<h4>Practice:</h4>
+<p>Assume we have a fair 6-sided die </p>
 <ol>
 <li><p>What's the probability that our roll is odd? </p>
 </li>
@@ -68,9 +71,22 @@ MathJax.Hub.Config({
 <li><p>What's the probability our roll is a 1 given that we know our roll is odd? </p>
 </li>
 </ol>
-
-</li>
-</ol>
+<div class="infoblock solutionblock">
+<div class="blocktitle">Solution<span class="solutionhelp"> (hover to show)</span>:</div>
+<div class="blockcontent">
+<p>The probability that our roll is odd is \(\frac{\text{number of odd outcomes}}{\text{number of outcomes in the space}} = \frac{3}{6} = \frac{1}{2}\)</p>
+<p>The probability that our roll is 1 is \(\frac{\text{number of outcomes with a 1}}{\text{number of outcomes in the space}} = \frac{1}{6}\)</p>
+<p>Given that we know our roll is odd, we restrict our sample space to the odd outcomes only: </p>
+<p style="text-align:center">
+\[
+\{1,3,5\}
+\]
+</p><p>Within this space only, we compute the probability that our roll is a 1: </p>
+<p style="text-align:center">
+\[
+\frac{\text{number of outcomes with a 1}}{\text{number of outcomes in the space}} = \frac{1}{3}
+\]
+</p></div></div>
 <p>Conditional probability definition: </p>
 <p style="text-align:center">
 \[
@@ -82,18 +98,59 @@ MathJax.Hub.Config({
 <p>\(A \cap B\), when \(A\) and \(B\) are sets, indicates the set of all elements belonging to both \(A\) and \(B.\)</p>
 </div></div>
 <h4>Practice: </h4>
-<p>You are standing in front of three doors, and told that a prize lies behind one of the three doors, with equal probability. You pick one of the doors, and the host then opens one of the remaining doors, showing you that there is no prize behind it. Then the host offers you two options:</p>
+<p>1. We toss a fair coin three times and define the following events on the outcome of those three tosses: </p>
+<ul>
+<li><p>A is the event that we toss more heads than tails</p>
+</li>
+<li><p>B is the event that the first flip is a head</p>
+</li>
+</ul>
+<p>What's the probability that we toss more heads than tails given that the first flip is a head? </p>
+<div class="infoblock solutionblock">
+<div class="blocktitle">Solution<span class="solutionhelp"> (hover to show)</span>:</div>
+<div class="blockcontent">
+<p>This question asks for \(\mathbb{P}(A|B)\), which we know we can rewrite as</p>
+<p style="text-align:center">
+\[
+\mathbb{P}(A|B) = \frac{\mathbb{P}(A \cap B)}{\mathbb{P}(B)}
+\]
+</p><p>Now, we compute \(\mathbb{P}(B)\) and \(\mathbb{P}(A\cap B)\). First, we can enumerate all the possible outcomes of the three tosses: </p>
+<p style="text-align:center">
+\[
+\{HHH, HHT, HTH, THH, HTT, THT, TTH, TTT\}
+\]
+</p><p>Now, the sequences in which the first flip is a head are </p>
+<p style="text-align:center">
+\[
+\{HHH, HHT, HTH, HTT\}
+\]
+</p><p>so \(\mathbb{P}(B) = \frac{1}{2}\). Now, to compute \(\mathbb{P}(A\cap B)\) we look for the sequences that both have more heads than tails and begin with a head. The satisfying sequences are </p>
+<p style="text-align:center">
+\[
+\{HHH, HHT, HTH\}
+\]
+</p><p>so we see that \(\mathbb{P}(A\cap B) = \frac{3}{8}\) so </p>
+<p style="text-align:center">
+\[
+\begin{aligned}
+\mathbb{P}(A|B) &amp;= \frac{\mathbb{P}(A \cap B)}{\mathbb{P}(B)} \\
+&amp;= \frac{\frac{3}{8}}{\frac{1}{2}}\\
+&amp;= \frac{3}{4}
+\end{aligned}
+\]
+</p></div></div>
+<p>2. <b>(Bonus)</b> You are standing in front of three doors, and told that a prize lies behind one of the three doors, with equal probability. You pick one of the doors, and the host then opens one of the remaining doors, showing you that there is no prize behind it. Then the host offers you two options:</p>
 <ol>
 <li><p>Stay with your first pick</p>
 </li>
 <li><p>Switch to the last door</p>
 </li>
 </ol>
-<p>What's the best strategy?</p>
+<p>What's the probability of winning if you decide to switch instead of staying with your first pick? </p>
 <div class="infoblock solutionblock">
 <div class="blocktitle">Solution<span class="solutionhelp"> (hover to show)</span>:</div>
 <div class="blockcontent">
-<p>Under the first strategy, our probability of winning (call this event A) is just \(\frac{1}{3}\). But under the second strategy, letting event \(B\) be the event that the door the host opens does not have the prize, we can compute </p>
+<p>Under the second strategy, letting event \(B\) be the event that the door the host opens does not have the prize, we can compute </p>
 <p style="text-align:center">
 \[
 \begin{aligned}
@@ -104,13 +161,50 @@ MathJax.Hub.Config({
 \]
 </p><p>so one should always switch!</p>
 </div></div>
+<h3>Independence</h3>
 <p>In the probability world, we often care about whether two events are independent or dependent. Note this concept is not the same as causation- we define independence as when the occurrence of one event does not affect the likelihood of the occurrence of a second event. We can define this nicely using conditional probability! </p>
-<p>Independence definition- A is independent of event B when:  </p>
+<p>A is independent of event B when:  </p>
 <p style="text-align:center">
 \[
 \mathbb{P}(A) = \mathbb{P}(A|B)
 \]
-</p><h3>Total Probability Theorem</h3>
+</p><h4>Practice: </h4>
+<p>1. Again, we toss a fair coin three times and define the following events on the outcome of those three tosses: </p>
+<ul>
+<li><p>\(A\) is the event that we toss more heads than tails</p>
+</li>
+<li><p>\(B\) is the event that the first flip is a head</p>
+</li>
+<li><p>\(C\) is the event that the last flip is a head
+Is \(A\) independent of \(B\)? Is \(B\) independent of \(C\)? </p>
+</li>
+</ul>
+<div class="infoblock solutionblock">
+<div class="blocktitle">Solution<span class="solutionhelp"> (hover to show)</span>:</div>
+<div class="blockcontent">
+<p>We've already computed that \(\mathbb{P}(A|B) = \frac{3}{8}\). Now, looking at all possible outcomes of the three tosses: </p>
+<p style="text-align:center">
+\[
+\{HHH, HHT, HTH, THH, HTT, THT, TTH, TTT\}
+\]
+</p><p>The sequences in which we toss more heads than tails are </p>
+<p style="text-align:center">
+\[
+\{HHH, HHT, HTH, THH\}
+\]
+</p><p>so we see that \(\mathbb{P}(A) = \frac{1}{2}\), which is not equal to \(P(A|B)\), so events \(A\) and \(B\) are not independent. </p>
+<p>To see if \(B\) is independent of \(C\), note that above we computed \(P(B) = \frac{1}{2}\). Now, </p>
+<p style="text-align:center">
+\[
+\begin{aligned}
+\mathbb{P}(B|C) &amp;= \frac{\mathbb{P}(B \cap C)}{\mathbb{P}(B)} \\
+&amp;= \frac{\frac{2}{8}}{\frac{1}{2}} \\
+&amp;= \frac{1}{2}
+\end{aligned}
+\]
+</p><p>so the events \(B\) and \(C\) are independent. </p>
+</div></div>
+<h3>Total Probability Theorem</h3>
 <p>To set up this result, let's go back to our example with ice cream and the seasons. Let's say we're trying to find the probability you're eating ice cream at any given time during the year. All we know is the following</p>
 <ol>
 <li><p>Each season lasts for exactly \(\frac{1}{4}\) of the year</p>
@@ -130,9 +224,13 @@ MathJax.Hub.Config({
 </p><p>Note that this only works because summer, winter, spring, and fall together cover the entire year (and don't overlap), forming what we call a &ldquo;partition&rdquo; of the year. The total probability theorem states: </p>
 <p style="text-align:center">
 \[
-\mathbb{P}(B) = \mathbb{P}(A_1)\mathbb{P}(B|A_1) + \mathbb{P}(A_1)\mathbb{P}(B|A_2) + &hellip; + \mathbb{P}(A_1)\mathbb{P}(B|A_n) 
+\begin{aligned}
+\mathbb{P}(B) &amp;=  \mathbb{P}(B \cap A_1) + \mathbb{P}(B \cap A_2) + &hellip; + \mathbb{P}(B \cap A_n) \\ 
+&amp;= \mathbb{P}(A_1)\mathbb{P}(B|A_1) + \mathbb{P}(A_1)\mathbb{P}(B|A_2) + &hellip; + \mathbb{P}(A_1)\mathbb{P}(B|A_n) \\
+&amp;= \sum_{i=1}^n \mathbb{P}(A_i)\mathbb{P}(B|A_i) 
+\end{aligned} 
 \]
-</p><p>where \(A_1, &hellip;, A_n\) forms a partition of the space. </p>
+</p><p>where \(A_1, &hellip;, A_n\) forms a partition of the space. Intuitively, we think of this as saying that the probability \(B\) occurs is the sum of the likelihoods that \(B\) and \(A_1\) occur, and \(B\) and \(A_2\) occur, and so on.</p>
 <h3>Bayes Rule</h3>
 <p>Bayes&rsquo; Rule allows us to begin our inference journey! It's a formula that follows from a rearrangement of the conditional probability formula: </p>
 <p style="text-align:center">
@@ -157,6 +255,115 @@ MathJax.Hub.Config({
 \end{aligned}
 \]
 </p><p>so soup helps!</p>
+<h4>Practice: </h4>
+<p>Alice is a stupid neural network who does not yet know the difference between muffin and cupcakes. Unfortunately, Alice is allergic to muffins. She has a muffin detector, that is admittedly somewhat faulty. We define the following events: </p>
+<ul>
+<li><p>\(A\) is the event that a given baked good is a muffin, not a cupcake: \(\mathbb{P}(A) = .3\)</p>
+</li>
+<li><p>\(B\) is the event that the detector goes off. We have \(\mathbb{P}(B|A) = .9\) and \(\mathbb{P}(B|A^c) = .1\). </p>
+</li>
+</ul>
+<p>Now, if the detector goes off, what's the probability the baked good is a muffin? </p>
+<div class="infoblock">
+<div class="blocktitle">Notation note</div>
+<div class="blockcontent">
+<p>\(A^c\) denotes the complement of \(A\), or the event that \(A\) does not occur- in this case it denotes the event that the baked good is a cupcake. </p>
+</div></div>
+<div class="infoblock solutionblock">
+<div class="blocktitle">Solution<span class="solutionhelp"> (hover to show)</span>:</div>
+<div class="blockcontent">
+<p>We apply Bayes Rule. We want </p>
+<p style="text-align:center">
+\[
+\begin{aligned}
+\mathbb{P}(A|B) &amp;= \frac{\mathbb{P}(B|A)\mathbb{P}(A)}{\mathbb{P}(B)} \\
+&amp;= \frac{0.9 \cdot 0.3}{\mathbb{P}(B)} \\
+\end{aligned}
+\]
+</p><p>But how do we compute \(\mathbb{P}(B)\)? We can apply the total probability theorem! </p>
+<p style="text-align:center">
+\[
+\begin{aligned}
+\mathbb{P}(B) &amp;= \mathbb{P}(A^c)\mathbb{P}(B|A^c) + \mathbb{P}(A)\mathbb{P}(B|A)\\
+&amp;= 0.7\cdot 0.1 + \mathbb 0.3 \cdot 0.9\\
+&amp;= 0.34
+\end{aligned}
+\]
+</p><p>Now, we have </p>
+<p style="text-align:center">
+\[
+\begin{aligned}
+\mathbb{P}(A|B) &amp;= \frac{0.9 \cdot 0.3}{0.34} \\
+&amp; \approx 0.794
+\end{aligned}
+\]
+</p></div></div>
+<h3>Random Variables</h3>
+<p>We've already seen how powerful it is to be able to assign likelihoods to events. It allows us to draw quantitative conclusions about events. However, we can extend this past assigning likelihoods- we use random variables, which we define as a <b>real-valued function of the outcome of an experiment</b>. Some examples of random variables: </p>
+<ol>
+<li><p>In an experiment in which we toss a coin five times, the number of heads we obtain</p>
+</li>
+<li><p>In an experiment in which we roll a six-sided dice once, the number that shows on top</p>
+</li>
+<li><p>In an experiment in which we roll a six-sided dice once, two times the number that shows on top</p>
+</li>
+<li><p>In an experiment where we grab a person off the street and measure their height, their height in inches</p>
+</li>
+</ol>
+<p>In the second random variable example, the space of values the random variable could take is finite- there are only six possible values. A <b>discrete</b> random variable is one in which the space of values is finite (or countably infinite, but don't worry about that). In the fourth random variable example, the space of values the random variable could take on is infinite. This is an example of a <b>continuous</b> random variable, where the space of possible values is uncountably infinite. </p>
+<p>Since we're dealing with probabilities, it's useful for us to assign a probability to each possible value of a random variable. First, with discrete random variables, we use what is called a probability mass function. We will denote the probability mass function (PMF) of a random variable \(X\) as \(p_X(x) = \mathbb{P}(X= x)\). So in the second random variable example, we would have </p>
+<p style="text-align:center">
+\[
+\begin{aligned}
+p_X(1) &amp;= \frac{1}{6}\\
+p_X(2) &amp;= \frac{1}{6} 
+\end{aligned}
+\]
+</p><p>and in the third random variable example, we would have </p>
+<p style="text-align:center">
+\[
+\begin{aligned}
+p_X(1) &amp;= 0\\
+p_X(2) &amp;= \frac{1}{6} 
+\end{aligned}
+\]
+</p><p>Note that all pmfs must satisfy \(\sum_x p_X(x) = 1\). For continuous random variables, the analog to the probability mass function is the probability density function (pdf). Note that for a continuous random variable \(X\), the probability that \(X\) takes on a specific value is 0- we instead specify the pdf over intervals. We denote the pdf of continuous random variable \(X\) to be \(f_X(x)\) such that </p>
+<p style="text-align:center">
+\[ 
+\mathbb{P}(a \leq X \leq b) = \int_{a}^b f_X(x)
+\]
+</p><p>(don't worry too much about this if you don't know calculus). The most common continuous random variable we'll be dealing with in this class is the normal random variable (or Gaussian). </p>
+<canvas class="illustration" id="gaussian" style="height:200px"></canvas>
+<script>
+(function() {
+
+const [ctx, rc] = get_illustration('gaussian', width=400, height=200);
+
+ctx.font = '15px sans-serif';
+ctx.textAlign = 'center';
+
+const scale=1.5;
+ctx.scale(window.devicePixelRatio*scale, window.devicePixelRatio*scale);
+
+rc.line(0, 82.482, 204.96+5, 82.482, { roughness: 0.3, stroke: 'black', strokeWidth:2, simplification:0 });
+
+rc.path('M5.078,82.456c4.511-0.019,9.021-0.058,13.53-0.175c4.312-0.113,8.639-0.297,12.923-0.836c4.536-0.572,8.991-1.522,13.261-3.25c4.255-1.723,8.016-4.334,11.491-7.389c3.378-2.968,6.334-6.613,8.934-10.324c2.676-3.817,5.156-7.777,7.458-11.854c2.372-4.2,4.644-8.458,6.896-12.729c2.208-4.187,4.419-8.368,6.715-12.502c2.244-4.042,4.669-8.055,7.508-11.674c1.471-1.875,3.092-3.546,4.906-5.054c1.765-1.467,3.896-2.293,6.126-2.468c2.262-0.177,4.408,0.98,6.232,2.234c1.866,1.283,3.42,3.086,4.861,4.844c2.973,3.619,5.365,7.744,7.704,11.822c2.267,3.953,4.362,8.014,6.489,12.049c2.24,4.25,4.479,8.502,6.841,12.682c2.29,4.056,4.69,8.058,7.354,11.858c2.731,3.898,5.724,7.564,9.159,10.809c3.378,3.188,7.235,5.673,11.417,7.527c4.024,1.785,8.44,2.759,12.768,3.305c4.449,0.563,8.912,0.803,13.39,0.938c4.426,0.135,8.856,0.164,13.284,0.185c0.227,0,0.449,0.002,0.674,0.003', { roughness: 0.2, stroke: '#0071BC', strokeWidth:2, simplification:0 });
+
+rc.line(105.039, 4.189, 105.039, 85.587, { roughness: 0.4, stroke: 'green', strokeWidth:1 });
+rc.line(130.029, 34.994, 130.029, 85.587, { roughness: 0.4, stroke: 'red'});
+rc.line(80.049, 35.037, 80.049, 85.587, { roughness: 0.4, stroke: 'red'});
+
+ctx.font = 'italic 10px serif';
+ctx.textAlign = 'center';
+
+ctx.fillText("μ", 105, 97);
+ctx.fillText("μ-σ", 80, 97);
+ctx.fillText("μ+σ", 130, 97);
+
+
+})();
+</script>
+<p>The Gaussin pdf (pictured above) is specified completely by two parameters, the mean \(\mu\) and the standard deviation \(\sigma\) of the distribution. The mean is where the distribution is centered, and the standard deviation is a measure of how &ldquo;spread out&rdquo; the distribution is. We'll write the Gaussian distribution with mean \(\mu\) and standard deviation \(\sigma\) as \(\mathcal{N}(\mu, \sigma).\) Then, the probability that the distribution takes a specific value \(x\) will be written as \(\mathcal{N}(x; \mu, \sigma)\).</p>
 <h2>Lab: where am I?</h2>
 <p>For our first lab, we will be applying our newfound probability knowledge to identify where our robots have been hidden.  </p>
 <canvas class="illustration" id="rooms" style="height:150px"></canvas>
@@ -234,35 +441,6 @@ P(A=a|B=d) &amp;= \frac{P(B=d|A=a) P(A=a)}{\frac{1}{2} P(B=d|A=0) + \frac{1}{2} 
 \end{aligned}
 \]
 </p></div></div>
-<canvas class="illustration" id="gaussian" style="height:200px"></canvas>
-<script>
-(function() {
-
-const [ctx, rc] = get_illustration('gaussian', width=400, height=200);
-
-ctx.font = '15px sans-serif';
-ctx.textAlign = 'center';
-
-ctx.scale(window.devicePixelRatio*1.35, window.devicePixelRatio*1.35);
-
-rc.line(0, 82.482, 204.96+5, 82.482, { roughness: 0.3, stroke: 'black', strokeWidth:2, simplification:0 });
-
-rc.path('M5.078,82.456c4.511-0.019,9.021-0.058,13.53-0.175c4.312-0.113,8.639-0.297,12.923-0.836c4.536-0.572,8.991-1.522,13.261-3.25c4.255-1.723,8.016-4.334,11.491-7.389c3.378-2.968,6.334-6.613,8.934-10.324c2.676-3.817,5.156-7.777,7.458-11.854c2.372-4.2,4.644-8.458,6.896-12.729c2.208-4.187,4.419-8.368,6.715-12.502c2.244-4.042,4.669-8.055,7.508-11.674c1.471-1.875,3.092-3.546,4.906-5.054c1.765-1.467,3.896-2.293,6.126-2.468c2.262-0.177,4.408,0.98,6.232,2.234c1.866,1.283,3.42,3.086,4.861,4.844c2.973,3.619,5.365,7.744,7.704,11.822c2.267,3.953,4.362,8.014,6.489,12.049c2.24,4.25,4.479,8.502,6.841,12.682c2.29,4.056,4.69,8.058,7.354,11.858c2.731,3.898,5.724,7.564,9.159,10.809c3.378,3.188,7.235,5.673,11.417,7.527c4.024,1.785,8.44,2.759,12.768,3.305c4.449,0.563,8.912,0.803,13.39,0.938c4.426,0.135,8.856,0.164,13.284,0.185c0.227,0,0.449,0.002,0.674,0.003', { roughness: 0.2, stroke: '#0071BC', strokeWidth:2, simplification:0 });
-
-rc.line(105.039, 4.189, 105.039, 85.587, { roughness: 0.4, stroke: 'green', strokeWidth:1 });
-rc.line(130.029, 34.994, 130.029, 85.587, { roughness: 0.4, stroke: 'red'});
-rc.line(80.049, 35.037, 80.049, 85.587, { roughness: 0.4, stroke: 'red'});
-
-ctx.font = 'italic 10px serif';
-ctx.textAlign = 'center';
-
-ctx.fillText("d", 105, 97);
-ctx.fillText("d-σ", 80, 97);
-ctx.fillText("d+σ", 130, 97);
-
-
-})();
-</script>
 </td>
 </tr>
 </table>
