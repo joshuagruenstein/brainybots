@@ -34,7 +34,7 @@ Conditional probability definition:
 $A \cap B$, when $A$ and $B$ are sets, indicates the set of all elements belonging to both $A$ and $B.$
 ~~~
 
-==== Practice: The Monty Hall Problem
+==== Practice: 
 
 You are standing in front of three doors, and told that a prize lies behind one of the three doors, with equal probability. You pick one of the doors, and the host then opens one of the remaining doors, showing you that there is no prize behind it. Then the host offers you two options:
 . Stay with your first pick
@@ -57,6 +57,15 @@ Under the first strategy, our probability of winning (call this event A) is just
 
 so one should always switch!
 ~~~
+=== Independence
+
+In the probability world, we often care about whether two events are independent or dependent. Note this concept is not the same as causation- we define independence as when the occurrence of one event does not affect the likelihood of the occurrence of a second event. We can define this nicely using conditional probability! 
+
+Independence definition- A is independent of event B when:  
+
+\(
+\mathbb{P}(A) = \mathbb{P}(A|B)
+\)
 
 === Total Probability Theorem
 To set up this result, let's go back to our example with ice cream and the seasons. Let's say we're trying to find the probability you're eating ice cream at any given time during the year. All we know is the following
