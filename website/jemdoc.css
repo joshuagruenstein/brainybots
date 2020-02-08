@@ -236,10 +236,10 @@ ol ol ol {
 	list-style-type: lower-roman;
 }
 
-p + div.codeblock {
+/* p + div.codeblock {
 	margin-top: -0.6em;
 }
-
+ */
 div.codeblock, div.infoblock {
 	margin-right: 0%;
 	margin-top: 1.2em;
@@ -399,4 +399,21 @@ div.solutionblock > div.blocktitle {
 
 div.solutionblock > div.blockcontent {
 	background: #eeffee;
+}
+
+/*illustrations*/
+
+canvas {
+  image-rendering: -moz-crisp-edges;    /* Firefox */
+  image-rendering: -webkit-crisp-edges; /* Webkit (Safari) */
+  image-rendering: pixelated;           /* Chrome */
+}
+
+.illustration {
+    width:400px;
+    height:200px;
+    margin:0 auto;
+    padding: 0;
+    margin: auto;
+    display: block;
 }
