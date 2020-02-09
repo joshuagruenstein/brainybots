@@ -1,4 +1,4 @@
-# jemdoc: menu{MENU}{two.html}, nofooter
+# jemdoc: menu{MENU}{three.html}, nofooter
 == Markov Madness
 
 blah blah blah
@@ -8,6 +8,8 @@ By the end of this lecture, we should have and understand the following to imple
 \(
 P(X_{0.. T}|Y_{0..T}) \propto P(X_0, Y_0) \prod_{t=1}^T P(X_t | X_{t-1}) \prod_{t=1}^T P(Y_t | X_t)
 \)
+
+Such that we can immediately after derive the forward algorithm with just the motivation from the gridmaze.
 
 == Lab \#3: time to explore!
 
@@ -84,6 +86,12 @@ Before you move on, test running a few movement commands in the Jupyter notebook
 Now it's time to begin building our inference pipeline.  For the equation for $\alpha(x_t)$ in the forward algorithm, we will need $P(X_0=x_0)$, $P(X_{t}=x_t|X_{t-1}=x_{t-1}, U_{t}=u_{t})$, and $P(Y_t=y_t | X_t=x_t)$.  Derive each of these expressions and implement them as Python methods in the Jupyter notebook.  Assume that the robot has equal chance of starting in any state.
 
 ~~~
+{Implementation hint}
+The method +s_new = gm.simulatedAction(s, u)+ returns the state the robot would be in after performing action +u+ in state +s+.  +u+ must be one of strings +'LEFT'+, +'RIGHT'+, or 'FORWARD', and +s+ must be a tuple of a position integer (0 through 8) and an angle integer in degrees, going clockwise from 0 as north.  This will return a new state in the same format as +s+.
+~~~
+
+
+~~~
 {Solution}
 
 We are given that each initial state is equally likely, and we have $9 \times 4=36$ possible states.  Thus,
@@ -91,14 +99,15 @@ We are given that each initial state is equally likely, and we have $9 \times 4=
 \(
     P(X_0=x_0) = \frac{1}{36} \approx 0.0277
 \)
+
+We also seek $P(X_{t}=x_t|X_{t-1}=x_{t-1}, U_{t}=u_{t})$, or the probability of transitioning to a state $x_t$ from state $x_{t-1}$ given action $u_t$.  This will be either $1$ or $0$, as our actions are deterministic (the same thing happens every time when action $u$ is taken from state $t$).  In code, this can be implemented as +int(x\_t==gm.simulatedAction(x\_tminusone, u))+.
+
+Finally, we can implement $P(Y_t=y_t | X_t=x_t)$ as a gaussian with mean $\mu_t$ set by where we are in the maze ($x_t$).  So, an implementation using only a forwards sensor reading could be $\mathcal N(y_t, \mu=\mu_t, \sigma=5)$ with +m\u_t = gm.simulatedDistance(x\_t\[0\], x\_t\[1\])+ using the previous convention of state being a tuple of +(position, angle)+.
+
 ~~~
 
+=== Putting it together
 
+Implement a random walk on your robot in a loop by choosing randomly at each iteration whether to go forwards, turn left, or turn right.  Then, implement the forward algorithm and print the most likely robot state at each iteration!
 
-part 0: note we care about $P(X_t,Y_{0..T}) = \sum_{X_{t-1}} P(X_t, X_{t-1}, )$
-
-part 1: implement $P(x,y)$, $P(x_t|x_{t-1})$, and $P(Y_t|X_t)$.
-
-part 2: implement random walk.
-
-part 3: bring them together: as we random walk, compute $P(X,Y)$. 
+Once you've implemented the system, try it out from a few starting places in the maze.  How many iterations does it take to converge to the right position?  Does your implementation always converge?  Discuss some strengths and limitations of this system with your group.

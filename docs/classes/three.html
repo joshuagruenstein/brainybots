@@ -40,8 +40,8 @@ MathJax.Hub.Config({
 <div class="menu-item"><a href="https://github.com/joshuagruenstein/brainybots" target="blank">Github</a></div>
 <div class="menu-category">Classes</div>
 <div class="menu-item"><a href="../classes/one.html">Bayesian&nbsp;Bonanza</a></div>
-<div class="menu-item"><a href="../classes/two.html" class="current">Decisions,&nbsp;Decisions</a></div>
-<div class="menu-item"><a href="../classes/three.html">Markov&nbsp;Madness</a></div>
+<div class="menu-item"><a href="../classes/two.html">Decisions,&nbsp;Decisions</a></div>
+<div class="menu-item"><a href="../classes/three.html" class="current">Markov&nbsp;Madness</a></div>
 </td>
 <td id="layout-content">
 <div id="toptitle">
@@ -54,7 +54,8 @@ By the end of this lecture, we should have and understand the following to imple
 \[
 P(X_{0.. T}|Y_{0..T}) \propto P(X_0, Y_0) \prod_{t=1}^T P(X_t | X_{t-1}) \prod_{t=1}^T P(Y_t | X_t)
 \]
-</p><h2>Lab #3: time to explore!</h2>
+</p><p>Such that we can immediately after derive the forward algorithm with just the motivation from the gridmaze.</p>
+<h2>Lab #3: time to explore!</h2>
 <p>Last week, we used sensor readings from the robot to identify where we were in the maze.  As you may have noticed, this has some limitations: for example, consider the following robot positions:</p>
 <canvas class="illustration" id="rooms" style="height:400px"></canvas>
 <p class="caption">Two robot positions with identical sensor readings.  How do we decide where we really are?</p>
@@ -113,6 +114,11 @@ rc.line(77+240, 170+120, 70+240, 150+120, sline);
 <p>Before you move on, test running a few movement commands in the Jupyter notebook.</p>
 <h3>Inference building blocks</h3>
 <p>Now it's time to begin building our inference pipeline.  For the equation for \(\alpha(x_t)\) in the forward algorithm, we will need \(P(X_0=x_0)\), \(P(X_{t}=x_t|X_{t-1}=x_{t-1}, U_{t}=u_{t})\), and \(P(Y_t=y_t | X_t=x_t)\).  Derive each of these expressions and implement them as Python methods in the Jupyter notebook.  Assume that the robot has equal chance of starting in any state.</p>
+<div class="infoblock">
+<div class="blocktitle">Implementation hint</div>
+<div class="blockcontent">
+<p>The method <tt>s_new = gm.simulatedAction(s, u)</tt> returns the state the robot would be in after performing action <tt>u</tt> in state <tt>s</tt>.  <tt>u</tt> must be one of strings <tt>'LEFT&rsquo;</tt>, <tt>'RIGHT&rsquo;</tt>, or 'FORWARD&rsquo;, and <tt>s</tt> must be a tuple of a position integer (0 through 8) and an angle integer in degrees, going clockwise from 0 as north.  This will return a new state in the same format as <tt>s</tt>.</p>
+</div></div>
 <div class="infoblock solutionblock">
 <div class="blocktitle">Solution<span class="solutionhelp"> (hover to show)</span>:</div>
 <div class="blockcontent">
@@ -121,11 +127,12 @@ rc.line(77+240, 170+120, 70+240, 150+120, sline);
 \[
     P(X_0=x_0) = \frac{1}{36} \approx 0.0277
 \]
-</p></div></div>
-<p>part 0: note we care about \(P(X_t,Y_{0..T}) = \sum_{X_{t-1}} P(X_t, X_{t-1}, )\)</p>
-<p>part 1: implement \(P(x,y)\), \(P(x_t|x_{t-1})\), and \(P(Y_t|X_t)\).</p>
-<p>part 2: implement random walk.</p>
-<p>part 3: bring them together: as we random walk, compute \(P(X,Y)\).</p>
+</p><p>We also seek \(P(X_{t}=x_t|X_{t-1}=x_{t-1}, U_{t}=u_{t})\), or the probability of transitioning to a state \(x_t\) from state \(x_{t-1}\) given action \(u_t\).  This will be either \(1\) or \(0\), as our actions are deterministic (the same thing happens every time when action \(u\) is taken from state \(t\)).  In code, this can be implemented as <tt>int(x_t==gm.simulatedAction(x_tminusone, u))</tt>.</p>
+<p>Finally, we can implement \(P(Y_t=y_t | X_t=x_t)\) as a gaussian with mean \(\mu_t\) set by where we are in the maze (\(x_t\)).  So, an implementation using only a forwards sensor reading could be \(\mathcal N(y_t, \mu=\mu_t, \sigma=5)\) with <tt>mu_t = gm.simulatedDistance(x_t[0], x_t[1])</tt> using the previous convention of state being a tuple of <tt>(position, angle)</tt>.</p>
+</div></div>
+<h3>Putting it together</h3>
+<p>Implement a random walk on your robot in a loop by choosing randomly at each iteration whether to go forwards, turn left, or turn right.  Then, implement the forward algorithm and print the most likely robot state at each iteration!</p>
+<p>Once you've implemented the system, try it out from a few starting places in the maze.  How many iterations does it take to converge to the right position?  Does your implementation always converge?  Discuss some strengths and limitations of this system with your group</p>
 </td>
 </tr>
 </table>

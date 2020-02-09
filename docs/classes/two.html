@@ -97,7 +97,7 @@ None
 <p>We also provide an API for calculating the expected sensor reading for a position in the maze, so you don't have to hardcode distances for each state like in last week's lab.  We can encode a possible state of the robot as a position \(p\) (an integer between \(0\) and \(8\), see diagram) and an angle \(a\) in degrees (going clockwise with \(0^\circ\) pointing up).  Using this representation, we can get the sensor reading we might expect a robot in the top left cell (\(p=0\)) with its sensor pointing down (\(a=180\)) to measure:</p>
 <div class="codeblock">
 <div class="blockcontent"><pre>
-<span class="pycommand">&gt;&gt;&gt; gridmaze.simulatedDistance(0, 180)</span>
+<span class="pycommand">&gt;&gt;&gt; gm.simulatedDistance(0, 180)</span>
 TODO: insert real value here
 </pre></div></div>
 <p>Building off of your implementation from last week's lab, write code in the bottom of the lab two Jupyter notebook to compute the probability of being in each possible state (position and orientation pair) after collecting some sensor readings.  Then,</p>
@@ -129,7 +129,7 @@ TODO: insert real value here
 </ul>
 <p style="text-align:center">
 \[
-C_{00} = C_{11} = 0
+C_{00} = C_{11} = 0 \\
 C_{01} = C_{10} = 1
 \]
 </p><ul>
