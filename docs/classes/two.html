@@ -122,7 +122,7 @@ TODO: insert real value here
 \[
 \mathcal{H} = \{H_0, H_1\}
 \]
-</p><p>Our general framework for decision making will be one of cost-minimization. I can assign cost function (which will depend on the problem context) and aim to make decision rules such that I can minimize my cost. We denote \(C_{ij}\) to be the cost of deciding that the correct hypothesis is \(H_i\) when the true hypothesis is \(H_j\). </p>
+</p><p>Our general framework for decision making will be one of cost-minimization. I can assign cost function (which will depend on the problem context) and aim to make decision rules such that I can minimize my cost. We denote \(C_{ij} = \tilde{C}(H_i, H_j)\) to be the cost of deciding that the correct hypothesis is \(H_i\) when the true hypothesis is \(H_j\). </p>
 <ul>
 <li><p>Let's say that I'm trying to figure out without looking if an m&amp;m is green (\(\mathcal{H}_0\)) or red (\(\mathcal{H}_1\)). There's not really any consequence if my decision is wrong, so a reasonable cost function is </p>
 </li>
@@ -144,7 +144,47 @@ C_{10} &amp;= 1000 \\
 C_{01} &amp;= 10
 \end{aligned}
 \]
-</p><h3>Decision Rules</h3>
+</p><h3>Decision Rules </h3>
+<p>We'll denote the hypothesis we choose as \(\hat{H}\) and the true hypothesis as \(H\). We want to choose \(\hat{H}\) to minimize expected cost:</p>
+<p style="text-align:center">
+\[
+\hat{H}(\cdot) = \arg\min_{f(\cdot)} \mathbb{E}[\tilde{C}(f(y), H)]
+\]
+</p><p>where \(f\) is the space of all functions that map observations to a hypothesis conclusion. In words, we're just looking for the function that maps observations \(y\) to hypotheses \(H_0, H_1\) that minimizes the expectation cost we'll receive. Don't worry too much about expectation notation, but if you're curious, the expected value of a random variable \(X\) with pmf \(p_X\) is computed as </p>
+<p style="text-align:center">
+\[
+\mathbb{E}[X] = \sum_x xp_X(x)
+\]
+</p><p>Now, given a specific observation point \(y_0\), if we choose \(\hat{H}(y_0) = H_0\) then expected cost is </p>
+<p style="text-align:center">
+\[
+C_{00}p_{H|y}(H_0|y_0) + C_{01}p_{H|y}(H_1|y_0)
+\]
+</p><p>Similarly, if we choose \(\hat{H}(y_0) = H_1\) then expected cost is </p>
+<p style="text-align:center">
+\[
+C_{10}p_{H|y}(H_0|y_0) + C_{11}p_{H|y}(H_1|y_0)
+\]
+</p><p>So we see that the hypothesis we choose is just the hypothesis that results in a lower expected cost: we choose \(H_1\) when </p>
+<p style="text-align:center">
+\[
+p_{H|y}(H_1|y_0)(C_{01} - C_{11}) &gt; p_{H|y}(H_0|y_0)(C_{10} - C_{00})
+\]
+</p><p>and \(H_0\) otherwise. </p>
+<h3>Exercise: </h3>
+<p>Using Bayes rule, rewrite this decision rule in terms of the measurement densities, i.e. using \(p_{y|H}(\cdot)\) rather than \(p_{H|y}(\cdot)\) as we have done above. Use that the probability \(H_0\) is the ground truth is \(P_0\), and the probability \(H_1\) is the ground truth is \(P_1\). </p>
+<div class="infoblock solutionblock">
+<div class="blocktitle">Solution<span class="solutionhelp"> (hover to show)</span>:</div>
+<div class="blockcontent">
+<p>We can rewrite our original form as </p>
+<p style="text-align:center">
+\[
+L(y)=\frac{p_{H|y}(H_1|y)}{p_{H|y}(H_0|y)}\underset{H_0}{\overset{H_1}{\gtreqless}} \frac{(C_{10}-C_{00})}{(C_{01}-C_{11})}=\eta
+\]
+</p><p>Now, multiplying both sides by \(\frac{P_0}{P_1}\), we get </p>
+<p>\(L(y)=\frac{p_{y|H}(y|H_1)}{p_{y|H}(y|H_0)}\underset{H_0}{\overset{H_1}{\gtreqless}} \frac{P_0(C_{10}-C_{00})}{P_1(C_{01}-C_{11})}=\eta.\)</p>
+<p>This is called the Likelihood Ratio Test.</p>
+</div></div>
 </td>
 </tr>
 </table>
