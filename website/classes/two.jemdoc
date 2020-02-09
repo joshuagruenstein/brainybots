@@ -65,7 +65,7 @@ We also provide an API for calculating the expected sensor reading for a positio
 TODO: insert real value here
 ~~~
 
-Building off of your implementation from last week's lab, write code to compute the probability of being in each possible state (position and orientation pair) after collecting some sensor readings.  Then,
+Building off of your implementation from last week's lab, write code in the bottom of the lab two Jupyter notebook to compute the probability of being in each possible state (position and orientation pair) after collecting some sensor readings.  Then,
 
 . Calculate the likely state (position and orientation pair).
 . Calculate the most likely position for your robot.

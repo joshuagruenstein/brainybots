@@ -41,11 +41,13 @@ def get_watch_files():
     
     return watch_files
 
+FILES_TO_WATCH = ['.css', '.png']
+
 def build(watch_files):
     for file in watch_files:
         if file.endswith('.jemdoc'):
             make_file(file[:-7])
-        elif file.endswith('.css'):
+        elif any(file.endswith(e) for e in FILES_TO_WATCH):
             shutil.copyfile(
                 file, os.path.join(OUT_DIR,file)
             )

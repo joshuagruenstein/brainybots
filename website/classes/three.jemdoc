@@ -1,0 +1,104 @@
+# jemdoc: menu{MENU}{two.html}, nofooter
+== Markov Madness
+
+blah blah blah
+need lots of thoery first: graphs, markov chains, HMMs (graphical models for factorization???)
+By the end of this lecture, we should have and understand the following to implement the lab:
+
+\(
+P(X_{0.. T}|Y_{0..T}) \propto P(X_0, Y_0) \prod_{t=1}^T P(X_t | X_{t-1}) \prod_{t=1}^T P(Y_t | X_t)
+\)
+
+== Lab \#3: time to explore!
+
+Last week, we used sensor readings from the robot to identify where we were in the maze.  As you may have noticed, this has some limitations: for example, consider the following robot positions:
+
+~~~
+{}{raw}
+<canvas class="illustration" id="rooms" style="height:400px"></canvas>
+<p class="caption">Two robot positions with identical sensor readings.  How do we decide where we really are?</p>
+<script>
+(function() {
+const [ctx, rc] = get_illustration('rooms', width=400, height=400);
+
+ctx.font = '60px sans-serif';
+ctx.textAlign = 'center';
+ctx.fillStyle = "grey";
+
+for (let i=0; i<9; i++) {
+    //i%3 + i//3
+    if (i==3 || i==8) continue;
+    ctx.fillText(i, 80+120*(i%3), 70+120*Math.floor(i/3)+30);
+}
+
+// maze
+rc.rectangle(20, 20, 360, 360);
+rc.line(20,140,260,140);
+rc.line(140,140,140,260);
+rc.line(260,260,380,260);
+rc.line(260,260,260,380);
+
+// robot
+rc.circle(320, 320, 48, { roughness: 0.5, fill: 'blue' });
+rc.circle(80, 200, 48, { roughness: 0.5, fill: 'green' });
+
+const sline = { roughness: 1.5, stroke: 'red', strokeWidth:0.5 };
+function draw_lines(x,y) {
+
+}
+
+rc.line(80, 170, 80, 150, sline);
+rc.line(83, 170, 90, 150, sline);
+rc.line(77, 170, 70, 150, sline);
+
+rc.line(80+240, 170+120, 80+240, 150+120, sline);
+rc.line(83+240, 170+120, 90+240, 150+120, sline);
+rc.line(77+240, 170+120, 70+240, 150+120, sline);
+
+
+})();
+</script>
+~~~
+
+Even if the green and blue robots were to try every position of their sensor turret, they would still get the same exact readings.  Clearly, in order to determine where they are, the robots must /explore/!
+
+To implement this, we will consider the robot localization problem as a hidden markov model.  Our hidden states $X_{0..t}$ will be our robot positions, and $Y_{0..t}$ will be our sensor readings.  At every timestep we'll take a random movement and then a sensor reading, and use this data to infer our robot position!
+
+=== The Forward Algorithm
+
+Derive forward algorithm from joint factorization, as motivated by this localization problem.  In class, we can do this in groups or all together.
+
+=== Moving the robot
+
+Up to this point, our robots have been stationary.  We can move our robots using some simple commands: +bot.forward()+ to move one square forward, to move one square backward, +bot.left()+ to turn 90 degrees to the left, and +bot.right()+ to turn 90 degrees to the right.  
+
+~~~
+{Safety note}
+After every call to +bot.forward()+, the robot will point its distance sensor forward and check if its safe to move before moving the sensor back to its previous position.  If there is a wall in front of the robot and the robot decides it's unsafe to move, +bot.forward()+ will return +False+; otherwise, it will return +True+.  This is to ensure your robot does not run into walls. 
+~~~
+
+Before you move on, test running a few movement commands in the Jupyter notebook.
+
+=== Inference building blocks
+
+Now it's time to begin building our inference pipeline.  For the equation for $\alpha(x_t)$ in the forward algorithm, we will need $P(X_0=x_0)$, $P(X_{t}=x_t|X_{t-1}=x_{t-1}, U_{t}=u_{t})$, and $P(Y_t=y_t | X_t=x_t)$.  Derive each of these expressions and implement them as Python methods in the Jupyter notebook.  Assume that the robot has equal chance of starting in any state.
+
+~~~
+{Solution}
+
+We are given that each initial state is equally likely, and we have $9 \times 4=36$ possible states.  Thus,
+
+\(
+    P(X_0=x_0) = \frac{1}{36} \approx 0.0277
+\)
+~~~
+
+
+
+part 0: note we care about $P(X_t,Y_{0..T}) = \sum_{X_{t-1}} P(X_t, X_{t-1}, )$
+
+part 1: implement $P(x,y)$, $P(x_t|x_{t-1})$, and $P(Y_t|X_t)$.
+
+part 2: implement random walk.
+
+part 3: bring them together: as we random walk, compute $P(X,Y)$. 
