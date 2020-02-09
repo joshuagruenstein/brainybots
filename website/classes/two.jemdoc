@@ -91,7 +91,7 @@ Our general framework for decision making will be one of cost-minimization. I ca
 - Let's say that I'm trying to figure out without looking if an m&m is green ($\mathcal{H}_0$) or red ($\mathcal{H}_1$). There's not really any consequence if my decision is wrong, so a reasonable cost function is 
 
 \(
-C_{00} = C_{11} = 0
+C_{00} = C_{11} = 0 \\
 C_{01} = C_{10} = 1
 \)
 
