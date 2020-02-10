@@ -157,7 +157,15 @@ $L(y)=\frac{p_{y|H}(y|H_1)}{p_{y|H}(y|H_0)}\underset{H_0}{\overset{H_1}{\gtreqle
 This is called the Likelihood Ratio Test.
 ~~~  
 
-===Frameworks for Decision Making
+Looking at the form of the Likelihood Ratio test, 
+
+\(
+L(y)=\frac{p_{y|H}(y|H_1)}{p_{y|H}(y|H_0)}\underset{H_0}{\overset{H_1}{\gtreqless}} \frac{P_0(C_{10}-C_{00})}{P_1(C_{01}-C_{11})}=\eta.
+\)
+
+It is interesting to note that we don't actually require the observations $y$ themselves to make the decision- it suffices to know the likelihood ratio $L(y)$. We call quantities like $L(y)$ sufficient statistics, because they contain all the information that we require to make decisions. 
+
+=== Frameworks for Decision Making
 
 One way in which we could try to make decisions is by trying to minimize our probability of error. This corresponds to using the symmetric 0/1 cost function we introduced above: 
 \(
