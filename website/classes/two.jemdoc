@@ -157,4 +157,23 @@ $L(y)=\frac{p_{y|H}(y|H_1)}{p_{y|H}(y|H_0)}\underset{H_0}{\overset{H_1}{\gtreqle
 This is called the Likelihood Ratio Test.
 ~~~  
 
+===Frameworks for Decision Making
+
+One way in which we could try to make decisions is by trying to minimize our probability of error. This corresponds to using the symmetric 0/1 cost function we introduced above: 
+\(
+C_{00} = C_{11} = 0 \\
+C_{01} = C_{10} = 1
+\)
+
+Substituting these cost functions into the generalized decision rule we created above, we see that this corresponds to choosing 
+
+\(
+\hat{H}(y) = \arg \max_{H \in \{H_0, H_1\}} p_{H|Y}(H|y)
+\)
+
+This rule is known as the Maximum A Posteriori (MAP) decision rule. In the special case where the two hypotheses are equally likely, we can substitute $P_0 = P_1 = \frac{1}{2}$ into the form of the Likelihood Ratio Test you derived in the exercise above, which results in the decision rule known as the Maximimum Likelihood decision rule: 
+
+\(
+\hat{H}(y) = \arg \max_{H \in \{H_0, H_1\}} p_{y|H}(y|H)
+\)
 
