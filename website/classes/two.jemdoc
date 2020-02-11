@@ -9,41 +9,10 @@ Your robot is lost in a deviously complex maze, and requires your help to identi
 
 ~~~
 {}{raw}
-<canvas class="illustration" id="rooms" style="height:400px"></canvas>
+<canvas class="illustration" id="maze" style="height:400px"></canvas>
 <p class="caption">The robot maze, which will stay constant throughout the class.  The robot is collecting a measurement at position 4 and angle 90 (east).</p>
 <script>
-(function() {
-const [ctx, rc] = get_illustration('rooms', width=400, height=400);
-
-ctx.font = '60px sans-serif';
-ctx.textAlign = 'center';
-ctx.fillStyle = "grey";
-
-for (let i=0; i<9; i++) {
-    //i%3 + i//3
-    if (i==4) continue;
-    ctx.fillText(i, 80+120*(i%3), 70+120*Math.floor(i/3)+30);
-}
-
-
-// maze
-rc.rectangle(20, 20, 360, 360);
-rc.line(20,140,260,140);
-rc.line(140,140,140,260);
-rc.line(260,260,380,260);
-rc.line(260,260,260,380);
-
-// robot
-rc.circle(200, 200, 48, { roughness: 0.5, fill: 'blue' });
-
-const sline = { roughness: 1.5, stroke: 'red', strokeWidth:0.5 };
-
-rc.line(230, 200, 370, 200, sline);
-rc.line(230, 205, 370, 215, sline);
-rc.line(230, 195, 370, 185, sline);
-
-
-})();
+make_maze("maze", [{pos:4, angle:90, color:'blue'}]);
 </script>
 ~~~
 

@@ -17,48 +17,13 @@ Last week, we used sensor readings from the robot to identify where we were in t
 
 ~~~
 {}{raw}
-<canvas class="illustration" id="rooms" style="height:400px"></canvas>
+<canvas class="illustration" id="maze" style="height:400px"></canvas>
 <p class="caption">Two robot positions with identical sensor readings.  How do we decide where we really are?</p>
 <script>
-(function() {
-const [ctx, rc] = get_illustration('rooms', width=400, height=400);
-
-ctx.font = '60px sans-serif';
-ctx.textAlign = 'center';
-ctx.fillStyle = "grey";
-
-for (let i=0; i<9; i++) {
-    //i%3 + i//3
-    if (i==3 || i==8) continue;
-    ctx.fillText(i, 80+120*(i%3), 70+120*Math.floor(i/3)+30);
-}
-
-// maze
-rc.rectangle(20, 20, 360, 360);
-rc.line(20,140,260,140);
-rc.line(140,140,140,260);
-rc.line(260,260,380,260);
-rc.line(260,260,260,380);
-
-// robot
-rc.circle(320, 320, 48, { roughness: 0.5, fill: 'blue' });
-rc.circle(80, 200, 48, { roughness: 0.5, fill: 'green' });
-
-const sline = { roughness: 1.5, stroke: 'red', strokeWidth:0.5 };
-function draw_lines(x,y) {
-
-}
-
-rc.line(80, 170, 80, 150, sline);
-rc.line(83, 170, 90, 150, sline);
-rc.line(77, 170, 70, 150, sline);
-
-rc.line(80+240, 170+120, 80+240, 150+120, sline);
-rc.line(83+240, 170+120, 90+240, 150+120, sline);
-rc.line(77+240, 170+120, 70+240, 150+120, sline);
-
-
-})();
+make_maze("maze", [
+    {pos:3, angle:0, color:'blue'},
+    {pos:8, angle:0, color:'green'}
+]);
 </script>
 ~~~
 
@@ -111,3 +76,11 @@ Finally, we can implement $P(Y_t=y_t | X_t=x_t)$ as a gaussian with mean $\mu_t$
 Implement a random walk on your robot in a loop by choosing randomly at each iteration whether to go forwards, turn left, or turn right.  Then, implement the forward algorithm and print the most likely robot state at each iteration!
 
 Once you've implemented the system, try it out from a few starting places in the maze.  How many iterations does it take to converge to the right position?  Does your implementation always converge?  Discuss some strengths and limitations of this system with your group.
+
+~~~
+{Challenge problem}
+
+If your initial solution only used one sensor reading per iteration, try upgrading to using sensor readings from multiple angles.  Can you make other improvements that allow your robot to localize quicker?
+
+~~~
+

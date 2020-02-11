@@ -1259,6 +1259,7 @@ def procfile(f):
   showlastupdated = True
   showlastupdatedtime = True
   nodefaultcss = False
+  nodefaultjs = False
   fwtitle = False
   css = []
   js = []
@@ -1303,6 +1304,9 @@ def procfile(f):
 
         elif b.startswith('nodefaultcss'):
           nodefaultcss = True
+        
+        elif b.startswith('nodefaultjs'):
+          nodefaultjs = True
 
         elif b.startswith('addcss'):
           r = re.compile(r'(?<!\\){(.*?)(?<!\\)}', re.M + re.S)
@@ -1367,9 +1371,18 @@ def procfile(f):
     defcss = '<link rel="stylesheet" href="'
     for i in range(subdirs):
         defcss += '../'
-    defcss += 'jemdoc.css" type="text/css" />'
+    defcss += 'jemdoc.css" type="text/css" />\n'
         
     out(f.outf, defcss)
+  
+  if not nodefaultjs:  
+    defcss = '<script src="'
+    for i in range(subdirs):
+        defcss += '../'
+    defcss += 'index.js"></script>\n'
+        
+    out(f.outf, defcss)
+
 
   # Add per-file css lines here.
   for i in range(len(css)):

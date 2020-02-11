@@ -4,25 +4,13 @@
 <head>
 <meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link rel="stylesheet" href="../jemdoc.css" type="text/css" /><title>Decisions, Decisions, Decisions</title>
+<link rel="stylesheet" href="../jemdoc.css" type="text/css" />
+<script src="../index.js"></script>
+<title>Decisions, Decisions, Decisions</title>
 <!-- MathJax -->
 <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async>
 </script>
 <script src="https://cdn.jsdelivr.net/npm/roughjs@4.0.4/bundled/rough.min.js"></script>
-<script>
-function get_illustration(id, width=400, height=200) {
-    const canvas = document.getElementById(id);
-    const ctx = canvas.getContext("2d");
-    const pixelRatio = window.devicePixelRatio || 1;
-    canvas.width = pixelRatio*width;
-    canvas.height = pixelRatio*height;
-    ctx.scale(pixelRatio, pixelRatio);
-    ctx.mozImageSmoothingEnabled = false;
-    ctx.imageSmoothingEnabled = false;
-    const rc = rough.canvas(canvas);
-    return [ctx, rc];
-}
-</script>
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
 	  TeX: { equationNumbers: { autoNumber: "AMS" } }
@@ -50,41 +38,10 @@ MathJax.Hub.Config({
 <p>Today's class builds upon the probability fundamentals from class one, and introduces methods of <i>decision making</i> using inferred probabilities.</p>
 <h2>Lab #2: trapped in the closet?</h2>
 <p>Your robot is lost in a deviously complex maze, and requires your help to identify where it is!  This week's lab is similar to last week's: using distance sensor data, you will identify your robot's position.  However, rather than being in one of two rooms, your robot can now be in any of 9 spots in the maze, and facing any of 4 directions (north, west, south, or east), for a total of \(9\times 4=36\) total possible states to discriminate between!</p>
-<canvas class="illustration" id="rooms" style="height:400px"></canvas>
+<canvas class="illustration" id="maze" style="height:400px"></canvas>
 <p class="caption">The robot maze, which will stay constant throughout the class.  The robot is collecting a measurement at position 4 and angle 90 (east).</p>
 <script>
-(function() {
-const [ctx, rc] = get_illustration('rooms', width=400, height=400);
-
-ctx.font = '60px sans-serif';
-ctx.textAlign = 'center';
-ctx.fillStyle = "grey";
-
-for (let i=0; i<9; i++) {
-    //i%3 + i//3
-    if (i==4) continue;
-    ctx.fillText(i, 80+120*(i%3), 70+120*Math.floor(i/3)+30);
-}
-
-
-// maze
-rc.rectangle(20, 20, 360, 360);
-rc.line(20,140,260,140);
-rc.line(140,140,140,260);
-rc.line(260,260,380,260);
-rc.line(260,260,260,380);
-
-// robot
-rc.circle(200, 200, 48, { roughness: 0.5, fill: 'blue' });
-
-const sline = { roughness: 1.5, stroke: 'red', strokeWidth:0.5 };
-
-rc.line(230, 200, 370, 200, sline);
-rc.line(230, 205, 370, 215, sline);
-rc.line(230, 195, 370, 185, sline);
-
-
-})();
+make_maze("maze", [{pos:4, angle:90, color:'blue'}]);
 </script>
 <p>In addition, this week we will allow rotating the distance sensor to get more measurements at different angles.  We can do that using the following syntax in Jupyter on the robots:</p>
 <div class="codeblock">
@@ -185,7 +142,30 @@ L(y)=\frac{p_{H|y}(H_1|y)}{p_{H|y}(H_0|y)}\underset{H_0}{\overset{H_1}{\gtreqles
 <p>\(L(y)=\frac{p_{y|H}(y|H_1)}{p_{y|H}(y|H_0)}\underset{H_0}{\overset{H_1}{\gtreqless}} \frac{P_0(C_{10}-C_{00})}{P_1(C_{01}-C_{11})}=\eta.\)</p>
 <p>This is called the Likelihood Ratio Test.</p>
 </div></div>
-</td>
+<p>Looking at the form of the Likelihood Ratio test, </p>
+<p style="text-align:center">
+\[
+L(y)=\frac{p_{y|H}(y|H_1)}{p_{y|H}(y|H_0)}\underset{H_0}{\overset{H_1}{\gtreqless}} \frac{P_0(C_{10}-C_{00})}{P_1(C_{01}-C_{11})}=\eta.
+\]
+</p><p>It is interesting to note that we don't actually require the observations \(y\) themselves to make the decision- it suffices to know the likelihood ratio \(L(y)\). We call quantities like \(L(y)\) sufficient statistics, because they contain all the information that we require to make decisions. </p>
+<h3>Frameworks for Decision Making</h3>
+<p>One way in which we could try to make decisions is by trying to minimize our probability of error. This corresponds to using the symmetric 0/1 cost function we introduced above: </p>
+<p style="text-align:center">
+\[
+C_{00} = C_{11} = 0 \\
+C_{01} = C_{10} = 1
+\]
+</p><p>Substituting these cost functions into the generalized decision rule we created above, we see that this corresponds to choosing </p>
+<p style="text-align:center">
+\[
+\hat{H}(y) = \arg \max_{H \in \{H_0, H_1\}} p_{H|Y}(H|y)
+\]
+</p><p>This rule is known as the Maximum A Posteriori (MAP) decision rule. In the special case where the two hypotheses are equally likely, we can substitute \(P_0 = P_1 = \frac{1}{2}\) into the form of the Likelihood Ratio Test you derived in the exercise above, which results in the decision rule known as the Maximimum Likelihood decision rule: </p>
+<p style="text-align:center">
+\[
+\hat{H}(y) = \arg \max_{H \in \{H_0, H_1\}} p_{y|H}(y|H)
+\]
+</p></td>
 </tr>
 </table>
 </body>

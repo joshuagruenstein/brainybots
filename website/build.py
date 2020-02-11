@@ -41,7 +41,7 @@ def get_watch_files():
     
     return watch_files
 
-FILES_TO_WATCH = ['.css', '.png']
+FILES_TO_WATCH = ['.css', '.png', '.js']
 
 def build(watch_files):
     for file in watch_files:
