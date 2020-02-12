@@ -47,8 +47,47 @@ MathJax.Hub.Config({
 <div id="toptitle">
 <h1>Markov Madness</h1>
 </div>
+<h3>Graphs</h3>
+<p>First, we'll introduce the concept of graphs and then study how they can be applied to inference problems. We define a graph \(G = (V,E)\) as </p>
+<ol>
+<li><p>V- a set of vertices, also called nodes</p>
+</li>
+<li><p>E- a set of edges, which are pairs of vertices</p>
+</li>
+</ol>
+<p>Note that edges can be directed or undirected- below we show an example of each. 
+</p>
+<p>Graphs are a natural way in which humans present information- for example, we might represent a system of highways and roads as a directed graph, which an edge going in the direction that traffic flows in. We're going to try to encode information and their dependencies using directed graphs. Let's consider again the event that you're eating ice cream on a given day. We might say that perhaps this event depends on the season and whether you're hungry. Whether you're hungry might depend on whether you've eaten dinner. A naive way that we might try to encode this is as follows 
+</p>
+<p>This brings us to the idea of graphical models. A graphical model is just a graph that in some way represents a set of distributions over random variables- each vertex represents a random variable (or event) and each edge in some way encodes a dependency. </p>
+<p>First, let's look at what graphical models imply about the joint factorization. 
+
+This graph represents the factorization of the joint as </p>
+<p style="text-align:center">
+\[
+p_{x,y,z}(x,y,z) = p_x(x)p_{y|x}(y|x)p_{z|y}(z|y)
+\]
+</p><p>This makes some intuitive sense- the graph tells us that \(y\) really only depends on \(x\) and that \(z\) only really depends on \(y\), so a given event \(x,y,z\)'s likelihood can be computed using just those conditional dependencies, and the distribution of \(x\). This graph also yields another important result: we know that the joint can always be factored using the chain rule as </p>
+<p style="text-align:center">
+\[
+p_{x,y,z}(x,y,z) = p_x(x)p_{y|x}(y|x)p_{z|y, x}(z|y, x)
+\]
+</p><p>So setting those two factorizations equal to each other, we have that </p>
+<p style="text-align:center">
+\[
+p_{x,y,z}(x,y,z) = p_x(x)p_{y|x}(y|x)p_{z|y, x}(z|y, x) = p_x(x)p_{y|x}(y|x)p_{z|y}(z|y)
+\]
+</p><p>And simplifying, we find that \(p_{z|y, x}(z|y, x) = p_{z|y}(z|y)\). Note that this matches our definition of conditional independence somewhat- in that the two probabilities are the same conditioning on \(x\) and not conditioning on \(x\). In fact, this relationship says that \(z\) and \(x\) are conditionally independent given \(y\).</p>
+<p>Let's look at another: 
+</p>
+<p>This case is called a common cause, because \(x\) and \(z\) both depend on this other variable, \(y\), so they share that common cause. So here, we do something similar with the factorization- we know that given \(y\), \(x\) and \(z\) only depend on \(y\), so our factorization of the joint is: </p>
+<p style="text-align:center">
+\[
+p_{x,y,z}(x,y,z) = p_y(y)p_{x|y}(x|y)p_{z|y}(z|y)
+\]
+</p><p>Now, armed with the knowledge of these two types of graph structures, we'll look at a very cool model called the Hidden Markov Model. </p>
 <p>blah blah blah
-need lots of thoery first: graphs, markov chains, HMMs (graphical models for factorization???)
+need lots of thoery first: graphs, HMMs (graphical models for factorization???) - teach directed graphical model for HMM s
 By the end of this lecture, we should have and understand the following to implement the lab:</p>
 <p style="text-align:center">
 \[
