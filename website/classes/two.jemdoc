@@ -57,6 +57,11 @@ where $n$ is the number of hypotheses under consideration. First, we'll consider
 
 Our general framework for decision making will be one of cost-minimization. I can assign cost function (which will depend on the problem context) and aim to make decision rules such that I can minimize my cost. We denote $C_{ij} = \tilde{C}(H_i, H_j)$ to be the cost of deciding that the correct hypothesis is $H_i$ when the true hypothesis is $H_j$. 
 
+~~~
+{Notation note}
+A cost function is just a function that maps some event to a cost, or price that we pay. For example, a cost function in the real world is that I lose 5% of my grade for every homework assignment I don't do. 
+~~~
+
 - Let's say that I'm trying to figure out without looking if an m&m is green ($\mathcal{H}_0$) or red ($\mathcal{H}_1$). There's not really any consequence if my decision is wrong, so a reasonable cost function is 
 
 \(
@@ -81,11 +86,23 @@ We'll denote the hypothesis we choose as $\hat{H}$ and the true hypothesis as $H
 \(
 \hat{H}(\cdot) = \arg\min_{f(\cdot)} \mathbb{E}[\tilde{C}(f(y), H)]
 \)
-where $f$ is the space of all functions that map observations to a hypothesis conclusion. In words, we're just looking for the function that maps observations $y$ to hypotheses $H_0, H_1$ that minimizes the expectation cost we'll receive. Don't worry too much about expectation notation, but if you're curious, the expected value of a random variable $X$ with pmf $p_X$ is computed as 
+
+~~~
+{Notation note} 
+The $\arg \min$ of a function $f(x)$ is the value (or set of values) $x$ that results in the minimum value of $f(x)$. For example, $\arg\min x^2$ is $x=0$. Identically, the $\arg \max$ of a function $f(x)$ is the value (or set of values) $x$ that results in the maximum value of $f(x)$. For example, $\arg\max -x^2$ is $x=0$. 
+~~~
+
+where $f$ is the space of all functions that map observations to a hypothesis conclusion. In words, we're just looking for the function that maps observations $y$ to hypotheses $H_0, H_1$ that minimizes the expected cost we'll receive. 
+
+~~~
+{Notation note} 
+Don't worry too much about expectation notation, but if you're curious, the expected value of a random variable $X$ with pmf $p_X$ is computed as 
 
 \(
 \mathbb{E}[X] = \sum_x xp_X(x)
 \)
+~~~
+
 
 Now, given a specific observation point $y_0$, if we choose $\hat{H}(y_0) = H_0$ then expected cost is 
 

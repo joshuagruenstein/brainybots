@@ -354,6 +354,41 @@ ctx.fillText("μ+σ", 130, 97);
 })();
 </script>
 <p>The Gaussin pdf (pictured above) is specified completely by two parameters, the mean \(\mu\) and the standard deviation \(\sigma\) of the distribution. The mean is where the distribution is centered, and the standard deviation is a measure of how &ldquo;spread out&rdquo; the distribution is. We'll write the Gaussian distribution with mean \(\mu\) and standard deviation \(\sigma\) as \(\mathcal{N}(\mu, \sigma).\) Then, the probability that the distribution takes a specific value \(x\) will be written as \(\mathcal{N}(x; \mu, \sigma)\).</p>
+<h3>Joint Probability Distributions</h3>
+<p>Oftentimes we are working with more than one variable, and are curious about the relationship between them, in the same way we might be curious about their independence or dependence. It's natural then to define a joint probability distribution, which is a probability distribution over multiple variables. Let's consider having two random variables \(X\) and \(Y\), each of which takes value \(0\) or \(1\). One possible joint probability distribution, which we notate as \(p_{x,y}(X,Y)\) can be defined as </p>
+<p style="text-align:center">
+\[
+\begin{aligned}
+p_{x,y}(0,0) &amp;= \frac{1}{4} \\
+p_{x,y}(0,1) &amp;= \frac{1}{4} \\
+p_{x,y}(1,0) &amp;= \frac{1}{4} \\
+p_{x,y}(1,1) &amp;= \frac{1}{4} \\
+\end{aligned}
+\]
+</p><div class="infoblock">
+<div class="blocktitle">Notation note</div>
+<div class="blockcontent">
+<p>\(p_{x,y}(1,1)\) is equivalent to asking for the probability that \(X =1\) and \(Y=1\), or \(p_{x,y}(X=1, Y=1)\), but we'll frequently use the shorthand above. </p>
+</div></div>
+<p>The joint probability distribution has one important property, which is that we can always factorize it using what is called the chain rule of probability. For two events, we have that </p>
+<p style="text-align:center">
+\[
+\mathbb{P}(X,Y) = \mathbb{P}(X|Y) \cdot \mathbb{P}(Y)
+\]
+</p><p>or that </p>
+<p style="text-align:center">
+\[
+\mathbb{P}(X,Y) = \mathbb{P}(Y|X) \cdot \mathbb{P}(X)
+\]
+</p><p>The chain rule extends to more random variables. With three variables, we can write </p>
+<p style="text-align:center">
+\[
+\begin{aligned}
+\mathbb{P}(X,Y,Z) &amp;= \mathbb{P}(X|Y,Z) \cdot \mathbb{P}(Y,Z) \\
+&amp;= \mathbb{P}(X|Y,Z) \cdot \mathbb{P}(Y|Z)\cdot \mathbb{P}(Z)
+\end{aligned}
+\]
+</p><p>but the same idea extends to as many random variables as we want. </p>
 <h2>Lab #1: where am I?</h2>
 <p>For our first lab, we will be applying our newfound probability knowledge to identify where our robots have been hidden.  </p>
 <canvas class="illustration" id="rooms" style="height:150px"></canvas>
