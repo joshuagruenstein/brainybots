@@ -37,6 +37,8 @@ function make_maze(canvas_id, robots) {
     ctx.textAlign = 'center';
     ctx.fillStyle = "grey";
     
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
     numloop: for (let i=0; i<9; i++) {
         for (let r=0; r<robots.length; r++) {
             if (robots[r].pos == i) continue numloop;

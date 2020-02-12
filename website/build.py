@@ -48,6 +48,11 @@ def build(watch_files):
         if file.endswith('.jemdoc'):
             make_file(file[:-7])
         elif any(file.endswith(e) for e in FILES_TO_WATCH):
+            try:
+                os.makedirs(os.path.dirname(os.path.join(OUT_DIR,file)))
+            except FileExistsError:
+                pass
+
             shutil.copyfile(
                 file, os.path.join(OUT_DIR,file)
             )
