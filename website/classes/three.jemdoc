@@ -45,7 +45,7 @@ This case is called a common cause, because $x$ and $z$ both depend on this othe
 p_{x,y,z}(x,y,z) = p_y(y)p_{x|y}(x|y)p_{z|y}(z|y)
 \)
 
-Now, armed with the knowledge of these two types of graph structures, we'll look at a very cool model called the Hidden Markov Model. 
+Now, armed with the knowledge of these two types of graph structures, we'll look at a very cool model called the Hidden Markov Model. In real life, we often deal with latent variables- things that cause observable events but that we do not precisely know themselves. For example, Harry Potter lives in a closet, and only knows what's happening in the outside world when Hermione sends him letters. Harry believes that the real world has two states- rainy and sunny, but Harry can't observe them himself. Hermione also doesn't tell him exactly what the weather is- she just tells him if she wore a sweater today or not. We see that there are a lot of dependencies here- if it's rainy today, it might be more likely to be rainy tomorrow and so on. But also, if it's rainy today, Hermione is probably more likely to wear a sweater. So in the below graphs, the $x$ nodes denote the "latent variable"- $x1$ is weather on the first day, $x2$ is weather on the second day and so on. And the $y$ nodes denote our observations- $y1$ is whether Hermione wears a sweater on the first day, and so on.  
 
 #TODO: Insert hmm.png
 
