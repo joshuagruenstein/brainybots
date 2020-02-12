@@ -4,10 +4,10 @@
 === Graphs
 
 First, we'll introduce the concept of graphs and then study how they can be applied to inference problems. We define a graph $G = (V,E)$ as 
-. V- a set of vertices, also called nodes
-. E- a set of edges, which are pairs of vertices
+. $V$: a set of vertices, also called nodes
+. $E$: a set of edges, which are pairs of vertices
 
-Note that edges can be directed or undirected- below we show an example of each. 
+Note that edges can be directed or undirected: below we show an example of each. 
 
 ~~~
 {}{raw}
