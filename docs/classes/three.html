@@ -49,12 +49,12 @@ MathJax.Hub.Config({
 <img src="bbimages/dg.png" style="height:auto;" class="illustration"/>
 <p class="caption">A directed graph.</p>
 <p>Graphs are a natural way in which humans present information- for example, we might represent a system of highways and roads as a directed graph, which an edge going in the direction that traffic flows in. We're going to try to encode information and their dependencies using directed graphs. Let's consider again the event that you're eating ice cream on a given day. We might say that perhaps this event depends on the season and whether you're hungry. Whether you're hungry might depend on whether you've eaten dinner. A naive way that we might try to encode this is as follows </p>
-<img src="bbimages/dgex.png" style="height:auto;" class="illustration"/>
+<img src="bbimages/dgex.png" style="width:300px;height:auto;" class="illustration"/>
 <p class="caption">A directed graphical model about eating icecream.</p>
 <h3>Graphical Models</h3>
 <p>This brings us to the idea of graphical models. A graphical model is just a graph that in some way represents a set of distributions over random variables- each vertex represents a random variable (or event) and each edge in some way encodes a dependency. </p>
 <p>First, let's look at what graphical models imply about the joint factorization. </p>
-<img src="bbimages/gm1.png" style="height:auto;" class="illustration"/>
+<img src="bbimages/gm1.png" style="width:300px;height:auto;padding:2em" class="illustration"/>
 <p>This graph represents the factorization of the joint as </p>
 <p style="text-align:center">
 \[
@@ -72,7 +72,7 @@ p_{x,y,z}(x,y,z) = p_x(x)p_{y|x}(y|x)p_{z|y, x}(z|y, x) = p_x(x)p_{y|x}(y|x)p_{z
 \]
 </p><p>And simplifying, we find that \(p_{z|y, x}(z|y, x) = p_{z|y}(z|y)\). Note that this matches our definition of conditional independence somewhat- in that the two probabilities are the same conditioning on \(x\) and not conditioning on \(x\). In fact, this relationship says that \(z\) and \(x\) are conditionally independent given \(y\).</p>
 <p>Let's look at another: </p>
-<img src="bbimages/gm2.png" style="height:auto;" class="illustration"/>
+<img src="bbimages/gm2.png" style="width:180px;height:auto;padding-bottom:2em;" class="illustration"/>
 <p>This case is called a common cause, because \(x\) and \(z\) both depend on this other variable, \(y\), so they share that common cause. So here, we do something similar with the factorization- we know that given \(y\), \(x\) and \(z\) only depend on \(y\), so our factorization of the joint is: </p>
 <p style="text-align:center">
 \[
