@@ -26,7 +26,7 @@ Graphs are a natural way in which humans present information- for example, we mi
 
 ~~~
 {}{raw}
-<img src="bbimages/dgex.png" style="height:auto;" class="illustration"/>
+<img src="bbimages/dgex.png" style="width:300px;height:auto;" class="illustration"/>
 <p class="caption">A directed graphical model about eating icecream.</p>
 ~~~
 
@@ -38,7 +38,7 @@ First, let's look at what graphical models imply about the joint factorization.
 
 ~~~
 {}{raw}
-<img src="bbimages/gm1.png" style="height:auto;" class="illustration"/>
+<img src="bbimages/gm1.png" style="width:300px;height:auto;padding:2em" class="illustration"/>
 ~~~
 
 This graph represents the factorization of the joint as 
@@ -65,7 +65,7 @@ Let's look at another:
 
 ~~~
 {}{raw}
-<img src="bbimages/gm2.png" style="height:auto;" class="illustration"/>
+<img src="bbimages/gm2.png" style="width:180px;height:auto;padding-bottom:2em;" class="illustration"/>
 ~~~
 
 
