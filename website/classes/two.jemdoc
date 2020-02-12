@@ -86,6 +86,7 @@ We'll denote the hypothesis we choose as $\hat{H}$ and the true hypothesis as $H
 \(
 \hat{H}(\cdot) = \arg\min_{f(\cdot)} \mathbb{E}[\tilde{C}(f(y), H)]
 \)
+Here, the $\mathbb{E}$ stands for expectation- and we'll generally just think of that as what cost we would receive "on average".
 
 ~~~
 {Notation note} 
