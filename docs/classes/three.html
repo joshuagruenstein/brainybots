@@ -43,10 +43,10 @@ MathJax.Hub.Config({
 <li><p>E- a set of edges, which are pairs of vertices</p>
 </li>
 </ol>
-<p>Note that edges can be directed or undirected- below we show an example of each. 
-</p>
+<p>Note that edges can be directed or undirected- below we show an example of each. </p>
 <p>Graphs are a natural way in which humans present information- for example, we might represent a system of highways and roads as a directed graph, which an edge going in the direction that traffic flows in. We're going to try to encode information and their dependencies using directed graphs. Let's consider again the event that you're eating ice cream on a given day. We might say that perhaps this event depends on the season and whether you're hungry. Whether you're hungry might depend on whether you've eaten dinner. A naive way that we might try to encode this is as follows 
 </p>
+<h3>Graphical Models</h3>
 <p>This brings us to the idea of graphical models. A graphical model is just a graph that in some way represents a set of distributions over random variables- each vertex represents a random variable (or event) and each edge in some way encodes a dependency. </p>
 <p>First, let's look at what graphical models imply about the joint factorization. 
 
@@ -73,7 +73,19 @@ p_{x,y,z}(x,y,z) = p_x(x)p_{y|x}(y|x)p_{z|y, x}(z|y, x) = p_x(x)p_{y|x}(y|x)p_{z
 \[
 p_{x,y,z}(x,y,z) = p_y(y)p_{x|y}(x|y)p_{z|y}(z|y)
 \]
-</p><p>Now, armed with the knowledge of these two types of graph structures, we'll look at a very cool model called the Hidden Markov Model. In real life, we often deal with latent variables- things that cause observable events but that we do not precisely know themselves. For example, Harry Potter lives in a closet, and only knows what's happening in the outside world when Hermione sends him letters. Harry believes that the real world has two states- rainy and sunny, but Harry can't observe them himself. Hermione also doesn't tell him exactly what the weather is- she just tells him if she wore a sweater today or not. We see that there are a lot of dependencies here- if it's rainy today, it might be more likely to be rainy tomorrow and so on. But also, if it's rainy today, Hermione is probably more likely to wear a sweater. So in the below graphs, the \(x\) nodes denote the &ldquo;latent variable&rdquo;- \(x1\) is weather on the first day, \(x2\) is weather on the second day and so on. And the \(y\) nodes denote our observations- \(y1\) is whether Hermione wears a sweater on the first day, and so on.  </p>
+</p><h3>Hidden Markov Models</h3>
+<p>Now, armed with the knowledge of these two types of graph structures, we'll look at a very cool model called the Hidden Markov Model. In real life, we often deal with latent variables- things that cause observable events but that we do not precisely know themselves. For example, Harry Potter lives in a closet, and only knows what's happening in the outside world when Hermione sends him letters. Harry believes that the real world has two states- rainy and sunny, but Harry can't observe them himself. Hermione also doesn't tell him exactly what the weather is- she just tells him if she wore a sweater today or not. We see that there are a lot of dependencies here- if it's rainy today, it might be more likely to be rainy tomorrow and so on. But also, if it's rainy today, Hermione is probably more likely to wear a sweater. So in the below graphs, the \(x\) nodes denote the &ldquo;latent variable&rdquo;- \(x1\) is weather on the first day, \(x2\) is weather on the second day and so on. And the \(y\) nodes denote our observations- \(y1\) is whether Hermione wears a sweater on the first day, and so on.  </p>
+<h3>Exercise:</h3>
+<p>Derive the factorization of the probability distribution \(p_{x_1,&hellip;,x_N|y_1,&hellip;,y_N}(x_1,&hellip;,x_N|y_1,&hellip;,y_N)\) using the two graphical model structure types we learned above. </p>
+<div class="infoblock solutionblock">
+<div class="blocktitle">Solution<span class="solutionhelp"> (hover to show)</span>:</div>
+<div class="blockcontent">
+<p>Since \(x_1\) has no incoming edges (and is therefore dependent on no other nodes), we know there will be a \(p_{x_1}(x_1)\) term. Then, we see that \(y_1\) depends only on \(x_1\), so we multiply by the term \(p_{y_1|x_1}(y_1|x_1)\) to encode the graph that just consists of the nodes \(x_1, y_1\). Now, let's add \(x_2\). We see that it depends only on \(x_1\), so we multiply by the term \(p_{x_2|x_1}(x_2|x_1).\) Continuing in this manner through \(y_n\) and \(x_n\), we get the final factorization </p>
+<p style="text-align:center">
+\[
+p_{x_1,&hellip;,x_N|y_1,&hellip;,y_N}(x_1,&hellip;,x_N|y_1,&hellip;,y_N) = p_{x_1}(x_1)\prod_{i=2}^N p_{x_i|x_{i-1}}(x_i|x_{i-1}) \prod_{j=1}^N p_{y_j|x_j}(y_j|x_j)
+\]
+</p></div></div>
 <p>blah blah blah
 need lots of thoery first: graphs, HMMs (graphical models for factorization???) - teach directed graphical model for HMM s
 By the end of this lecture, we should have and understand the following to implement the lab:</p>
@@ -96,7 +108,7 @@ make_maze("maze", [
 <p>To implement this, we will consider the robot localization problem as a hidden markov model.  Our hidden states \(X_{0..t}\) will be our robot positions, and \(Y_{0..t}\) will be our sensor readings.  At every timestep we'll take a random movement and then a sensor reading, and use this data to infer our robot position!</p>
 <h3>The Forward Algorithm</h3>
 <p>Derive forward algorithm from joint factorization, as motivated by this localization problem.  In class, we can do this in groups or all together.</p>
-<h3>Moving the robot</h3>
+<h3>Moving the robots</h3>
 <p>Up to this point, our robots have been stationary.  We can move our robots using some simple commands: <tt>bot.forward()</tt> to move one square forward, to move one square backward, <tt>bot.left()</tt> to turn 90 degrees to the left, and <tt>bot.right()</tt> to turn 90 degrees to the right.  </p>
 <div class="infoblock">
 <div class="blocktitle">Safety note</div>
