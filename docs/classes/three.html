@@ -4,25 +4,13 @@
 <head>
 <meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link rel="stylesheet" href="../jemdoc.css" type="text/css" /><title>Markov Madness</title>
+<link rel="stylesheet" href="../jemdoc.css" type="text/css" />
+<script src="../index.js"></script>
+<title>Markov Madness</title>
 <!-- MathJax -->
 <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async>
 </script>
 <script src="https://cdn.jsdelivr.net/npm/roughjs@4.0.4/bundled/rough.min.js"></script>
-<script>
-function get_illustration(id, width=400, height=200) {
-    const canvas = document.getElementById(id);
-    const ctx = canvas.getContext("2d");
-    const pixelRatio = window.devicePixelRatio || 1;
-    canvas.width = pixelRatio*width;
-    canvas.height = pixelRatio*height;
-    ctx.scale(pixelRatio, pixelRatio);
-    ctx.mozImageSmoothingEnabled = false;
-    ctx.imageSmoothingEnabled = false;
-    const rc = rough.canvas(canvas);
-    return [ctx, rc];
-}
-</script>
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
 	  TeX: { equationNumbers: { autoNumber: "AMS" } }
@@ -96,48 +84,13 @@ P(X_{0.. T}|Y_{0..T}) \propto P(X_0, Y_0) \prod_{t=1}^T P(X_t | X_{t-1}) \prod_{
 </p><p>Such that we can immediately after derive the forward algorithm with just the motivation from the gridmaze.</p>
 <h2>Lab #3: time to explore!</h2>
 <p>Last week, we used sensor readings from the robot to identify where we were in the maze.  As you may have noticed, this has some limitations: for example, consider the following robot positions:</p>
-<canvas class="illustration" id="rooms" style="height:400px"></canvas>
+<canvas class="illustration" id="maze" style="height:400px"></canvas>
 <p class="caption">Two robot positions with identical sensor readings.  How do we decide where we really are?</p>
 <script>
-(function() {
-const [ctx, rc] = get_illustration('rooms', width=400, height=400);
-
-ctx.font = '60px sans-serif';
-ctx.textAlign = 'center';
-ctx.fillStyle = "grey";
-
-for (let i=0; i<9; i++) {
-    //i%3 + i//3
-    if (i==3 || i==8) continue;
-    ctx.fillText(i, 80+120*(i%3), 70+120*Math.floor(i/3)+30);
-}
-
-// maze
-rc.rectangle(20, 20, 360, 360);
-rc.line(20,140,260,140);
-rc.line(140,140,140,260);
-rc.line(260,260,380,260);
-rc.line(260,260,260,380);
-
-// robot
-rc.circle(320, 320, 48, { roughness: 0.5, fill: 'blue' });
-rc.circle(80, 200, 48, { roughness: 0.5, fill: 'green' });
-
-const sline = { roughness: 1.5, stroke: 'red', strokeWidth:0.5 };
-function draw_lines(x,y) {
-
-}
-
-rc.line(80, 170, 80, 150, sline);
-rc.line(83, 170, 90, 150, sline);
-rc.line(77, 170, 70, 150, sline);
-
-rc.line(80+240, 170+120, 80+240, 150+120, sline);
-rc.line(83+240, 170+120, 90+240, 150+120, sline);
-rc.line(77+240, 170+120, 70+240, 150+120, sline);
-
-
-})();
+make_maze("maze", [
+    {pos:3, angle:0, color:'blue'},
+    {pos:8, angle:0, color:'green'}
+]);
 </script>
 <p>Even if the green and blue robots were to try every position of their sensor turret, they would still get the same exact readings.  Clearly, in order to determine where they are, the robots must <i>explore</i>!</p>
 <p>To implement this, we will consider the robot localization problem as a hidden markov model.  Our hidden states \(X_{0..t}\) will be our robot positions, and \(Y_{0..t}\) will be our sensor readings.  At every timestep we'll take a random movement and then a sensor reading, and use this data to infer our robot position!</p>
@@ -171,7 +124,12 @@ rc.line(77+240, 170+120, 70+240, 150+120, sline);
 </div></div>
 <h3>Putting it together</h3>
 <p>Implement a random walk on your robot in a loop by choosing randomly at each iteration whether to go forwards, turn left, or turn right.  Then, implement the forward algorithm and print the most likely robot state at each iteration!</p>
-<p>Once you've implemented the system, try it out from a few starting places in the maze.  How many iterations does it take to converge to the right position?  Does your implementation always converge?  Discuss some strengths and limitations of this system with your group</p>
+<p>Once you've implemented the system, try it out from a few starting places in the maze.  How many iterations does it take to converge to the right position?  Does your implementation always converge?  Discuss some strengths and limitations of this system with your group.</p>
+<div class="infoblock">
+<div class="blocktitle">Challenge problem</div>
+<div class="blockcontent">
+<p>If your initial solution only used one sensor reading per iteration, try upgrading to using sensor readings from multiple angles.  Can you make other improvements that allow your robot to localize quicker?</p>
+</div></div>
 </td>
 </tr>
 </table>

@@ -289,7 +289,7 @@ ctx.font = '15px sans-serif';
 ctx.textAlign = 'center';
 
 const scale=1.5;
-ctx.scale(window.devicePixelRatio*scale, window.devicePixelRatio*scale);
+ctx.scale(scale, scale);
 
 rc.line(0, 82.482, 204.96+5, 82.482, { roughness: 0.3, stroke: 'black', strokeWidth:2, simplification:0 });
 

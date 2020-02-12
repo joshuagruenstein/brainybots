@@ -4,25 +4,13 @@
 <head>
 <meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link rel="stylesheet" href="jemdoc.css" type="text/css" /><title>Robot Documentation</title>
+<link rel="stylesheet" href="jemdoc.css" type="text/css" />
+<script src="index.js"></script>
+<title>Robot Documentation</title>
 <!-- MathJax -->
 <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async>
 </script>
 <script src="https://cdn.jsdelivr.net/npm/roughjs@4.0.4/bundled/rough.min.js"></script>
-<script>
-function get_illustration(id, width=400, height=200) {
-    const canvas = document.getElementById(id);
-    const ctx = canvas.getContext("2d");
-    const pixelRatio = window.devicePixelRatio || 1;
-    canvas.width = pixelRatio*width;
-    canvas.height = pixelRatio*height;
-    ctx.scale(pixelRatio, pixelRatio);
-    ctx.mozImageSmoothingEnabled = false;
-    ctx.imageSmoothingEnabled = false;
-    const rc = rough.canvas(canvas);
-    return [ctx, rc];
-}
-</script>
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
 	  TeX: { equationNumbers: { autoNumber: "AMS" } }
