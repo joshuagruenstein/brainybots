@@ -151,7 +151,7 @@ Now it's time to begin building our inference pipeline.  For the equation for $\
 
 ~~~
 {Implementation hint}
-The method +s_new = gm.simulatedAction(s, u)+ returns the state the robot would be in after performing action +u+ in state +s+.  +u+ must be one of strings +'LEFT'+, +'RIGHT'+, or 'FORWARD', and +s+ must be a tuple of a position integer (0 through 8) and an angle integer in degrees, going clockwise from 0 as north.  This will return a new state in the same format as +s+.
+The method +s_new = gm.simulatedAction(s, u)+ returns the state the robot would be in after performing action +u+ in state +s+.  +u+ must be one of strings +'LEFT'+, +'RIGHT'+, or +'FORWARD'+, and +s+ must be a tuple of a position integer (0 through 8) and an angle integer in degrees, going clockwise from 0 as north.  This will return a new state in the same format as +s+.
 ~~~
 
 
