@@ -26,8 +26,8 @@ Graphs are a natural way in which humans present information- for example, we mi
 
 ~~~
 {}{raw}
-<img src="bbimages/dgex.png" style="width:300px;height:auto;" class="illustration"/>
-<p class="caption">A directed graphical model about eating icecream.</p>
+<img src="bbimages/dgex.png" style="width:300px;height:auto; padding:1em" class="illustration"/>
+<p class="caption">A directed graphical model about eating ice cream.</p>
 ~~~
 
 === Graphical Models
@@ -81,7 +81,7 @@ Now, armed with the knowledge of these two types of graph structures, we'll look
 
 ~~~
 {}{raw}
-<img src="bbimages/hmm.png" style="height:auto;" class="illustration"/>
+<img src="bbimages/hmm.png" style="height:auto;padding:1em" class="illustration"/>
 <p class="caption">Directed graphical model of an HMM.</p>
 ~~~
 
@@ -94,21 +94,9 @@ Since $x_1$ has no incoming edges (and is therefore dependent on no other nodes)
 
 
 \(
-p_{x_1,...,x_N|y_1,...,y_N}(x_1,...,x_N|y_1,...,y_N) = p_{x_1}(x_1)\prod_{i=2}^N p_{x_i|x_{i-1}}(x_i|x_{i-1}) \prod_{j=1}^N p_{y_j|x_j}(y_j|x_j)
+p_{x_1,...,x_N,y_1,...,y_N}(x_1,...,x_N,y_1,...,y_N) = p_{x_1}(x_1)\prod_{i=2}^N p_{x_i|x_{i-1}}(x_i|x_{i-1}) \prod_{j=1}^N p_{y_j|x_j}(y_j|x_j)
 \)
 ~~~
-
-###
-
-blah blah blah
-need lots of thoery first: graphs, HMMs (graphical models for factorization???) - teach directed graphical model for HMM s
-By the end of this lecture, we should have and understand the following to implement the lab:
-
-\(
-P(X_{0.. T}|Y_{0..T}) \propto P(X_0, Y_0) \prod_{t=1}^T P(X_t | X_{t-1}) \prod_{t=1}^T P(Y_t | X_t)
-\)
-
-Such that we can immediately after derive the forward algorithm with just the motivation from the gridmaze.
 
 == Lab \#3: time to explore!
 
