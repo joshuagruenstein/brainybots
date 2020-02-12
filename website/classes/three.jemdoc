@@ -56,7 +56,7 @@ Now, armed with the knowledge of these two types of graph structures, we'll look
 #TODO: Insert hmm.png
 
 === Exercise:
-Derive the factorization of the probability distribution $p_{x_1,...,x_N|y_1,...,y_N}(x_1,...,x_N|y_1,...,y_N)$ using the two graphical model structure types we learned above. 
+Derive the factorization of the probability distribution $p_{x_1,...,x_N,y_1,...,y_N}(x_1,...,x_N,y_1,...,y_N)$ using the two graphical model structure types we learned above. 
 
 ~~~
 {Solution}
