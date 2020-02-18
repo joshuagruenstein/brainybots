@@ -105,38 +105,51 @@ p_{x,y,z}(x,y,z) = p_y(y)p_{x|y}(x|y)p_{z|y}(z|y)
 p_{x_1,&hellip;,x_N,y_1,&hellip;,y_N}(x_1,&hellip;,x_N,y_1,&hellip;,y_N) = p_{x_1}(x_1)\prod_{i=2}^N p_{x_i|x_{i-1}}(x_i|x_{i-1}) \prod_{j=1}^N p_{y_j|x_j}(y_j|x_j)
 \]
 </p></div></div>
+<p>{Note for Rigor:}
+The general structure of our HMM development has been</p>
+<ol>
+<li><p>transferring some idea of latent variable and observations into a graphical model with a particular structure</p>
+</li>
+<li><p>using that graphical model, and the properties that come from graphical models, to do some cool math and develop an algorithm</p>
+</li>
+</ol>
+<p>The second part of what we've done is rigorous- under the assumptions that the graphical model represents what we've told you it represents, all of the math follows very cleanly from properties of graphical models. The first part is where we've handwaved a little. It's not immediately obvious that this graph is 100% correct. In the Harry Potter example, couldn't Tuesday's letter encode a little bit about Monday's weather? Why isn't there an edge between Monday and Tuesday? The reason that we've been able to say that each latent variable depends only on the one prior, and that each observation depends on only one latent variable is due to the definition of Hidden Markov Models. </p>
+<p>A Hidden Markov Model is defined to have the Markov Property, also sometimes known as memorylessness. This property encodes that the future, given the present, does not depend at all on the past. Another way to think about that is that the present fully encodes any of the information you may need from the past (this could be all of it, or none of it), and so when thinking about the past, it suffices to think only about the present. In math, we write 
+\(\)mathbb{P}(X<u>t = x</u>t | X<u>{t-1} = x</u>{t-1}, X<u>{t-2} = x</u>{t-2}, X<u>{t-3} = x</u>{t-3},&hellip;, X<u>1 = x</u>1) = mathbb{P}(X<u>t = x</u>t | X<u>{t-1} = x</u>{t-1}\(\)</p>
+<p>So given this mathematical factorization, we could actually derive the factorization of the joint distribution that we did above, and we'd find that it's equal to the factorization derived from the graphical model, demonstrating equivalence of the HMM and the graphical model. If you'd like to do this at home, the way to start is with the chain rule factorization of the joint that we showed in Lecture 2. </p>
+<div class="infoblock">
+<div class="blockcontent">
 <h2>Lab #3: time to explore!</h2>
 <p>Last week, we used sensor readings from the robot to identify where we were in the maze.  As you may have noticed, this has some limitations: for example, consider the following robot positions:</p>
-<canvas class="illustration" id="maze" style="height:400px"></canvas>
-<p class="caption">Two robot positions with identical sensor readings.  How do we decide where we really are?</p>
-<script>
-make_maze("maze", [
-    {pos:3, angle:0, color:'blue'},
-    {pos:8, angle:0, color:'green'}
+</div></div>
+<p>&lt;canvas class=&ldquo;illustration&rdquo; id=&ldquo;maze&rdquo; style=&ldquo;height:400px&rdquo;&gt;&lt;<i>canvas&gt;
+&lt;p class=&ldquo;caption&rdquo;&gt;Two robot positions with identical sensor readings.  How do we decide where we really are?&lt;</i>p&gt;
+&lt;script&gt;
+make_maze(&ldquo;maze&rdquo;, [</p>
+<p>{pos:3, angle:0, color:'blue&rsquo;},</p>
+<p>{pos:8, angle:0, color:'green&rsquo;}
 ]);
-</script>
+&lt;/script&gt;</p>
+<div class="infoblock">
+<div class="blockcontent">
 <p>Even if the green and blue robots were to try every position of their sensor turret, they would still get the same exact readings.  Clearly, in order to determine where they are, the robots must <i>explore</i>!</p>
 <p>To implement this, we will consider the robot localization problem as a hidden markov model.  Our hidden states \(X_{0..t}\) will be our robot positions, and \(Y_{0..t}\) will be our sensor readings.  At every timestep we'll take a random movement and then a sensor reading, and use this data to infer our robot position!</p>
 <h3>The Forward Algorithm</h3>
 <p>Derive forward algorithm from joint factorization, as motivated by this localization problem.  In class, we can do this in groups or all together.</p>
 <h3>Moving the robots</h3>
 <p>Up to this point, our robots have been stationary.  We can move our robots using some simple commands: <tt>bot.forward()</tt> to move one square forward, to move one square backward, <tt>bot.left()</tt> to turn 90 degrees to the left, and <tt>bot.right()</tt> to turn 90 degrees to the right.  </p>
-<div class="infoblock">
-<div class="blocktitle">Safety note</div>
-<div class="blockcontent">
-<p>After every call to <tt>bot.forward()</tt>, the robot will point its distance sensor forward and check if its safe to move before moving the sensor back to its previous position.  If there is a wall in front of the robot and the robot decides it's unsafe to move, <tt>bot.forward()</tt> will return <tt>False</tt>; otherwise, it will return <tt>True</tt>.  This is to ensure your robot does not run into walls. </p>
 </div></div>
+<p>After every call to <tt>bot.forward()</tt>, the robot will point its distance sensor forward and check if its safe to move before moving the sensor back to its previous position.  If there is a wall in front of the robot and the robot decides it's unsafe to move, <tt>bot.forward()</tt> will return <tt>False</tt>; otherwise, it will return <tt>True</tt>.  This is to ensure your robot does not run into walls. </p>
+<div class="infoblock">
+<div class="blockcontent">
 <p>Before you move on, test running a few movement commands in the Jupyter notebook.</p>
 <h3>Inference building blocks</h3>
 <p>Now it's time to begin building our inference pipeline.  For the equation for \(\alpha(x_t)\) in the forward algorithm, we will need \(P(X_0=x_0)\), \(P(X_{t}=x_t|X_{t-1}=x_{t-1}, U_{t}=u_{t})\), and \(P(Y_t=y_t | X_t=x_t)\).  Derive each of these expressions and implement them as Python methods in the Jupyter notebook.  Assume that the robot has equal chance of starting in any state.</p>
-<div class="infoblock">
-<div class="blocktitle">Implementation hint</div>
-<div class="blockcontent">
-<p>The method <tt>s_new = gm.simulatedAction(s, u)</tt> returns the state the robot would be in after performing action <tt>u</tt> in state <tt>s</tt>.  <tt>u</tt> must be one of strings <tt>'LEFT&rsquo;</tt>, <tt>'RIGHT&rsquo;</tt>, or <tt>'FORWARD&rsquo;</tt>, and <tt>s</tt> must be a tuple of a position integer (0 through 8) and an angle integer in degrees, going clockwise from 0 as north.  This will return a new state in the same format as <tt>s</tt>.</p>
 </div></div>
-<div class="infoblock solutionblock">
-<div class="blocktitle">Solution<span class="solutionhelp"> (hover to show)</span>:</div>
+<p>The method <tt>s_new = gm.simulatedAction(s, u)</tt> returns the state the robot would be in after performing action <tt>u</tt> in state <tt>s</tt>.  <tt>u</tt> must be one of strings <tt>'LEFT&rsquo;</tt>, <tt>'RIGHT&rsquo;</tt>, or <tt>'FORWARD&rsquo;</tt>, and <tt>s</tt> must be a tuple of a position integer (0 through 8) and an angle integer in degrees, going clockwise from 0 as north.  This will return a new state in the same format as <tt>s</tt>.</p>
+<div class="infoblock">
 <div class="blockcontent">
+</div></div>
 <p>We are given that each initial state is equally likely, and we have \(9 \times 4=36\) possible states.  Thus,</p>
 <p style="text-align:center">
 \[
@@ -144,15 +157,15 @@ make_maze("maze", [
 \]
 </p><p>We also seek \(P(X_{t}=x_t|X_{t-1}=x_{t-1}, U_{t}=u_{t})\), or the probability of transitioning to a state \(x_t\) from state \(x_{t-1}\) given action \(u_t\).  This will be either \(1\) or \(0\), as our actions are deterministic (the same thing happens every time when action \(u\) is taken from state \(t\)).  In code, this can be implemented as <tt>int(x_t==gm.simulatedAction(x_tminusone, u))</tt>.</p>
 <p>Finally, we can implement \(P(Y_t=y_t | X_t=x_t)\) as a gaussian with mean \(\mu_t\) set by where we are in the maze (\(x_t\)).  So, an implementation using only a forwards sensor reading could be \(\mathcal N(y_t, \mu=\mu_t, \sigma=5)\) with <tt>mu_t = gm.simulatedDistance(x_t[0], x_t[1])</tt> using the previous convention of state being a tuple of <tt>(position, angle)</tt>.</p>
-</div></div>
+<div class="infoblock">
+<div class="blockcontent">
 <h3>Putting it together</h3>
 <p>Implement a random walk on your robot in a loop by choosing randomly at each iteration whether to go forwards, turn left, or turn right.  Then, implement the forward algorithm and print the most likely robot state at each iteration!</p>
 <p>Once you've implemented the system, try it out from a few starting places in the maze.  How many iterations does it take to converge to the right position?  Does your implementation always converge?  Discuss some strengths and limitations of this system with your group.</p>
-<div class="infoblock">
-<div class="blocktitle">Challenge problem</div>
-<div class="blockcontent">
-<p>If your initial solution only used one sensor reading per iteration, try upgrading to using sensor readings from multiple angles.  Can you make other improvements that allow your robot to localize quicker?</p>
 </div></div>
+<p>If your initial solution only used one sensor reading per iteration, try upgrading to using sensor readings from multiple angles.  Can you make other improvements that allow your robot to localize quicker?</p>
+<div class="infoblock">
+<div class="blockcontent">
 </td>
 </tr>
 </table>
