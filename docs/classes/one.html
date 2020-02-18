@@ -366,7 +366,18 @@ p_{x,y}(1,0) &amp;= \frac{1}{4} \\
 p_{x,y}(1,1) &amp;= \frac{1}{4} \\
 \end{aligned}
 \]
-</p><div class="infoblock">
+</p><p>Another possible joint probability distribution, which might encode a stronger relationship between the two variables, could be like:</p>
+<p style="text-align:center">
+\[
+\begin{aligned}
+p_{x,y}(0,0) &amp;= \frac{1}{2} \\
+p_{x,y}(0,1) &amp;= 0 \\
+p_{x,y}(1,0) &amp;= \frac{1}{2} \\
+p_{x,y}(1,1) &amp;= 0 \\
+\end{aligned}
+\]
+</p><p>This probability distribution could occur if \(Y\) depends on \(X\)- e.g. \(Y = X\). </p>
+<div class="infoblock">
 <div class="blocktitle">Notation note</div>
 <div class="blockcontent">
 <p>\(p_{x,y}(1,1)\) is equivalent to asking for the probability that \(X =1\) and \(Y=1\), or \(p_{x,y}(X=1, Y=1)\), but we'll frequently use the shorthand above. </p>
@@ -381,7 +392,8 @@ p_{x,y}(1,1) &amp;= \frac{1}{4} \\
 \[
 \mathbb{P}(X,Y) = \mathbb{P}(Y|X) \cdot \mathbb{P}(X)
 \]
-</p><p>The chain rule extends to more random variables. With three variables, we can write </p>
+</p><p>The intuition behind this kind of makes sense- the joint distribution is like thinking of an event on two variables all at once, while the factorization with the chain rule is like thinking of each event in sequence. It's pretty natural to think of the probability that (Josh = hungry, Josh's roommate Lior = hungry)  as first, the probability that Josh is hungry, and then the probaiblity that Lior is hungry once we know that Josh is. </p>
+<p>The chain rule extends to more random variables. With three variables, we can write </p>
 <p style="text-align:center">
 \[
 \begin{aligned}
@@ -444,7 +456,12 @@ P(B=d | A=0) &amp;= \mathcal N (d ; \mu=\mu_0,\sigma=5) \\
 P(B=d | A=1) &amp;= \mathcal N (d ; \mu=\mu_1,\sigma=5)
 \end{aligned}
 \]
-</p><p>Given this, use Bayes rule and the total probability theorem to compute the probability the robot is in each room in a cell in the Jupyter notebook!</p>
+</p><div class="infoblock">
+<div class="blocktitle">Notation note</div>
+<div class="blockcontent">
+<p>Recall that \(\mathcal N(\mu, \sigma)\) is the bell curve (Gaussian) centered at \(\mu\) with some spread \(\sigma\) (standard deviation).</p>
+</div></div>
+<p>Given this, use Bayes rule and the total probability theorem to compute the probability the robot is in each room in a cell in the Jupyter notebook!</p>
 <div class="infoblock">
 <div class="blocktitle">Implementation hint</div>
 <div class="blockcontent">
