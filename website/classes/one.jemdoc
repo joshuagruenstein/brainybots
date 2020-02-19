@@ -325,7 +325,19 @@ p_{x,y}(1,1) &= \frac{1}{4} \\
 \end{aligned}
 \)
  
- ~~~
+Another possible joint probability distribution, which might encode a stronger relationship between the two variables, could be like:
+
+\(
+\begin{aligned}
+p_{x,y}(0,0) &= \frac{1}{2} \\
+p_{x,y}(0,1) &= 0 \\
+p_{x,y}(1,0) &= \frac{1}{2} \\
+p_{x,y}(1,1) &= 0 \\
+\end{aligned}
+\) 
+This probability distribution could occur if $Y$ depends on $X$- e.g. $Y = X$. 
+
+~~~
 {Notation note}
 $p_{x,y}(1,1)$ is equivalent to asking for the probability that $X =1$ and $Y=1$, or $p_{x,y}(X=1, Y=1)$, but we'll frequently use the shorthand above. 
 ~~~
@@ -341,6 +353,8 @@ or that
 \(
 \mathbb{P}(X,Y) = \mathbb{P}(Y|X) \cdot \mathbb{P}(X)
 \) 
+
+The intuition behind this kind of makes sense- the joint distribution is like thinking of an event on two variables all at once, while the factorization with the chain rule is like thinking of each event in sequence. It's pretty natural to think of the probability that (Josh = hungry, Josh's roommate Lior = hungry)  as first, the probability that Josh is hungry, and then the probaiblity that Lior is hungry once we know that Josh is. 
 
 The chain rule extends to more random variables. With three variables, we can write 
 
@@ -424,6 +438,11 @@ P(B=d | A=0) &= \mathcal N (d ; \mu=\mu_0,\sigma=5) \\
 P(B=d | A=1) &= \mathcal N (d ; \mu=\mu_1,\sigma=5)
 \end{aligned}
 \)
+
+~~~
+{Notation note}
+Recall that $\mathcal N(\mu, \sigma)$ is the bell curve (Gaussian) centered at $\mu$ with some spread $\sigma$ (standard deviation).
+~~~
 
 Given this, use Bayes rule and the total probability theorem to compute the probability the robot is in each room in a cell in the Jupyter notebook!
 

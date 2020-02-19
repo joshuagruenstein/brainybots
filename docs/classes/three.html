@@ -105,6 +105,25 @@ p_{x,y,z}(x,y,z) = p_y(y)p_{x|y}(x|y)p_{z|y}(z|y)
 p_{x_1,&hellip;,x_N,y_1,&hellip;,y_N}(x_1,&hellip;,x_N,y_1,&hellip;,y_N) = p_{x_1}(x_1)\prod_{i=2}^N p_{x_i|x_{i-1}}(x_i|x_{i-1}) \prod_{j=1}^N p_{y_j|x_j}(y_j|x_j)
 \]
 </p></div></div>
+<div class="infoblock">
+<div class="blocktitle">Note for Rigor:</div>
+<div class="blockcontent">
+<p>The general structure of our HMM development has been</p>
+<ol>
+<li><p>transferring some idea of latent variable and observations into a graphical model with a particular structure</p>
+</li>
+<li><p>using that graphical model, and the properties that come from graphical models, to do some cool math and develop an algorithm</p>
+</li>
+</ol>
+<p>The second part of what we've done is rigorous- under the assumptions that the graphical model represents what we've told you it represents, all of the math follows very cleanly from properties of graphical models. The first part is where we've handwaved a little. </p>
+<p>It's not immediately obvious that this graph is  correct. In the Harry Potter example, couldn't Tuesday's letter encode a little bit about Monday's weather? Why isn't there an edge between Monday and Tuesday? The reason that we've been able to say that each latent variable depends only on the one prior, and that each observation depends on only one latent variable is due to the definition of Hidden Markov Models. </p>
+<p>A Hidden Markov Model is defined to have the Markov Property, also sometimes known as memorylessness. This property encodes that the future, given the present, does not depend at all on the past. Another way to think about that is that the present fully encodes any of the information you may need from the past (this could be all of it, or none of it), and so when thinking about the past, it suffices to think only about the present. In math, we write </p>
+<p style="text-align:center">
+\[
+\mathbb{P}(X_t = x_t | X_{t-1} = x_{t-1}, X_{t-2} = x_{t-2}, &hellip;, X_1 = x_1) = \mathbb{P}(X_t = x_t | X_{t-1} = x_{t-1}
+\]
+</p><p>So given this mathematical factorization, we could actually derive the factorization of the joint distribution that we did above, and we'd find that it's equal to the factorization derived from the graphical model, demonstrating equivalence of the HMM and the graphical model. If you'd like to do this at home, the way to start is with the chain rule factorization of the joint that we showed in Lecture 2. </p>
+</div></div>
 <h2>Lab #3: time to explore!</h2>
 <p>Last week, we used sensor readings from the robot to identify where we were in the maze.  As you may have noticed, this has some limitations: for example, consider the following robot positions:</p>
 <canvas class="illustration" id="maze" style="height:400px"></canvas>
