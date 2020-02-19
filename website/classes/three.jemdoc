@@ -206,7 +206,8 @@ Then you'd probably sum those probabilities, to get the answer
 \(
 \begin{aligned}
 p_x(0) &= \frac{4}{36} + \frac{5}{36} + \frac{6}{36} \\
-&= \frac{15}{36} \\
+&= \frac{15}{36} 
+\end{aligned}
 \)
 
 This is a procedure that works all the time- we can write 
@@ -233,7 +234,7 @@ p(x_t| y_1, ..., y_t) = \frac{p(x_t, y_1, ..., y_t)}{p(y_1, ..., y_t)}
 but note that it suffices to find $p(x_t, y_1, ..., y_t)$, since $p(y_1, ..., y_t)$ can just be thought of as a scaling constant. For simplicity, we will use the notation $y_{1:t}$ to represent $y_1,...,y_t$. Now, we can define 
 
 \(
-\m_t(x_t) = p(x_t, y_{1:t}) 
+m_t(x_t) = p(x_t, y_{1:t}) 
 \)
 
 Now, recall that from our graphical model setup of HMM's (or by the Markov property of HMM's) $x_t$ only depends on the variable $x_{t-1}$, so if we wanted to get $p(x_t)$, the only variable we need to marginalize out is $x_{t-1}$. 
@@ -242,7 +243,7 @@ So we can write
 
 \(
 \begin{aligned}
-\m_t(x_t) &= p(x_t, y_{1:t}) \\
+m_t(x_t) &= p(x_t, y_{1:t}) \\
 &= \sum_{x_{t-1}} p(x_t, x_{t-1}, y_{1:t}) \\
 &= \sum_{x_{t-1}} p(x_t, x_{t-1}, y_{1:t-1}, y_t) \\
 \end{aligned}
@@ -266,13 +267,16 @@ p(x_t|x_{t-1}, y_{1:t-1}) &= p(x_t|x_{t-1})
 and substituting these into the above, we get 
 
 \(
+\begin{aligned}
 m_t(x_t) &= \sum_{x_{t-1}} p(y_t|x_t)p(x_t|x_{t-1})p(x_{t-1}, y_{1:t-1}) \\
 &= p(y_t|x_t) \sum_{x_{t-1}} p(x_t|x_{t-1})p(x_{t-1}, y_{1:t-1}) \\
-&= p(y_t|x_t) \sum_{x_{t-1}} p(x_t|x_{t-1}) m_{t-1}(x_{t-1}) \\
+&= p(y_t|x_t) \sum_{x_{t-1}} p(x_t|x_{t-1}) m_{t-1}(x_{t-1}) 
+\end{aligned}
 \)
 
 where we can pull $p(y_t|x_t)$ out of the sum because it does not depend on $x_{t-1}$. 
 
+And there we have the idea of the forward algorithm! We see that we can recursively compute $m_t$ pretty easily from $m_{t-1}$, and so on. 
 === Moving the robots
 
 Up to this point, our robots have been stationary.  We can move our robots using some simple commands: +bot.forward()+ to move one square forward, to move one square backward, +bot.left()+ to turn 90 degrees to the left, and +bot.right()+ to turn 90 degrees to the right.  

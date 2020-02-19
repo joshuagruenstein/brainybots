@@ -169,7 +169,8 @@ p_{x,y}(0,2) &amp;= \frac{6}{36} \\
 \[
 \begin{aligned}
 p_x(0) &amp;= \frac{4}{36} + \frac{5}{36} + \frac{6}{36} \\
-&amp;= \frac{15}{36} \\
+&amp;= \frac{15}{36} 
+\end{aligned}
 \]
 </p><p>This is a procedure that works all the time- we can write </p>
 <p style="text-align:center">
@@ -191,14 +192,14 @@ p(x_t| y_1, &hellip;, y_t) = \frac{p(x_t, y_1, &hellip;, y_t)}{p(y_1, &hellip;, 
 </p><p>but note that it suffices to find \(p(x_t, y_1, &hellip;, y_t)\), since \(p(y_1, &hellip;, y_t)\) can just be thought of as a scaling constant. For simplicity, we will use the notation \(y_{1:t}\) to represent \(y_1,&hellip;,y_t\). Now, we can define </p>
 <p style="text-align:center">
 \[
-\m_t(x_t) = p(x_t, y_{1:t}) 
+m_t(x_t) = p(x_t, y_{1:t}) 
 \]
 </p><p>Now, recall that from our graphical model setup of HMM's (or by the Markov property of HMM's) \(x_t\) only depends on the variable \(x_{t-1}\), so if we wanted to get \(p(x_t)\), the only variable we need to marginalize out is \(x_{t-1}\). </p>
 <p>So we can write </p>
 <p style="text-align:center">
 \[
 \begin{aligned}
-\m_t(x_t) &amp;= p(x_t, y_{1:t}) \\
+m_t(x_t) &amp;= p(x_t, y_{1:t}) \\
 &amp;= \sum_{x_{t-1}} p(x_t, x_{t-1}, y_{1:t}) \\
 &amp;= \sum_{x_{t-1}} p(x_t, x_{t-1}, y_{1:t-1}, y_t) \\
 \end{aligned}
@@ -219,11 +220,14 @@ p(x_t|x_{t-1}, y_{1:t-1}) &amp;= p(x_t|x_{t-1})
 </p><p>and substituting these into the above, we get </p>
 <p style="text-align:center">
 \[
+\begin{aligned}
 m_t(x_t) &amp;= \sum_{x_{t-1}} p(y_t|x_t)p(x_t|x_{t-1})p(x_{t-1}, y_{1:t-1}) \\
 &amp;= p(y_t|x_t) \sum_{x_{t-1}} p(x_t|x_{t-1})p(x_{t-1}, y_{1:t-1}) \\
-&amp;= p(y_t|x_t) \sum_{x_{t-1}} p(x_t|x_{t-1}) m_{t-1}(x_{t-1}) \\
+&amp;= p(y_t|x_t) \sum_{x_{t-1}} p(x_t|x_{t-1}) m_{t-1}(x_{t-1}) 
+\end{aligned}
 \]
 </p><p>where we can pull \(p(y_t|x_t)\) out of the sum because it does not depend on \(x_{t-1}\). </p>
+<p>And there we have the idea of the forward algorithm! We see that we can recursively compute \(m_t\) pretty easily from \(m_{t-1}\), and so on. </p>
 <h3>Moving the robots</h3>
 <p>Up to this point, our robots have been stationary.  We can move our robots using some simple commands: <tt>bot.forward()</tt> to move one square forward, to move one square backward, <tt>bot.left()</tt> to turn 90 degrees to the left, and <tt>bot.right()</tt> to turn 90 degrees to the right.  </p>
 <div class="infoblock">
