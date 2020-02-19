@@ -228,6 +228,11 @@ m_t(x_t) &amp;= \sum_{x_{t-1}} p(y_t|x_t)p(x_t|x_{t-1})p(x_{t-1}, y_{1:t-1}) \\
 \]
 </p><p>where we can pull \(p(y_t|x_t)\) out of the sum because it does not depend on \(x_{t-1}\). </p>
 <p>And there we have the idea of the forward algorithm! We see that we can recursively compute \(m_t\) pretty easily from \(m_{t-1}\), and so on. </p>
+<div class="infoblock">
+<div class="blocktitle">Intuition:</div>
+<div class="blockcontent">
+<p>This has a pretty nice interpretation. We can think of \(m_t\) as our belief at a node \(x_t\), and so it makes sense that we can compute our belief at this node \(x_t\) as a function of the beliefs that come in from its neighbors - in this case, there's only one- and the probabilities \( p(y_t|x_t)\) and \(p(x_t|x_{t-1})\). In some way, these messages encode our knowledge about the graph, and we can pass this knowledge along the edes of the graph. </p>
+</div></div>
 <h3>Moving the robots</h3>
 <p>Up to this point, our robots have been stationary.  We can move our robots using some simple commands: <tt>bot.forward()</tt> to move one square forward, to move one square backward, <tt>bot.left()</tt> to turn 90 degrees to the left, and <tt>bot.right()</tt> to turn 90 degrees to the right.  </p>
 <div class="infoblock">
