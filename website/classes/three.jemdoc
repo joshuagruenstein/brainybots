@@ -168,9 +168,110 @@ Even if the green and blue robots were to try every position of their sensor tur
 
 To implement this, we will consider the robot localization problem as a hidden markov model.  Our hidden states $X_{0..t}$ will be our robot positions, and $Y_{0..t}$ will be our sensor readings.  At every timestep we'll take a random movement and then a sensor reading, and use this data to infer our robot position!
 
-=== The Forward Algorithm
+=== Marginalization
 
-Derive forward algorithm from joint factorization, as motivated by this localization problem.  In class, we can do this in groups or all together.
+To derive the forward algorithm, which is the algorithm we'll use to infer our robot position, we'll need one more probability tool, marginalization. First, recall our notation for joint probability distributions, which are probability distribution over multiple variables. We write 
+
+\(
+p_{x,y}(1,1)
+\)
+ 
+ for the probability that $X =1$ and $Y=1$, or $p_{x,y}(X=1, Y=1)$, but we'll use the shorthand above. 
+
+ But now, given a joint probability distribution, say for two variables $X,Y$, we might be interested in the marginal distribution for one variable, e.g. $p_x(x)$. Let's look at the below joint probability distribution, where $x$ takes values $0,1$ and $y$ takes values $0,1,2$. 
+
+\(
+\begin{aligned}
+p_{x,y}(0,0) &= \frac{4}{36} \\ 
+p_{x,y}(0,1) &= \frac{5}{36} \\ 
+p_{x,y}(0,2) &= \frac{6}{36} \\ 
+p_{x,y}(1,0) &= \frac{6}{36} \\ 
+p_{x,y}(1,1) &= \frac{7}{36} \\ 
+p_{x,y}(1,2) &= \frac{8}{36} \\ 
+\end{aligned}
+\) 
+
+What would you do if I asked you for the probability that $x=0$? You'd look at the above joint probability distribution, and take all the probabilities where $x=0$: 
+
+\(
+\begin{aligned}
+p_{x,y}(0,0) &= \frac{4}{36} \\ 
+p_{x,y}(0,1) &= \frac{5}{36} \\ 
+p_{x,y}(0,2) &= \frac{6}{36} \\ 
+\end{aligned}
+\) 
+
+Then you'd probably sum those probabilities, to get the answer 
+
+\(
+\begin{aligned}
+p_x(0) &= \frac{4}{36} + \frac{5}{36} + \frac{6}{36} \\
+&= \frac{15}{36} \\
+\)
+
+This is a procedure that works all the time- we can write 
+
+\(
+\mathbb{P}_Y(Y = y_1) = \sum_{i=1}^n \mathbb{P}(x_i, y_1)
+\)
+
+and we can even do this on bigger joint distributions: 
+
+\(
+\mathbb{P}_Y(X = x_1, Y = y_1) = \sum_{i=1}^n \mathbb{P}(x_1, y_1, z_i)
+\)
+
+The idea is that to get a variable out of the joint distribution, we sum over all possible values that that variable takes. 
+=== Forward Algorithm 
+
+For our localization problem, the probability that we'd like to find is 
+
+\(
+p(x_t| y_1, ..., y_t) = \frac{p(x_t, y_1, ..., y_t)}{p(y_1, ..., y_t)}
+\)
+
+but note that it suffices to find $p(x_t, y_1, ..., y_t)$, since $p(y_1, ..., y_t)$ can just be thought of as a scaling constant. For simplicity, we will use the notation $y_{1:t}$ to represent $y_1,...,y_t$. Now, we can define 
+
+\(
+\m_t(x_t) = p(x_t, y_{1:t}) 
+\)
+
+Now, recall that from our graphical model setup of HMM's (or by the Markov property of HMM's) $x_t$ only depends on the variable $x_{t-1}$, so if we wanted to get $p(x_t)$, the only variable we need to marginalize out is $x_{t-1}$. 
+
+So we can write 
+
+\(
+\begin{aligned}
+\m_t(x_t) &= p(x_t, y_{1:t}) \\
+&= \sum_{x_{t-1}} p(x_t, x_{t-1}, y_{1:t}) \\
+&= \sum_{x_{t-1}} p(x_t, x_{t-1}, y_{1:t-1}, y_t) \\
+\end{aligned}
+\)
+
+Now we can use the chain rule to write 
+
+\(
+p(x_t, x_{t-1}, y_{1:t-1}, y_t) = p(y_t|x_t, x_{t-1}, y_{1:t-1})p(x_t|x_{t-1}, y_{1:t-1})p(x_{t-1}, y_{1:t-1})
+\)
+
+But then, recall that $y_t$ depends only on $x_t$, and $x_t$ depends only on $x_{t-1}$, so 
+
+\(
+\begin{aligned}
+p(y_t|x_t, x_{t-1}, y_{1:t-1}) &= p(y_t|x_t)\\
+p(x_t|x_{t-1}, y_{1:t-1}) &= p(x_t|x_{t-1})
+\end{aligned}
+\)
+
+and substituting these into the above, we get 
+
+\(
+m_t(x_t) &= \sum_{x_{t-1}} p(y_t|x_t)p(x_t|x_{t-1})p(x_{t-1}, y_{1:t-1}) \\
+&= p(y_t|x_t) \sum_{x_{t-1}} p(x_t|x_{t-1})p(x_{t-1}, y_{1:t-1}) \\
+&= p(y_t|x_t) \sum_{x_{t-1}} p(x_t|x_{t-1}) m_{t-1}(x_{t-1}) \\
+\)
+
+where we can pull $p(y_t|x_t)$ out of the sum because it does not depend on $x_{t-1}$. 
 
 === Moving the robots
 
