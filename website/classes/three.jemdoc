@@ -113,7 +113,7 @@ This dependency structure is called a \Hidden Markov Model\, and is applicable t
 ~~~
 {}{raw}
 <img src="bbimages/hmm.png" style="height:auto;padding:1em" class="illustration"/>
-<p class="caption">Directed graphical model of an HMM.</p>
+<p class="caption">Directed graphical model of an HMM, with xs as latent variables and ys as observations.</p>
 ~~~
 
 === Exercise:
