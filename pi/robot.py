@@ -18,11 +18,11 @@ BUMPER_LOC     = CAL_GYRO_LOC + 1
 COLOR = 'RED'
 
 if COLOR == 'BLUE':
-    DISTANCE_SLOPE = 0.0016908774495083517
-    DISTANCE_INT   = -0.000592739553489114
+    DISTANCE_SLOPE = 0.000608887
+    DISTANCE_INT   = 0.004853331
 else:
-    DISTANCE_SLOPE = 0.003131118653154624
-    DISTANCE_INT   = -0.006473246813257873
+    DISTANCE_SLOPE = 0.000565949
+    DISTANCE_INT   = 0.028321088
 
 class Robot:
     def __init__(self):
@@ -82,5 +82,5 @@ class Robot:
         """
 
         d = self.read_distances()[1]
-        return DISTANCE_SLOPE * (1/d) + DISTANCE_INT
+        return 1/(DISTANCE_SLOPE *d + DISTANCE_INT)
         
