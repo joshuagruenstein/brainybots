@@ -11,8 +11,18 @@ DISTANCES_LOC  = BATTERY_LOC + 2
 PLAY_NOTES_LOC = DISTANCES_LOC + 2*3
 ENCODERS_LOC   = PLAY_NOTES_LOC + 1 + 14
 READ_GYRO_LOC  = ENCODERS_LOC + 2*2
-RESET_GYRO_LOC = TURN_RATE_LOC + 2
+RESET_GYRO_LOC = READ_GYRO_LOC + 2
 CAL_GYRO_LOC   = RESET_GYRO_LOC + 1
+BUMPER_LOC     = CAL_GYRO_LOC + 1
+
+COLOR = 'RED'
+
+if COLOR == 'BLUE':
+    DISTANCE_SLOPE = 0.0016908774495083517
+    DISTANCE_INT   = -0.000592739553489114
+else:
+    DISTANCE_SLOPE = 0.003131118653154624
+    DISTANCE_INT   = -0.006473246813257873
 
 class Robot:
     def __init__(self):
@@ -59,3 +69,18 @@ class Robot:
     
     def calibrate_gyro(self):
         self.write_pack(CAL_GYRO_LOC, 'B', True)
+    
+    def read_bumpers(self):
+        return self.read_unpack(BUMPER_LOC, 2, "??")
+    
+    def forward_distance(self):
+        """Gets a reading from the center distance sensor in centimeters.
+        Note that this sensor is prone to error.
+
+        Returns:
+        float: the distance sensor reading in centimeters.
+        """
+
+        d = self.read_distances()[1]
+        return DISTANCE_SLOPE * (1/d) + DISTANCE_INT
+        
