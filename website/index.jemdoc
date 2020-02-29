@@ -1,48 +1,26 @@
 # jemdoc: menu{MENU}{index.html}, nofooter
 == Brainy Bots: Robotics and Probability Lab
 
-Below is some sample math and code and stuff.
+In this class, we’ll develop ways to think about and solve probabilistic inference problems with robots.  Each week we'll introduce a new real-world challenge, and students will work in teams to reason about the math behind the task, design a method, and implement it in on physical robots!  Through this process, we’ll actually arrive at methods that are both fundamental and very modern, used as the basis for contemporary artificial intelligence, machine learning, signal processing and communication. 
 
-In this modified version of +jemdoc+, a LaTeX equation block can be typed in as
-\(
-\nabla \cdot \mathbf{D} = \rho_f\\
-\nabla \cdot \mathbf{B} = 0,\\
-\nabla \times \mathbf{E} = -\frac{\partial\mathbf{B}}{\partial t}\\
-\nabla \times \mathbf{H} = \mathbf{J}_f - \frac{\partial\mathbf{D}}{\partial t}.
-\)
+The course material will build from basic principles of probability to concepts such as hypothesis testing, the EM algorithm, and Bayesian filtering.  In parallel we'll develop methods for robot localization, optimal control, and planning.  The class will have minimal lecture, and will mostly consist of round-table discussion and programming with real robots.
 
-You can also align equations using LaTeX's +aligned+ block:
-\(
-\begin{aligned}
-\nabla \cdot \mathbf{D} &= \rho_f\\
-\nabla \cdot \mathbf{B} &= 0\\
-\nabla \times \mathbf{E} &= -\frac{\partial\mathbf{B}}{\partial t}\\
-\nabla \times \mathbf{H} &= \mathbf{J}_f - \frac{\partial\mathbf{D}}{\partial t}.
-\end{aligned}
-\)
+==== Course Schedule
 
-To number the equation block, wrap the equations with LaTeX's +equation+ block:
-\(
-\begin{equation}
-\begin{aligned}
-\nabla \cdot \mathbf{D} &= \rho_f\\
-\nabla \cdot \mathbf{B} &= 0\\
-\nabla \times \mathbf{E} &= -\frac{\partial\mathbf{B}}{\partial t}\\
-\nabla \times \mathbf{H} &= \mathbf{J}_f - \frac{\partial\mathbf{D}}{\partial t}.
-\end{aligned}
-\end{equation}
-\)
+Spring HSSP is a six-week long program, and thus Brainy Bots is organized into six 1.5 hour classes.
 
-Instead, you can use LaTeX's +align+ (not +aligned+) block to number the individual equations:
-\(
-\begin{align}
-\nabla \cdot \mathbf{D} &= \rho_f\label{eq:D}\\
-\nabla \cdot \mathbf{B} &= 0\label{eq:B}\\
-\nabla \times \mathbf{E} &= -\frac{\partial\mathbf{B}}{\partial t}\label{eq:E}\\
-\nabla \times \mathbf{H} &= \mathbf{J}_f - \frac{\partial\mathbf{D}}{\partial t}\label{eq:H}
-\end{align}
-\)
-
-You can also type inline equations as $A x = b$.  Referencing equations is done as Eqs.~$\eqref{eq:E}$ and $\eqref{eq:H}$.
+~~~
+{}{table}{schedule_table}
+Week | Class Name | Content ||
+1    | [classes/one.html Bayesian Bonanza] | Crash course in probability: random variables, conditional probability, Bayes rule.||
+2    | Decisions, Decisions | Optimizal decision making, cost functions.  Localization lab in grid maze. ||
+3    | Markov Madness | Directed graphical models, hidden markov models.  Forward algorithm for robot localization with movement. ||
+4    | Particle Party | Particle filters and monte-carlo localization in a continuous space maze.||
+5    | SLAM Jam | Rao-blackwellized particle filtering for simultaneous localization and mapping of the maze.||
+6    | Wacky wrap-up | Student's choice?
+~~~
 
 
+==== Course Prerequisites
+
+Some prior programming experience in Python required for the lab component.  Mathematical enthusiasm and some prior exposure to probability will be helpful.

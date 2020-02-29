@@ -288,7 +288,7 @@ const [ctx, rc] = get_illustration('gaussian', width=400, height=200);
 ctx.font = '15px sans-serif';
 ctx.textAlign = 'center';
 
-const scale=1.5;
+const scale=1.905;
 ctx.scale(scale, scale);
 
 rc.line(0, 82.482, 204.96+5, 82.482, { roughness: 0.3, stroke: 'black', strokeWidth:2, simplification:0 });
@@ -369,8 +369,7 @@ but the same idea extends to as many random variables as we want.
 
 == Lab \#1: where am I?
 
-For our first lab, we will be applying our newfound probability knowledge to identify where our robots have been hidden.  
-
+For our first lab, we will be applying our newfound probability knowledge to identify where our robots have been hidden.  The Jupyter notebook used for this lab can be found on the [https://github.com/joshuagruenstein/brainybots/blob/master/pi/lec1.ipynb class Github] (however be warned, it includes solutions!).
 
 ~~~
 {}{raw}
@@ -406,22 +405,19 @@ sensor(215,370);
 </script>
 ~~~
 
-Each robot is outfitted with a Sharp distance sensor that can report how far away the robot is from an object (with some error).  We will use this sensor to estimate the likelyhood of our robot being placed in each room: one long, and one short.
+Each robot is outfitted with a Sharp distance sensor that can report how far away the robot is from an object (with some error).  We will use this sensor to estimate the likelyhood of our robot being placed in each room: one long, and one short.  We can also frame this exercise as estimating which robot we are connected to; the one in the short room, or the one in the long room. 
 
 === Robot setup
 
-To begin, connect your computer's wifi to a robot's network (ask an instructor for the SSID and password).  Then, in your browser navigate to [http://192.168.0.1/].  You should see something like this:
-
-INSERT JUPYTER SCREENSHOT
+To begin, connect your computer's wifi to a robot's network (ask an instructor for the SSID and password).  Then, in your browser navigate to [http://192.168.0.1:888/].
 
 Each cell of the notebook contains some code. Select the first cell, and press +shift\+enter+ on the keyboard to run it.  Keep pressing +shift\+enter+ until you've run through the notebook.  If you see the message "Robot all set!" output by the last cell, everything it working!
 
 By pressing +shift\+enter+ again, a new empty cell should be created.  The following code will read from the distance sensor, and return a +float+ result in centimeters:
 
-
 ~~~
 {}{pyint}
->>> bot.getDistance() # shift-enter to run
+>>> bot.forward_distance() # shift-enter to run
 12.6
 ~~~
 
@@ -451,7 +447,6 @@ Given this, use Bayes rule and the total probability theorem to compute the prob
 To get $\mathcal N (x; \mu,\sigma)$ in Python, you can use +gaussian(x, mu, sigma)+.
 ~~~
 
-
 ~~~
 {Solution}
 
@@ -477,3 +472,4 @@ P(A=a|B=d) &= \frac{P(B=d|A=a) P(A=a)}{\frac{1}{2} P(B=d|A=0) + \frac{1}{2} P(B=
 \)
 
 ~~~
+
