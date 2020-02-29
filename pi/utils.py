@@ -1,5 +1,5 @@
 import math
-import numpy as np
+#import numpy as np
 
 class Maze:
     LINES = [ # in 10ths of inches
@@ -106,4 +106,4 @@ def gaussian(x, mu, sigma):
     float: the result of the PDF at point x (between 0 and 1).
     """
     
-    return np.exp(-0.5*((x-mu)/sigma)**2)/(sigma*np.sqrt(2*np.pi))
+    return math.exp(-0.5*((x-mu)/sigma)**2)/(sigma*math.sqrt(2*math.pi))
