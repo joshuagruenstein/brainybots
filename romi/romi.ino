@@ -1,13 +1,15 @@
-#include <Servo.h>
 #include <Romi32U4.h>
 #include <PololuRPiSlave.h>
-#include <Wire.h>
-#include <LSM6.h>
-#include "TurnSensor.h"
+//#include <Wire.h>
+//#include <LSM6.h>
+//#include "TurnSensor.h"
 
-#define LEFT_SENSOR_PIN 0
-#define CENTER_SENSOR_PIN 2
-#define RIGHT_SENSOR_PIN 3
+#define LEFT_SENSOR_PIN 2
+#define CENTER_SENSOR_PIN 3
+#define RIGHT_SENSOR_PIN 4
+
+#define LEFT_BUMPER_PIN 11
+#define RIGHT_BUMPER_PIN 4
 
 // Custom data structure that we will use for interpreting the buffer.
 // We recommend keeping this under 64 bytes total.  If you change the
@@ -32,6 +34,8 @@ struct Data {
     
     bool resetGyro;
     bool calibrateGyro;
+
+    bool bumpers[2];
 };
 
 PololuRPiSlave<struct Data,5> slave;
@@ -41,24 +45,28 @@ Romi32U4ButtonA buttonA;
 Romi32U4ButtonB buttonB;
 Romi32U4ButtonC buttonC;
 Romi32U4Encoders encoders;
-LSM6 imu;
+//LSM6 imu;
 
 void setup() {
     // Set up the slave at I2C address 20.
     slave.init(20);
     
     // Initialize and calibrate gyroscope
-    turnSensorSetup();
+    //turnSensorSetup();
 
     // Play startup sound.
-    buzzer.play("v10>>g16>>>c16");    
+    buzzer.play("v10>>g16>>>c16");
+
+    // Button pullups
+    pinMode(LEFT_BUMPER_PIN, INPUT_PULLUP);
+    pinMode(RIGHT_BUMPER_PIN, INPUT_PULLUP);
 }
 
 void loop() {
     // Read the gyro to update turnAngle, the estimation of how far
     // the robot has turned, and turnRate, the estimation of how
     // fast it is turning.
-    turnSensorUpdate();
+    //turnSensorUpdate();
     
     // Call updateBuffer() before using the buffer, to get the latest
     // data including recent master writes.
@@ -76,10 +84,14 @@ void loop() {
     slave.buffer.distances[0] = analogRead(LEFT_SENSOR_PIN);
     slave.buffer.distances[1] = analogRead(CENTER_SENSOR_PIN);
     slave.buffer.distances[2] = analogRead(LEFT_SENSOR_PIN);
+
+    // Read bumpers
+    slave.buffer.bumpers[0] = digitalRead(LEFT_BUMPER_PIN);
+    slave.buffer.bumpers[1] = digitalRead(RIGHT_BUMPER_PIN);
     
-    // Set gyro data
-    slave.buffer.turnAngle = turnAngle;
-    slave.buffer.turnRate = turnRate;
+//    // Set gyro data
+//    slave.buffer.turnAngle = turnAngle;
+//    slave.buffer.turnRate = turnRate;
   
     // READING the buffer is allowed before or after finalizeWrites().
     ledYellow(slave.buffer.yellow);
@@ -97,12 +109,12 @@ void loop() {
     
     // Note: this blocks for a while, could cause problems?
     if (slave.buffer.calibrateGyro) {
-        turnSensorCalibrate();
+        //turnSensorCalibrate();
         slave.buffer.calibrateGyro = false;
     }
     
     if (slave.buffer.resetGyro) {
-        turnSensorReset();
+        //turnSensorReset();
         slave.buffer.resetGyro = false;
     }
     

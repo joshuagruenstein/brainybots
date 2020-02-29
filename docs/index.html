@@ -25,60 +25,29 @@ MathJax.Hub.Config({
 <td id="layout-menu">
 <div class="menu-category">Information</div>
 <div class="menu-item"><a href="index.html" class="current">Home</a></div>
-<div class="menu-item"><a href="docs.html">Robot&nbsp;Docs</a></div>
 <div class="menu-item"><a href="https://github.com/joshuagruenstein/brainybots" target="blank">Github</a></div>
 <div class="menu-category">Classes</div>
 <div class="menu-item"><a href="classes/one.html">Bayesian&nbsp;Bonanza</a></div>
-<div class="menu-item"><a href="classes/two.html">Decisions,&nbsp;Decisions</a></div>
-<div class="menu-item"><a href="classes/three.html">Markov&nbsp;Madness</a></div>
-<div class="menu-item"><a href="classes/four.html">Particle&nbsp;Party</a></div>
 </td>
 <td id="layout-content">
 <div id="toptitle">
 <h1>Brainy Bots: Robotics and Probability Lab</h1>
 </div>
-<p>Below is some sample math and code and stuff.</p>
-<p>In this modified version of <tt>jemdoc</tt>, a LaTeX equation block can be typed in as</p>
-<p style="text-align:center">
-\[
-\nabla \cdot \mathbf{D} = \rho_f\\
-\nabla \cdot \mathbf{B} = 0,\\
-\nabla \times \mathbf{E} = -\frac{\partial\mathbf{B}}{\partial t}\\
-\nabla \times \mathbf{H} = \mathbf{J}_f - \frac{\partial\mathbf{D}}{\partial t}.
-\]
-</p><p>You can also align equations using LaTeX's <tt>aligned</tt> block:</p>
-<p style="text-align:center">
-\[
-\begin{aligned}
-\nabla \cdot \mathbf{D} &amp;= \rho_f\\
-\nabla \cdot \mathbf{B} &amp;= 0\\
-\nabla \times \mathbf{E} &amp;= -\frac{\partial\mathbf{B}}{\partial t}\\
-\nabla \times \mathbf{H} &amp;= \mathbf{J}_f - \frac{\partial\mathbf{D}}{\partial t}.
-\end{aligned}
-\]
-</p><p>To number the equation block, wrap the equations with LaTeX's <tt>equation</tt> block:</p>
-<p style="text-align:center">
-\[
-\begin{equation}
-\begin{aligned}
-\nabla \cdot \mathbf{D} &amp;= \rho_f\\
-\nabla \cdot \mathbf{B} &amp;= 0\\
-\nabla \times \mathbf{E} &amp;= -\frac{\partial\mathbf{B}}{\partial t}\\
-\nabla \times \mathbf{H} &amp;= \mathbf{J}_f - \frac{\partial\mathbf{D}}{\partial t}.
-\end{aligned}
-\end{equation}
-\]
-</p><p>Instead, you can use LaTeX's <tt>align</tt> (not <tt>aligned</tt>) block to number the individual equations:</p>
-<p style="text-align:center">
-\[
-\begin{align}
-\nabla \cdot \mathbf{D} &amp;= \rho_f\label{eq:D}\\
-\nabla \cdot \mathbf{B} &amp;= 0\label{eq:B}\\
-\nabla \times \mathbf{E} &amp;= -\frac{\partial\mathbf{B}}{\partial t}\label{eq:E}\\
-\nabla \times \mathbf{H} &amp;= \mathbf{J}_f - \frac{\partial\mathbf{D}}{\partial t}\label{eq:H}
-\end{align}
-\]
-</p><p>You can also type inline equations as \(A x = b\).  Referencing equations is done as Eqs.&nbsp;\(\eqref{eq:E}\) and \(\eqref{eq:H}\).</p>
+<p>In this class, we’ll develop ways to think about and solve probabilistic inference problems with robots.  Each week we'll introduce a new real-world challenge, and students will work in teams to reason about the math behind the task, design a method, and implement it in on physical robots!  Through this process, we’ll actually arrive at methods that are both fundamental and very modern, used as the basis for contemporary artificial intelligence, machine learning, signal processing and communication. </p>
+<p>The course material will build from basic principles of probability to concepts such as hypothesis testing, the EM algorithm, and Bayesian filtering.  In parallel we'll develop methods for robot localization, optimal control, and planning.  The class will have minimal lecture, and will mostly consist of round-table discussion and programming with real robots.</p>
+<h4>Course Schedule</h4>
+<p>Spring HSSP is a six-week long program, and thus Brainy Bots is organized into six 1.5 hour classes.</p>
+<table id="schedule_table">
+<tr class="r1"><td class="c1">Week </td><td class="c2"> Class Name </td><td class="c3"> Content </td></tr>
+<tr class="r2"><td class="c1">1    </td><td class="c2"> <a href="classes/one.html" target=&ldquo;blank&rdquo;>Bayesian Bonanza</a> </td><td class="c3"> Crash course in probability: random variables, conditional probability, Bayes rule.</td></tr>
+<tr class="r3"><td class="c1">2    </td><td class="c2"> Decisions, Decisions </td><td class="c3"> Optimizal decision making, cost functions.  Localization lab in grid maze. </td></tr>
+<tr class="r4"><td class="c1">3    </td><td class="c2"> Markov Madness </td><td class="c3"> Directed graphical models, hidden markov models.  Forward algorithm for robot localization with movement. </td></tr>
+<tr class="r5"><td class="c1">4    </td><td class="c2"> Particle Party </td><td class="c3"> Particle filters and monte-carlo localization in a continuous space maze.</td></tr>
+<tr class="r6"><td class="c1">5    </td><td class="c2"> SLAM Jam </td><td class="c3"> Rao-blackwellized particle filtering for simultaneous localization and mapping of the maze.</td></tr>
+<tr class="r7"><td class="c1">6    </td><td class="c2"> Wacky wrap-up </td><td class="c3"> Student's choice?
+</td></tr></table>
+<h4>Course Prerequisites</h4>
+<p>Some prior programming experience in Python required for the lab component.  Mathematical enthusiasm and some prior exposure to probability will be helpful.</p>
 </td>
 </tr>
 </table>

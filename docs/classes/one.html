@@ -25,13 +25,9 @@ MathJax.Hub.Config({
 <td id="layout-menu">
 <div class="menu-category">Information</div>
 <div class="menu-item"><a href="../index.html">Home</a></div>
-<div class="menu-item"><a href="../docs.html">Robot&nbsp;Docs</a></div>
 <div class="menu-item"><a href="https://github.com/joshuagruenstein/brainybots" target="blank">Github</a></div>
 <div class="menu-category">Classes</div>
 <div class="menu-item"><a href="../classes/one.html" class="current">Bayesian&nbsp;Bonanza</a></div>
-<div class="menu-item"><a href="../classes/two.html">Decisions,&nbsp;Decisions</a></div>
-<div class="menu-item"><a href="../classes/three.html">Markov&nbsp;Madness</a></div>
-<div class="menu-item"><a href="../classes/four.html">Particle&nbsp;Party</a></div>
 </td>
 <td id="layout-content">
 <div id="toptitle">
@@ -334,7 +330,7 @@ const [ctx, rc] = get_illustration('gaussian', width=400, height=200);
 ctx.font = '15px sans-serif';
 ctx.textAlign = 'center';
 
-const scale=1.5;
+const scale=1.905;
 ctx.scale(scale, scale);
 
 rc.line(0, 82.482, 204.96+5, 82.482, { roughness: 0.3, stroke: 'black', strokeWidth:2, simplification:0 });
@@ -404,7 +400,7 @@ p_{x,y}(1,1) &amp;= 0 \\
 \]
 </p><p>but the same idea extends to as many random variables as we want. </p>
 <h2>Lab #1: where am I?</h2>
-<p>For our first lab, we will be applying our newfound probability knowledge to identify where our robots have been hidden.  </p>
+<p>For our first lab, we will be applying our newfound probability knowledge to identify where our robots have been hidden.  The Jupyter notebook used for this lab can be found on the <a href="https://github.com/joshuagruenstein/brainybots/blob/master/pi/lec1.ipynb" target=&ldquo;blank&rdquo;>class Github</a> (however be warned, it includes solutions!).</p>
 <canvas class="illustration" id="rooms" style="height:150px"></canvas>
 <script>
 (function() {
@@ -435,15 +431,14 @@ sensor(45,150);
 sensor(215,370);
 })();
 </script>
-<p>Each robot is outfitted with a Sharp distance sensor that can report how far away the robot is from an object (with some error).  We will use this sensor to estimate the likelyhood of our robot being placed in each room: one long, and one short.</p>
+<p>Each robot is outfitted with a Sharp distance sensor that can report how far away the robot is from an object (with some error).  We will use this sensor to estimate the likelyhood of our robot being placed in each room: one long, and one short.  We can also frame this exercise as estimating which robot we are connected to; the one in the short room, or the one in the long room. </p>
 <h3>Robot setup</h3>
-<p>To begin, connect your computer's wifi to a robot's network (ask an instructor for the SSID and password).  Then, in your browser navigate to <a href="http://192.168.0.1/" target=&ldquo;blank&rdquo;>http://192.168.0.1/</a>.  You should see something like this:</p>
-<p>INSERT JUPYTER SCREENSHOT</p>
+<p>To begin, connect your computer's wifi to a robot's network (ask an instructor for the SSID and password).  Then, in your browser navigate to <a href="http://192.168.0.1:888/" target=&ldquo;blank&rdquo;>http://192.168.0.1:888/</a>.</p>
 <p>Each cell of the notebook contains some code. Select the first cell, and press <tt>shift+enter</tt> on the keyboard to run it.  Keep pressing <tt>shift+enter</tt> until you've run through the notebook.  If you see the message &ldquo;Robot all set!&rdquo; output by the last cell, everything it working!</p>
 <p>By pressing <tt>shift+enter</tt> again, a new empty cell should be created.  The following code will read from the distance sensor, and return a <tt>float</tt> result in centimeters:</p>
 <div class="codeblock">
 <div class="blockcontent"><pre>
-<span class="pycommand">&gt;&gt;&gt; bot.getDistance() <span class = "comment"># shift-enter to run</span></span>
+<span class="pycommand">&gt;&gt;&gt; bot.forward_distance() <span class = "comment"># shift-enter to run</span></span>
 12.6
 </pre></div></div>
 <h3>Estimation!</h3>

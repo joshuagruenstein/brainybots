@@ -427,3 +427,22 @@ canvas {
     margin-bottom:1em;
     font-size:0.9em;
 }
+
+/* schedule table */
+
+#schedule_table tr.r1 {
+    font-weight: bold;
+}
+
+#schedule_table {
+    width:100%;
+    max-width:500px;
+    margin:0 auto;
+    padding: 0;
+    margin: auto;
+}
+
+#schedule_table td {
+    text-align:left;
+}
+

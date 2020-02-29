@@ -3,7 +3,7 @@
 // using it to measure how much the robot has turned about its Z
 // axis.
 
-#include <Wire.h>
+//#include <Wire.h>
 #include "TurnSensor.h"
 
 // turnAngle is a 32-bit unsigned integer representing the amount
@@ -37,7 +37,7 @@ uint16_t gyroLastUpdate = 0;
 // is displaying "Gyro cal", you should be careful to hold the robot
 // still.
 void turnSensorSetup() {
-    Wire.begin();
+    //Wire.begin();
     imu.init();
 
     imu.enableDefault();
