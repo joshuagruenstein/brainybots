@@ -42,10 +42,13 @@ class GenericBlock(SolutionBlock):
         self.children = match.group(2)
         self.title = match.group(1)
 
+class ShortCatsoopBlock(GenericBlock):
+    pattern = re.compile(r'<catsoopq ?(.+?)?>([\S\s]+?)<\/catsoopq>')
+    inline_children = False
+        
 class RawBlock(SolutionBlock):
     pattern = re.compile(r'<raw>([\S\s]+?)<\/raw>')
     inline_children = False
-
     
     def __init__(self, match):
         self.content = match.group(1)
@@ -90,13 +93,34 @@ class RenderMixin(marko.HTMLRenderer):
 
     def render_top_header(self, element):
         return f"<div id='toptitle'>{self.render_heading(element)}</div>"
+    
+    def render_short_catsoop_block(self, element):
+        if element.title is None:
+            element.title = ""
+        
+        return f"""<div class="infoblock catsoopblock">
+<div class="blockcontent">
+{element.title}
+<br /><input type="text" />
+<input type="button" value="Submit">
+<div class="catsoopres"></div>
+<div class="catsoopsol">
+{element.children}
+</div>
+</div>
+</div>"""
+
 
 
 class BrainyRenderExtension:
     elements = [
-        LatexInline, LatexBlock,
-        SolutionBlock, GenericBlock, RawBlock,
-        TopHeader
+        LatexInline,
+        LatexBlock,
+        SolutionBlock,
+        GenericBlock,
+        RawBlock,
+        TopHeader,
+        ShortCatsoopBlock
     ]
     renderer_mixins = [RenderMixin]
 

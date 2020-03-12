@@ -69,7 +69,7 @@ Gaussian.prototype.density = function(x) {
 };
 
 
-function get_illustration(id, width=400, height=200) {
+const get_illustration = (id, width=400, height=200) => {
     const canvas = document.getElementById(id);
     const ctx = canvas.getContext("2d");
     const pixelRatio = window.devicePixelRatio || 1;
@@ -82,7 +82,7 @@ function get_illustration(id, width=400, height=200) {
     return [ctx, rc];
 }
 
-function line_intersection(l1, l2) {
+const line_intersection = (l1, l2) => {
     // returns false if no intersection, otherwise point of intersection
 
     const s1_x = l1[2] - l1[0];
@@ -101,7 +101,7 @@ function line_intersection(l1, l2) {
 }
 
 
-function make_maze(canvas_id, robots, numbers=true) {
+const make_maze = (canvas_id, robots, numbers=true) => {
     const [ctx, rc] = get_illustration(canvas_id, width=400, height=400);
 
     ctx.font = '60px sans-serif';
@@ -179,3 +179,44 @@ function make_maze(canvas_id, robots, numbers=true) {
         }
     }
 }
+
+const bindCatsoop = cat => {
+    const res = cat.getElementsByClassName('catsoopres')[0];
+    const code = cat.getElementsByClassName('catsoopsol')[0].innerHTML;
+    const [input, submit] = cat.getElementsByTagName('input');
+    
+    submit.onclick = () => {
+        pyodide.runPython(code);
+        let out = pyodide.runPython("checker(" + input.value + ")");
+        
+        if (out === true) {
+            res.innerText = 'Correct!'
+        }
+        
+        else {
+            res.innerText = 'Incorrect.'
+        }        
+    }    
+}
+
+
+var loadScriptAsync = function(uri){
+  return new Promise((resolve, reject) => {
+    var tag = document.createElement('script');
+    tag.src = uri;
+    tag.async = true;
+    tag.onload = () => {
+      resolve();
+    };
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+});
+}
+
+loadScriptAsync('https://pyodide.cdn.iodide.io/pyodide.js').then(_ => {
+    languagePluginLoader.then(() => {
+        for (let cat of document.getElementsByClassName('catsoopblock')) {
+            bindCatsoop(cat);
+        }        
+    });
+});

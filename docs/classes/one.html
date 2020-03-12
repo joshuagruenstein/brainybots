@@ -43,18 +43,52 @@
 </ul>
 <p>Intuitively, to figure out what the probability is that \(A\) occurs given that \(B\) already occurred, we take the set of events where \(B\) has occurred, and just within that space, we look for the probability that \(A\) also occurred. Try it yourself: </p>
 <h4>Practice:</h4>
-<p>Assume we have a fair 6-sided die </p>
-<ol>
-<li>What's the probability that our roll is odd? </li>
-<li>What's the probability our roll is a 1?</li>
-<li>What's the probability our roll is a 1 given that we know our roll is odd? </li>
-</ol>
+<p>Assume we have a fair 6-sided die.</p>
+<div class="infoblock catsoopblock">
+<div class="blockcontent">
+What's the probability that our roll is odd?
+<br /><input type="text" />
+<input type="button" value="Submit">
+<div class="catsoopres"></div>
+<div class="catsoopsol">
 
+def checker(x):
+    return x == 1/2
+
+</div>
+</div>
+</div><div class="infoblock catsoopblock">
+<div class="blockcontent">
+What's the probability our roll is a 1?
+<br /><input type="text" />
+<input type="button" value="Submit">
+<div class="catsoopres"></div>
+<div class="catsoopsol">
+
+def checker(x):
+    return x == 1/6
+
+</div>
+</div>
+</div><div class="infoblock catsoopblock">
+<div class="blockcontent">
+What's the probability our roll is a 1 given that we know our roll is odd?
+<br /><input type="text" />
+<input type="button" value="Submit">
+<div class="catsoopres"></div>
+<div class="catsoopsol">
+
+def checker(x):
+    return x == 1/3
+
+</div>
+</div>
+</div>
 <div class="infoblock solutionblock">
 <div class="blocktitle">Solution<span class="solutionhelp"> (hover to show)</span>:</div><div class="blockcontent">
-The probability that our roll is odd is \(\frac{\text{number of odd outcomes}}{\text{number of outcomes in the space}} = \frac{3}{6} = \frac{1}{2}\)
+The probability that our roll is odd is \(\frac{\text{number of odd outcomes}}{\text{number of outcomes in the space}} = \frac{3}{6} = \frac{1}{2}\).
 
-The probability that our roll is 1 is \(\frac{\text{number of outcomes with a 1}}{\text{number of outcomes in the space}} = \frac{1}{6}\)
+The probability that our roll is 1 is \(\frac{\text{number of outcomes with a 1}}{\text{number of outcomes in the space}} = \frac{1}{6}\).
 
 Given that we know our roll is odd, we restrict our sample space to the odd outcomes only:
 \[
@@ -78,8 +112,20 @@ Within this space only, we compute the probability that our roll is a 1:
 <li>A is the event that we toss more heads than tails</li>
 <li>B is the event that the first flip is a head</li>
 </ul>
-<p>What's the probability that we toss more heads than tails given that the first flip is a head? </p>
+<div class="infoblock catsoopblock">
+<div class="blockcontent">
+What's the probability that we toss more heads than tails given that the first flip is a head?
+<br /><input type="text" />
+<input type="button" value="Submit">
+<div class="catsoopres"></div>
+<div class="catsoopsol">
 
+def checker(x):
+    return x == 3/4
+
+</div>
+</div>
+</div>
 <div class="infoblock solutionblock">
 <div class="blocktitle">Solution<span class="solutionhelp"> (hover to show)</span>:</div><div class="blockcontent">
 
@@ -110,12 +156,24 @@ so we see that \(\mathbb{P}(A\cap B) = \frac{3}{8}\) so
 \end{aligned}
 \]
 </div></div><ol start="2">
-<li><em>(Bonus)</em> You are standing in front of three doors, and told that a prize lies behind one of the three doors, with equal probability. You pick one of the doors, and the host then opens one of the remaining doors, showing you that there is no prize behind it. Then the host offers you two options:</li>
+<li><strong>(Bonus)</strong> You are standing in front of three doors, and told that a prize lies behind one of the three doors, with equal probability. You pick one of the doors, and the host then opens one of the remaining doors, showing you that there is no prize behind it. Then the host offers you two options:</li>
 <li>Stay with your first pick</li>
 <li>Switch to the last door</li>
 </ol>
-<p>What's the probability of winning if you decide to switch instead of staying with your first pick? </p>
+<div class="infoblock catsoopblock">
+<div class="blockcontent">
+What's the probability of winning if you decide to switch instead of staying with your first pick?
+<br /><input type="text" />
+<input type="button" value="Submit">
+<div class="catsoopres"></div>
+<div class="catsoopsol">
 
+def checker(x):
+    return x == 2/3
+
+</div>
+</div>
+</div>
 <div class="infoblock solutionblock">
 <div class="blocktitle">Solution<span class="solutionhelp"> (hover to show)</span>:</div><div class="blockcontent">
 Under the second strategy, letting event \(B\) be the event that the door the host opens does not have the prize, we can compute

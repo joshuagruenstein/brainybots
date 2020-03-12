@@ -4,7 +4,6 @@ You probably know a little bit about probability from reasoning about every day 
 1. The probability of flipping a heads with a fair coin is $\frac{1}{2}$
 2. The probability that it'll rain tomorrow is $30\%$ 
 
-
 In this class, this is a good way to think about probability: assigning a number or "likelihood" to a given event, that comes from a space of events we understand. For example, the space of events with one flip of a fair coin is $\{H, T\}$ and to each element in that space, we assign the probability $\frac{1}{2}.$ 
 
 ### Conditional Probability
@@ -18,15 +17,27 @@ Intuitively, to figure out what the probability is that $A$ occurs given that $B
 
 #### Practice:
 
-Assume we have a fair 6-sided die 
-1. What's the probability that our roll is odd? 
-2. What's the probability our roll is a 1?
-3. What's the probability our roll is a 1 given that we know our roll is odd? 
+Assume we have a fair 6-sided die.
+
+<catsoopq What's the probability that our roll is odd?>
+def checker(x):
+    return x == 1/2
+</catsoopq>
+
+<catsoopq What's the probability our roll is a 1?>
+def checker(x):
+    return x == 1/6
+</catsoopq>
+
+<catsoopq What's the probability our roll is a 1 given that we know our roll is odd?>
+def checker(x):
+    return x == 1/3
+</catsoopq>
 
 <solution>
-The probability that our roll is odd is $\frac{\text{number of odd outcomes}}{\text{number of outcomes in the space}} = \frac{3}{6} = \frac{1}{2}$
+The probability that our roll is odd is $\frac{\text{number of odd outcomes}}{\text{number of outcomes in the space}} = \frac{3}{6} = \frac{1}{2}$.
 
-The probability that our roll is 1 is $\frac{\text{number of outcomes with a 1}}{\text{number of outcomes in the space}} = \frac{1}{6}$
+The probability that our roll is 1 is $\frac{\text{number of outcomes with a 1}}{\text{number of outcomes in the space}} = \frac{1}{6}$.
 
 Given that we know our roll is odd, we restrict our sample space to the odd outcomes only: 
 $$
@@ -55,7 +66,11 @@ $A \cap B$, when $A$ and $B$ are sets, indicates the set of all elements belongi
 - A is the event that we toss more heads than tails
 - B is the event that the first flip is a head
 
-What's the probability that we toss more heads than tails given that the first flip is a head? 
+<catsoopq What's the probability that we toss more heads than tails given that the first flip is a head?>
+def checker(x):
+    return x == 3/4
+</catsoopq>
+
 
 <solution>
 
@@ -87,11 +102,14 @@ $$
 $$
 </solution>
 
-2. *(Bonus)* You are standing in front of three doors, and told that a prize lies behind one of the three doors, with equal probability. You pick one of the doors, and the host then opens one of the remaining doors, showing you that there is no prize behind it. Then the host offers you two options:
+2. **(Bonus)** You are standing in front of three doors, and told that a prize lies behind one of the three doors, with equal probability. You pick one of the doors, and the host then opens one of the remaining doors, showing you that there is no prize behind it. Then the host offers you two options:
  1. Stay with your first pick
  2. Switch to the last door
 
-What's the probability of winning if you decide to switch instead of staying with your first pick? 
+<catsoopq What's the probability of winning if you decide to switch instead of staying with your first pick?>
+def checker(x):
+    return x == 2/3
+</catsoopq>
 
 <solution>
 Under the second strategy, letting event $B$ be the event that the door the host opens does not have the prize, we can compute 

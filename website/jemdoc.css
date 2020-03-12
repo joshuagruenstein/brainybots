@@ -427,3 +427,31 @@ canvas {
     margin-bottom:1em;
     font-size:0.9em;
 }
+
+/* catsoop stuff */
+
+.catsoopsol {
+    display:none;
+}
+
+.catsoopblock .blockcontent {
+    padding-top:0.5em;
+}
+
+div.catsoopblock > div.blockcontent {
+	background: #ffeeee;
+}
+
+.catsoopblock .blockcontent input[type=text] {
+    font-family:monospace;
+    width:calc(100% - 100px);
+    margin-top:1em;
+}
+
+.catsoopblock .blockcontent input[type=button] {
+    width:75px;
+}
+
+.catsoopres {
+    margin-top:0.5em;
+}
