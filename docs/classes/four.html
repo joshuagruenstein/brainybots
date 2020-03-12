@@ -1,37 +1,34 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<!DOCTYPE html>
+<html>
 <head>
-<meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link rel="stylesheet" href="../jemdoc.css" type="text/css" />
-<script src="../index.js"></script>
-<title>Particle Party</title>
-<!-- MathJax -->
-<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async>
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js" integrity="sha256-t7CAuaRhODo/cv00lxyONppujwTFFwUWGkrhD/UB1qM=" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/roughjs@4.0.4/bundled/rough.min.js"></script>
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-	  TeX: { equationNumbers: { autoNumber: "AMS" } }
-});
-</script>
-<!-- End MathJax -->
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <link rel="stylesheet" href="../jemdoc.css" type="text/css" />
+    <script src="../index.js"></script>
+    <title>Particle Party</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async>
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js" integrity="sha256-t7CAuaRhODo/cv00lxyONppujwTFFwUWGkrhD/UB1qM=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/roughjs@4.0.4/bundled/rough.min.js"></script>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+          TeX: { equationNumbers: { autoNumber: "AMS" } }
+    });
+    </script>
 </head>
 <body>
-<table summary="Table for page layout." id="tlayout">
-<tr valign="top">
-<td id="layout-menu">
-<div class="menu-category">Information</div>
-<div class="menu-item"><a href="../index.html">Home</a></div>
-<div class="menu-item"><a href="https://github.com/joshuagruenstein/brainybots" target="blank">Github</a></div>
+    <table summary="Table for page layout." id="tlayout">
+    <tr valign="top">
+        <td id="layout-menu"><div class="menu-category">Information</div>
+<div class="menu-item"><a href="../index.html" >Home</a></div>
+<div class="menu-item"><a href="https://github.com/joshuagruenstein/brainybots" >Github</a></div>
 <div class="menu-category">Classes</div>
-<div class="menu-item"><a href="../classes/one.html">Bayesian&nbsp;Bonanza</a></div>
+<div class="menu-item"><a href="../classes/one.html" >Bayesian Bonanza</a></div>
+<div class="menu-item"><a href="../classes/two.html" >Decisions, Decisions</a></div>
+<div class="menu-item"><a href="../classes/three.html" >Markov Madness</a></div>
+<div class="menu-item"><a href="../classes/four.html" class="current">Particle Party</a></div>
 </td>
-<td id="layout-content">
-<div id="toptitle">
-<h1>Particle Party</h1>
+        <td id="layout-content"><div id='toptitle'><h1>Particle Party</h1>
 </div>
 <canvas class="illustration" id="discrete" style="height:400px"></canvas>
 <p class="caption">A rendering of our current state belief representation.</p>
@@ -49,6 +46,7 @@ for (let i=80; i<=320; i+=120) for (let j=80; j<=320; j+=120) {
 }
 })();
 </script>
+
 <canvas class="illustration" id="gaussian" style="height:400px"></canvas>
 <p class="caption">A 2D gaussian state belief representation.</p>
 <script>
@@ -82,6 +80,7 @@ for (let x=20 + grain/2; x<380; x+=grain) {
 }
 })();
 </script>
+
 <canvas class="illustration" id="particle" style="height:400px"></canvas>
 <p class="caption">A particle state belief representation.</p>
 <script>
@@ -108,7 +107,8 @@ for (let [x,y] of centers) {
 })();
 </script>
 </td>
-</tr>
-</table>
+    </tr>
+    </table>
 </body>
 </html>
+    

@@ -1,58 +1,54 @@
-# jemdoc: menu{MENU}{one.html}, nofooter
-== Bayesian Bonanza
+# Bayesian Bonanza
 
 You probably know a little bit about probability from reasoning about every day events: 
-. The probability of flipping a heads with a fair coin is $\frac{1}{2}$
-. The probability that it'll rain tomorrow is $30\%$ 
+1. The probability of flipping a heads with a fair coin is $\frac{1}{2}$
+2. The probability that it'll rain tomorrow is $30\%$ 
 
 
 In this class, this is a good way to think about probability: assigning a number or "likelihood" to a given event, that comes from a space of events we understand. For example, the space of events with one flip of a fair coin is $\{H, T\}$ and to each element in that space, we assign the probability $\frac{1}{2}.$ 
 
-
-=== Conditional Probability
+### Conditional Probability
 
 In the real world, we don't just deal with singular events; we deal with thousands of events, some of which are connected and some of which are not. We're often interested in reasoning about some event's likelihood based on some other event: the usage of partial information that we already have. 
 
-In probability terms, we like to think about $\mathbb{P}(A|B)$, or the probability that event $A$ occurs given event $B.$ \n
+In probability terms, we like to think about $\mathbb{P}(A|B)$, or the probability that event $A$ occurs given event $B.$
 - The likelihood that you're eating ice cream given that it's summer is higher than the likelihood that you're eating ice cream given that it's winter (maybe). 
 
 Intuitively, to figure out what the probability is that $A$ occurs given that $B$ already occurred, we take the set of events where $B$ has occurred, and just within that space, we look for the probability that $A$ also occurred. Try it yourself: 
-==== Practice:
+
+#### Practice:
 
 Assume we have a fair 6-sided die 
-. What's the probability that our roll is odd? 
-. What's the probability our roll is a 1?
-. What's the probability our roll is a 1 given that we know our roll is odd? 
+1. What's the probability that our roll is odd? 
+2. What's the probability our roll is a 1?
+3. What's the probability our roll is a 1 given that we know our roll is odd? 
 
-~~~
-{Solution}  
+<solution>
 The probability that our roll is odd is $\frac{\text{number of odd outcomes}}{\text{number of outcomes in the space}} = \frac{3}{6} = \frac{1}{2}$
 
 The probability that our roll is 1 is $\frac{\text{number of outcomes with a 1}}{\text{number of outcomes in the space}} = \frac{1}{6}$
 
 Given that we know our roll is odd, we restrict our sample space to the odd outcomes only: 
-\(
+$$
 \{1,3,5\}
-\)
+$$
 Within this space only, we compute the probability that our roll is a 1: 
-\(
+$$
 \frac{\text{number of outcomes with a 1}}{\text{number of outcomes in the space}} = \frac{1}{3}
-\)
-~~~  
+$$
+</solution>
 
 Conditional probability definition: 
 
-\(
+$$
 \mathbb{P}(A|B) = \frac{\mathbb{P}(A \cap B)}{\mathbb{P}(B)}
-\)
+$$
 
-~~~
-{Notation note}
+<block Notation note>
 $A \cap B$, when $A$ and $B$ are sets, indicates the set of all elements belonging to both $A$ and $B.$
-~~~
+</block>
 
-
-==== Practice: 
+#### Practice: 
 
 1. We toss a fair coin three times and define the following events on the outcome of those three tosses: 
 
@@ -61,147 +57,148 @@ $A \cap B$, when $A$ and $B$ are sets, indicates the set of all elements belongi
 
 What's the probability that we toss more heads than tails given that the first flip is a head? 
 
-~~~
-{Solution}
+<solution>
 
 This question asks for $\mathbb{P}(A|B)$, which we know we can rewrite as
-\(
+$$
 \mathbb{P}(A|B) = \frac{\mathbb{P}(A \cap B)}{\mathbb{P}(B)}
-\)
+$$
 
 Now, we compute $\mathbb{P}(B)$ and $\mathbb{P}(A\cap B)$. First, we can enumerate all the possible outcomes of the three tosses: 
-\(
+$$
 \{HHH, HHT, HTH, THH, HTT, THT, TTH, TTT\}
-\)
+$$
 
 Now, the sequences in which the first flip is a head are 
-\(
+$$
 \{HHH, HHT, HTH, HTT\}
-\)
+$$
 so $\mathbb{P}(B) = \frac{1}{2}$. Now, to compute $\mathbb{P}(A\cap B)$ we look for the sequences that both have more heads than tails and begin with a head. The satisfying sequences are 
-\(
+$$
 \{HHH, HHT, HTH\}
-\)
+$$
 so we see that $\mathbb{P}(A\cap B) = \frac{3}{8}$ so 
-\(
+$$
 \begin{aligned}
 \mathbb{P}(A|B) &= \frac{\mathbb{P}(A \cap B)}{\mathbb{P}(B)} \\
 &= \frac{\frac{3}{8}}{\frac{1}{2}}\\
 &= \frac{3}{4}
 \end{aligned}
-\)
-~~~
+$$
+</solution>
 
 2. *(Bonus)* You are standing in front of three doors, and told that a prize lies behind one of the three doors, with equal probability. You pick one of the doors, and the host then opens one of the remaining doors, showing you that there is no prize behind it. Then the host offers you two options:
-. Stay with your first pick
-. Switch to the last door
+ 1. Stay with your first pick
+ 2. Switch to the last door
 
 What's the probability of winning if you decide to switch instead of staying with your first pick? 
 
-~~~
-{Solution}
-
+<solution>
 Under the second strategy, letting event $B$ be the event that the door the host opens does not have the prize, we can compute 
 
-\(
+$$
 \begin{aligned}
 \mathbb{P}(A|B) &= \frac{\mathbb{P}(A \cap B)}{\mathbb{P}(B)} \\
 &= \frac{\frac{4}{9}}{\frac{2}{3}} \\
 &= \frac{2}{3}
 \end{aligned}
-\)
+$$
 
 so one should always switch!
-~~~
+</solution>
 
-=== Independence
+### Independence
 
 In the probability world, we often care about whether two events are independent or dependent. Note this concept is not the same as causation- we define independence as when the occurrence of one event does not affect the likelihood of the occurrence of a second event. We can define this nicely using conditional probability! 
 
 A is independent of event B when:  
 
-\(
+$$
 \mathbb{P}(A) = \mathbb{P}(A|B)
-\)
+$$
 
-==== Practice: 
+#### Practice: 
 
 1. Again, we toss a fair coin three times and define the following events on the outcome of those three tosses: 
 
 - $A$ is the event that we toss more heads than tails
 - $B$ is the event that the first flip is a head
 - $C$ is the event that the last flip is a head
+
 Is $A$ independent of $B$? Is $B$ independent of $C$? 
 
-~~~
-{Solution}
+<solution>
 
 We've already computed that $\mathbb{P}(A|B) = \frac{3}{8}$. Now, looking at all possible outcomes of the three tosses: 
-\(
+$$
 \{HHH, HHT, HTH, THH, HTT, THT, TTH, TTT\}
-\)
+$$
 The sequences in which we toss more heads than tails are 
-\(
+$$
 \{HHH, HHT, HTH, THH\}
-\)
+$$
 so we see that $\mathbb{P}(A) = \frac{1}{2}$, which is not equal to $P(A|B)$, so events $A$ and $B$ are not independent. 
 
 To see if $B$ is independent of $C$, note that above we computed $P(B) = \frac{1}{2}$. Now, 
 
-\(
+$$
 \begin{aligned}
 \mathbb{P}(B|C) &= \frac{\mathbb{P}(B \cap C)}{\mathbb{P}(B)} \\
 &= \frac{\frac{2}{8}}{\frac{1}{2}} \\
 &= \frac{1}{2}
 \end{aligned}
-\)
+$$
 
 so the events $B$ and $C$ are independent. 
-~~~
+</solution>
 
-=== Total Probability Theorem
+### Total Probability Theorem
 To set up this result, let's go back to our example with ice cream and the seasons. Let's say we're trying to find the probability you're eating ice cream at any given time during the year. All we know is the following
-. Each season lasts for exactly $\frac{1}{4}$ of the year
-. When it's summer you're eating ice cream $\frac{3}{4}$ of the time 
-. When it's winter you're eating ice cream $\frac{1}{4}$ of the time
-. In spring or fall, you're eating ice cream $\frac{1}{2}$ of the time
+1. Each season lasts for exactly $\frac{1}{4}$ of the year
+2. When it's summer you're eating ice cream $\frac{3}{4}$ of the time 
+3. When it's winter you're eating ice cream $\frac{1}{4}$ of the time
+4. In spring or fall, you're eating ice cream $\frac{1}{2}$ of the time
 
 To get the total probability you're eating ice cream at any point during the year, you'd probably do the following: 
-\(
+$$
 \frac{1}{4}\cdot\frac{3}{4} + \frac{1}{4}\cdot \frac{1}{4} + \frac{1}{4}\cdot\frac{1}{2} + \frac{1}{4}\cdot\frac{1}{2}
-\)
+$$
 Note that this only works because summer, winter, spring, and fall together cover the entire year (and don't overlap), forming what we call a "partition" of the year. The total probability theorem states: 
-\(
+$$
 \begin{aligned}
 \mathbb{P}(B) &=  \mathbb{P}(B \cap A_1) + \mathbb{P}(B \cap A_2) + ... + \mathbb{P}(B \cap A_n) \\ 
 &= \mathbb{P}(A_1)\mathbb{P}(B|A_1) + \mathbb{P}(A_1)\mathbb{P}(B|A_2) + ... + \mathbb{P}(A_1)\mathbb{P}(B|A_n) \\
 &= \sum_{i=1}^n \mathbb{P}(A_i)\mathbb{P}(B|A_i) 
 \end{aligned} 
-\)
+$$
 where $A_1, ..., A_n$ forms a partition of the space. Intuitively, we think of this as saying that the probability $B$ occurs is the sum of the likelihoods that $B$ and $A_1$ occur, and $B$ and $A_2$ occur, and so on.
-=== Bayes Rule
+
+### Bayes Rule
 Bayes' Rule allows us to begin our inference journey! It's a formula that follows from a rearrangement of the conditional probability formula: 
-\(
+
+$$
 \mathbb{P}(A|B) = \frac{\mathbb{P}(B|A)\mathbb{P}(A)}{\mathbb{P}(B)}
-\)
+$$
 
 For example, consider the following: 
-. let A be the event that a person caught a cold
-. let B be the event that a person drank chicken noodle soup
+1. let A be the event that a person caught a cold
+2. let B be the event that a person drank chicken noodle soup
 
-Then, at MIT Medical, we probably know how many people have caught colds: $P(A) = 0.6$, and we happen to know that half of all people drink chicken noodle soup: $P(B) = 0.5$. And we probably know from our clinic data what proportion of sick people drank soup: $P(B|A)= 0.3$. But what we really care about is knowing what proportion of people who drink soup get sick- this would tell us if soup helps! 
+Then, at MIT Medical, we probably know how many people have caught colds: $P(A) = 0.6$, and we happen to know that half of all people drink chicken noodle soup: $P(B) = 0.5$. And we probably know from our clinic data what proportion of sick people drank soup: $P(B|A)= 0.3$. But what we really care about is knowing what proportion of people who drink soup get sick: this would tell us if soup helps! 
 
 Using Bayes Rule, we can compute that 
-\(
+
+$$
 \begin{aligned}
 \mathbb{P}(A|B) &= \frac{\mathbb{P}(B|A)\mathbb{P}(A)}{\mathbb{P}(B)} \\
 &= \frac{0.3\cdot 0.6}{0.5}\\
 &= 0.36\\
 \end{aligned}
-\)
+$$
 
 so soup helps!
-==== Practice: 
+
+### Practice: 
 
 Alice is a stupid neural network who does not yet know the difference between muffin and cupcakes. Unfortunately, Alice is allergic to muffins. She has a muffin detector, that is admittedly somewhat faulty. We define the following events: 
 
@@ -210,75 +207,73 @@ Alice is a stupid neural network who does not yet know the difference between mu
 
 Now, if the detector goes off, what's the probability the baked good is a muffin? 
 
-~~~
-{Notation note}
+<block Notation note>
 $A^c$ denotes the complement of $A$, or the event that $A$ does not occur- in this case it denotes the event that the baked good is a cupcake. 
-~~~
+</block>
 
-~~~
-{Solution}
+<solution>
 
 We apply Bayes Rule. We want 
 
-\(
+$$
 \begin{aligned}
 \mathbb{P}(A|B) &= \frac{\mathbb{P}(B|A)\mathbb{P}(A)}{\mathbb{P}(B)} \\
 &= \frac{0.9 \cdot 0.3}{\mathbb{P}(B)} \\
 \end{aligned}
-\)
+$$
 
 But how do we compute $\mathbb{P}(B)$? We can apply the total probability theorem! 
-\(
+$$
 \begin{aligned}
 \mathbb{P}(B) &= \mathbb{P}(A^c)\mathbb{P}(B|A^c) + \mathbb{P}(A)\mathbb{P}(B|A)\\
 &= 0.7\cdot 0.1 + \mathbb 0.3 \cdot 0.9\\
 &= 0.34
 \end{aligned}
-\)
+$$
 
 Now, we have 
-\(
+$$
 \begin{aligned}
 \mathbb{P}(A|B) &= \frac{0.9 \cdot 0.3}{0.34} \\
 & \approx 0.794
 \end{aligned}
-\)
-~~~
+$$
+</solution>
 
-=== Random Variables
+### Random Variables
 
 We've already seen how powerful it is to be able to assign likelihoods to events. It allows us to draw quantitative conclusions about events. However, we can extend this past assigning likelihoods- we use random variables, which we define as a *real-valued function of the outcome of an experiment*. Some examples of random variables: 
-. In an experiment in which we toss a coin five times, the number of heads we obtain
-. In an experiment in which we roll a six-sided dice once, the number that shows on top
-. In an experiment in which we roll a six-sided dice once, two times the number that shows on top
-. In an experiment where we grab a person off the street and measure their height, their height in inches
+1. In an experiment in which we toss a coin five times, the number of heads we obtain
+2. In an experiment in which we roll a six-sided dice once, the number that shows on top
+3. In an experiment in which we roll a six-sided dice once, two times the number that shows on top
+4. In an experiment where we grab a person off the street and measure their height, their height in inches
 
 In the second random variable example, the space of values the random variable could take is finite- there are only six possible values. A *discrete* random variable is one in which the space of values is finite (or countably infinite, but don't worry about that). In the fourth random variable example, the space of values the random variable could take on is infinite. This is an example of a *continuous* random variable, where the space of possible values is uncountably infinite. 
 
 Since we're dealing with probabilities, it's useful for us to assign a probability to each possible value of a random variable. First, with discrete random variables, we use what is called a probability mass function. We will denote the probability mass function (PMF) of a random variable $X$ as $p_X(x) = \mathbb{P}(X= x)$. So in the second random variable example, we would have 
-\(
+
+$$
 \begin{aligned}
 p_X(1) &= \frac{1}{6}\\
 p_X(2) &= \frac{1}{6} 
 \end{aligned}
-\)
+$$
 
 and in the third random variable example, we would have 
-\(
+$$
 \begin{aligned}
 p_X(1) &= 0\\
 p_X(2) &= \frac{1}{6} 
 \end{aligned}
-\)
+$$
 
 Note that all pmfs must satisfy $\sum_x p_X(x) = 1$. For continuous random variables, the analog to the probability mass function is the probability density function (pdf). Note that for a continuous random variable $X$, the probability that $X$ takes on a specific value is 0- we instead specify the pdf over intervals. We denote the pdf of continuous random variable $X$ to be $f_X(x)$ such that 
-\( 
+$$
 \mathbb{P}(a \leq X \leq b) = \int_{a}^b f_X(x)
-\)
+$$
 (don't worry too much about this if you don't know calculus). The most common continuous random variable we'll be dealing with in this class is the normal random variable (or Gaussian). 
 
-~~~
-{}{raw}
+<raw>
 <canvas class="illustration" id="gaussian" style="height:200px"></canvas>
 <script>
 (function() {
@@ -309,70 +304,68 @@ ctx.fillText("μ+σ", 130, 97);
 
 })();
 </script>
-~~~
+</raw>
 
 The Gaussin pdf (pictured above) is specified completely by two parameters, the mean $\mu$ and the standard deviation $\sigma$ of the distribution. The mean is where the distribution is centered, and the standard deviation is a measure of how "spread out" the distribution is. We'll write the Gaussian distribution with mean $\mu$ and standard deviation $\sigma$ as $\mathcal{N}(\mu, \sigma).$ Then, the probability that the distribution takes a specific value $x$ will be written as $\mathcal{N}(x; \mu, \sigma)$.
 
-=== Joint Probability Distributions
+### Joint Probability Distributions
 Oftentimes we are working with more than one variable, and are curious about the relationship between them, in the same way we might be curious about their independence or dependence. It's natural then to define a joint probability distribution, which is a probability distribution over multiple variables. Let's consider having two random variables $X$ and $Y$, each of which takes value $0$ or $1$. One possible joint probability distribution, which we notate as $p_{x,y}(X,Y)$ can be defined as 
 
-\(
+$$
 \begin{aligned}
 p_{x,y}(0,0) &= \frac{1}{4} \\
 p_{x,y}(0,1) &= \frac{1}{4} \\
 p_{x,y}(1,0) &= \frac{1}{4} \\
 p_{x,y}(1,1) &= \frac{1}{4} \\
 \end{aligned}
-\)
+$$
  
 Another possible joint probability distribution, which might encode a stronger relationship between the two variables, could be like:
 
-\(
+$$
 \begin{aligned}
 p_{x,y}(0,0) &= \frac{1}{2} \\
 p_{x,y}(0,1) &= 0 \\
 p_{x,y}(1,0) &= \frac{1}{2} \\
 p_{x,y}(1,1) &= 0 \\
 \end{aligned}
-\) 
+$$
 This probability distribution could occur if $Y$ depends on $X$- e.g. $Y = X$. 
 
-~~~
-{Notation note}
+<block Notation note>
 $p_{x,y}(1,1)$ is equivalent to asking for the probability that $X =1$ and $Y=1$, or $p_{x,y}(X=1, Y=1)$, but we'll frequently use the shorthand above. 
-~~~
+</block>
 
 The joint probability distribution has one important property, which is that we can always factorize it using what is called the chain rule of probability. For two events, we have that 
 
-\(
+$$
 \mathbb{P}(X,Y) = \mathbb{P}(X|Y) \cdot \mathbb{P}(Y)
-\) 
+$$
 
 or that 
 
-\(
+$$
 \mathbb{P}(X,Y) = \mathbb{P}(Y|X) \cdot \mathbb{P}(X)
-\) 
+$$
 
 The intuition behind this kind of makes sense- the joint distribution is like thinking of an event on two variables all at once, while the factorization with the chain rule is like thinking of each event in sequence. It's pretty natural to think of the probability that (Josh = hungry, Josh's roommate Lior = hungry)  as first, the probability that Josh is hungry, and then the probaiblity that Lior is hungry once we know that Josh is. 
 
 The chain rule extends to more random variables. With three variables, we can write 
 
-\(
+$$
 \begin{aligned}
 \mathbb{P}(X,Y,Z) &= \mathbb{P}(X|Y,Z) \cdot \mathbb{P}(Y,Z) \\
 &= \mathbb{P}(X|Y,Z) \cdot \mathbb{P}(Y|Z)\cdot \mathbb{P}(Z)
 \end{aligned}
-\) 
+$$
 
 but the same idea extends to as many random variables as we want. 
 
-== Lab \#1: where am I?
+## Lab \#1: where am I?
 
-For our first lab, we will be applying our newfound probability knowledge to identify where our robots have been hidden.  The Jupyter notebook used for this lab can be found on the [https://github.com/joshuagruenstein/brainybots/blob/master/pi/lec1.ipynb class Github] (however be warned, it includes solutions!).
+For our first lab, we will be applying our newfound probability knowledge to identify where our robots have been hidden.  The Jupyter notebook used for this lab can be found on the [class Github](https://github.com/joshuagruenstein/brainybots/blob/master/pi/lec1.ipynb) (however be warned, it includes solutions!).
 
-~~~
-{}{raw}
+<raw>
 <canvas class="illustration" id="rooms" style="height:150px"></canvas>
 <script>
 (function() {
@@ -403,73 +396,68 @@ sensor(45,150);
 sensor(215,370);
 })();
 </script>
-~~~
+</raw>
 
 Each robot is outfitted with a Sharp distance sensor that can report how far away the robot is from an object (with some error).  We will use this sensor to estimate the likelyhood of our robot being placed in each room: one long, and one short.  We can also frame this exercise as estimating which robot we are connected to; the one in the short room, or the one in the long room. 
 
-=== Robot setup
+### Robot setup
 
 To begin, connect your computer's wifi to a robot's network (ask an instructor for the SSID and password).  Then, in your browser navigate to [http://192.168.0.1:888/].
 
-Each cell of the notebook contains some code. Select the first cell, and press +shift\+enter+ on the keyboard to run it.  Keep pressing +shift\+enter+ until you've run through the notebook.  If you see the message "Robot all set!" output by the last cell, everything it working!
+Each cell of the notebook contains some code. Select the first cell, and press `shift\+enter` on the keyboard to run it.  Keep pressing `shift\+enter` until you've run through the notebook.  If you see the message "Robot all set!" output by the last cell, everything it working!
 
-By pressing +shift\+enter+ again, a new empty cell should be created.  The following code will read from the distance sensor, and return a +float+ result in centimeters:
+By pressing `shift\+enter` again, a new empty cell should be created.  The following code will read from the distance sensor, and return a `float` result in centimeters:
 
-~~~
-{}{pyint}
+```pyint
 >>> bot.forward_distance() # shift-enter to run
 12.6
-~~~
+```
 
-=== Estimation!
+### Estimation!
 
 Now that we can read from our robot's distance sensors, we have all we need to compute the probability of being in each room!
 
-To begin, let's define $A$ as a /discrete/ random variable that represents the room the robot is in, with $A=0$ as the short room and $A=1$ as the long room.  We'll also define $B$ as a /gaussian/ random variable with $\sigma=5$.  Use a tape measure to identify the mean of this Gaussian for each room, with $\mu_0$ as the distance to the wall for the short room and $\mu_1$ as the distance to the wall for the long room. We represent our sensor reading as a random variable because we don't expect our measurement to be perfect; in this case, we expect around 5 centimeters of error in our reading.  In mathematical terms, assuming a sensor reading of $d$ centimeters: 
+To begin, let's define $A$ as a *discrete* random variable that represents the room the robot is in, with $A=0$ as the short room and $A=1$ as the long room.  We'll also define $B$ as a /gaussian/ random variable with $\sigma=5$.  Use a tape measure to identify the mean of this Gaussian for each room, with $\mu_0$ as the distance to the wall for the short room and $\mu_1$ as the distance to the wall for the long room. We represent our sensor reading as a random variable because we don't expect our measurement to be perfect; in this case, we expect around 5 centimeters of error in our reading.  In mathematical terms, assuming a sensor reading of $d$ centimeters: 
 
-\(
+$$
 \begin{aligned}
 P(A) &= 0.5 \text{ (uniform prior across rooms)} \\
 P(B=d | A=0) &= \mathcal N (d ; \mu=\mu_0,\sigma=5) \\
 P(B=d | A=1) &= \mathcal N (d ; \mu=\mu_1,\sigma=5)
 \end{aligned}
-\)
+$$
 
-~~~
-{Notation note}
+<block Notation note>
 Recall that $\mathcal N(\mu, \sigma)$ is the bell curve (Gaussian) centered at $\mu$ with some spread $\sigma$ (standard deviation).
-~~~
+</block>
 
 Given this, use Bayes rule and the total probability theorem to compute the probability the robot is in each room in a cell in the Jupyter notebook!
 
-~~~
-{Implementation hint}
-To get $\mathcal N (x; \mu,\sigma)$ in Python, you can use +gaussian(x, mu, sigma)+.
-~~~
+<block Implementation hint>
+To get $\mathcal N (x; \mu,\sigma)$ in Python, you can use `gaussian(x, mu, sigma)`.
+</block>
 
-~~~
-{Solution}
+<solution>
 
 Our goal is to compute $P(A=a|B=d)$ for each room $a$.  From Bayes rule,
 
-\(
+$$
 P(A=a|B=d) = \frac{P(B=d|A=a) P(A=a)}{P(B=d)}
-\)
+$$
 
 Conveniently, we have $P(B=d|A=a)$ and $P(A=a)$ already.  All we need is $P(B=d)$, which we can get from the total probability theorem:
 
-\(
+$$
 P(B=d) = \frac{1}{2} P(B=d|A=0) + \frac{1}{2} P(B=d|A=1)
-\)
+$$
 
 Incorporating this into our first equation, we get
 
-\(
+$$
 \begin{aligned}
 P(A=a|B=d) &= \frac{P(B=d|A=a) P(A=a)}{\frac{1}{2} P(B=d|A=0) + \frac{1}{2} P(B=d|A=1)} \\
 &= \frac{P(B=d|A=a)}{P(B=d|A=0) + P(B=d|A=1)}
 \end{aligned}
-\)
+$$
 
-~~~
-
+</solution>

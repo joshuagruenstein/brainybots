@@ -1,8 +1,6 @@
-# jemdoc: menu{MENU}{four.html}, nofooter
-== Particle Party
+# Particle Party
 
-~~~
-{}{raw}
+<raw>
 <canvas class="illustration" id="discrete" style="height:400px"></canvas>
 <p class="caption">A rendering of our current state belief representation.</p>
 <script>
@@ -19,10 +17,9 @@ for (let i=80; i<=320; i+=120) for (let j=80; j<=320; j+=120) {
 }
 })();
 </script>
-~~~
+</raw>
 
-~~~
-{}{raw}
+<raw>
 <canvas class="illustration" id="gaussian" style="height:400px"></canvas>
 <p class="caption">A 2D gaussian state belief representation.</p>
 <script>
@@ -56,10 +53,9 @@ for (let x=20 + grain/2; x<380; x+=grain) {
 }
 })();
 </script>
-~~~
+</raw>
 
-~~~
-{}{raw}
+<raw>
 <canvas class="illustration" id="particle" style="height:400px"></canvas>
 <p class="caption">A particle state belief representation.</p>
 <script>
@@ -85,4 +81,4 @@ for (let [x,y] of centers) {
 }
 })();
 </script>
-~~~ 
+</raw>

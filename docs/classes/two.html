@@ -1,186 +1,156 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<!DOCTYPE html>
+<html>
 <head>
-<meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link rel="stylesheet" href="../jemdoc.css" type="text/css" />
-<script src="../index.js"></script>
-<title>Decisions, Decisions, Decisions</title>
-<!-- MathJax -->
-<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async>
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js" integrity="sha256-t7CAuaRhODo/cv00lxyONppujwTFFwUWGkrhD/UB1qM=" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/roughjs@4.0.4/bundled/rough.min.js"></script>
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-	  TeX: { equationNumbers: { autoNumber: "AMS" } }
-});
-</script>
-<!-- End MathJax -->
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <link rel="stylesheet" href="../jemdoc.css" type="text/css" />
+    <script src="../index.js"></script>
+    <title>Decisions, Decisions, Decisions</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async>
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js" integrity="sha256-t7CAuaRhODo/cv00lxyONppujwTFFwUWGkrhD/UB1qM=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/roughjs@4.0.4/bundled/rough.min.js"></script>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+          TeX: { equationNumbers: { autoNumber: "AMS" } }
+    });
+    </script>
 </head>
 <body>
-<table summary="Table for page layout." id="tlayout">
-<tr valign="top">
-<td id="layout-menu">
-<div class="menu-category">Information</div>
-<div class="menu-item"><a href="../index.html">Home</a></div>
-<div class="menu-item"><a href="https://github.com/joshuagruenstein/brainybots" target="blank">Github</a></div>
+    <table summary="Table for page layout." id="tlayout">
+    <tr valign="top">
+        <td id="layout-menu"><div class="menu-category">Information</div>
+<div class="menu-item"><a href="../index.html" >Home</a></div>
+<div class="menu-item"><a href="https://github.com/joshuagruenstein/brainybots" >Github</a></div>
 <div class="menu-category">Classes</div>
-<div class="menu-item"><a href="../classes/one.html">Bayesian&nbsp;Bonanza</a></div>
+<div class="menu-item"><a href="../classes/one.html" >Bayesian Bonanza</a></div>
+<div class="menu-item"><a href="../classes/two.html" class="current">Decisions, Decisions</a></div>
+<div class="menu-item"><a href="../classes/three.html" >Markov Madness</a></div>
+<div class="menu-item"><a href="../classes/four.html" >Particle Party</a></div>
 </td>
-<td id="layout-content">
-<div id="toptitle">
-<h1>Decisions, Decisions, Decisions</h1>
-</div>
-<p>Today's class builds upon the probability fundamentals from class one, and introduces methods of <i>decision making</i> using inferred probabilities.</p>
+        <td id="layout-content"><div id='toptitle'><h1>Decisions, Decisions, Decisions</h1>
+</div><p>Today's class builds upon the probability fundamentals from class one, and introduces methods of <em>decision making</em> using inferred probabilities.</p>
 <h2>Lab #2: trapped in the closet?</h2>
 <p>Your robot is lost in a deviously complex maze, and requires your help to identify where it is!  This week's lab is similar to last week's: using distance sensor data, you will identify your robot's position.  However, rather than being in one of two rooms, your robot can now be in any of 9 spots in the maze, and facing any of 4 directions (north, west, south, or east), for a total of \(9\times 4=36\) total possible states to discriminate between!</p>
+
 <canvas class="illustration" id="maze" style="height:400px"></canvas>
 <p class="caption">The robot maze, which will stay constant throughout the class.  The robot is collecting a measurement at position 4 and angle 90 (east).</p>
 <script>
 make_maze("maze", [{pos:4, angle:90, color:'blue'}]);
 </script>
 <p>In addition, this week we will allow rotating the distance sensor to get more measurements at different angles.  We can do that using the following syntax in Jupyter on the robots:</p>
-<div class="codeblock">
-<div class="blockcontent"><pre>
-<span class="pycommand">&gt;&gt;&gt; bot.setTurret(45) <span class = "comment"># angle between -90 and 90, 0 is straight</span></span>
-None
-<span class="pycommand">&gt;&gt;&gt; bot.getDistance() <span class = "comment"># read from sensor in centimeters</span></span>
-32.12
-</pre></div></div>
+<div class="highlight"><pre><span></span><span class="err">&gt;&gt;&gt; bot.setTurret(45) # angle between -90 and 90, 0 is straight</span>
+<span class="err">None</span>
+<span class="err">&gt;&gt;&gt; bot.getDistance() # read from sensor in centimeters</span>
+<span class="err">32.12</span>
+</pre></div>
 <p>We also provide an API for calculating the expected sensor reading for a position in the maze, so you don't have to hardcode distances for each state like in last week's lab.  We can encode a possible state of the robot as a position \(p\) (an integer between \(0\) and \(8\), see diagram) and an angle \(a\) in degrees (going clockwise with \(0^\circ\) pointing up).  Using this representation, we can get the sensor reading we might expect a robot in the top left cell (\(p=0\)) with its sensor pointing down (\(a=180\)) to measure:</p>
-<div class="codeblock">
-<div class="blockcontent"><pre>
-<span class="pycommand">&gt;&gt;&gt; gm.simulatedDistance(0, 180)</span>
-TODO: insert real value here
-</pre></div></div>
+<div class="highlight"><pre><span></span><span class="err">&gt;&gt;&gt; gm.simulatedDistance(0, 180)</span>
+<span class="c">TODO: insert real value here</span>
+</pre></div>
 <p>Building off of your implementation from last week's lab, write code in the bottom of the lab two Jupyter notebook to compute the probability of being in each possible state (position and orientation pair) after collecting some sensor readings.  Then,</p>
 <ol>
-<li><p>Calculate the likely state (position and orientation pair).</p>
-</li>
-<li><p>Calculate the most likely position for your robot.</p>
-</li>
-<li><p>Calculate the most likely orientation for your robot.</p>
-</li>
+<li>Calculate the likely state (position and orientation pair).</li>
+<li>Calculate the most likely position for your robot.</li>
+<li>Calculate the most likely orientation for your robot.</li>
 </ol>
 <p>Discuss with your group the differences between each of these tasks, and ways you could accomplish them.  Is the most likely state the same as the most likely position and orientation?</p>
 <h2>Formalizing decision making</h2>
 <h3>Cost Minimization and Hypothesis Testing</h3>
-<p>In the real world, we make decisions based off of series of observations. For example, I might have three hypotheses about the weather right now: sunny, rainy or snowy. I can decide pretty quickly based off of one observation of going outside or even looking out the window. In the probability theory framework, we encode possible scenarios as a set of hypotheses</p>
-<p style="text-align:center">
+<p>In the real world, we make decisions based off of series of observations. For example, I might have three hypotheses about the weather right now: sunny, rainy or snowy. I can decide pretty quickly based off of one observation of going outside or even looking out the window. In the probability theory framework, we encode possible scenarios as a set of hypotheses
 \[
-\mathcal{H} = \{H_0, H_1,&hellip;,H_n\}
+\mathcal{H} = \{H_0, H_1,...,H_n\}
 \]
-</p><p>where \(n\) is the number of hypotheses under consideration. First, we'll consider binary hypothesis testing, in which we are choosing between just two hypotheses </p>
-<p style="text-align:center">
+where \(n\) is the number of hypotheses under consideration. First, we'll consider binary hypothesis testing, in which we are choosing between just two hypotheses
 \[
 \mathcal{H} = \{H_0, H_1\}
-\]
-</p><p>Our general framework for decision making will be one of cost-minimization. I can assign cost function (which will depend on the problem context) and aim to make decision rules such that I can minimize my cost. We denote \(C_{ij} = \tilde{C}(H_i, H_j)\) to be the cost of deciding that the correct hypothesis is \(H_i\) when the true hypothesis is \(H_j\). </p>
-<div class="infoblock">
-<div class="blocktitle">Notation note</div>
-<div class="blockcontent">
-<p>A cost function is just a function that maps some event to a cost, or price that we pay. For example, a cost function in the real world is that I lose 5% of my grade for every homework assignment I don't do. </p>
-</div></div>
-<ul>
-<li><p>Let's say that I'm trying to figure out without looking if an m&amp;m is green (\(\mathcal{H}_0\)) or red (\(\mathcal{H}_1\)). There's not really any consequence if my decision is wrong, so a reasonable cost function is </p>
-</li>
+\]</p>
+<p>Our general framework for decision making will be one of cost-minimization. I can assign cost function (which will depend on the problem context) and aim to make decision rules such that I can minimize my cost. We denote \(C_{ij} = \tilde{C}(H_i, H_j)\) to be the cost of deciding that the correct hypothesis is \(H_i\) when the true hypothesis is \(H_j\). </p>
+<div class="infoblock"><div class="blocktitle">Notation note</div><div class="blockcontent">
+A cost function is just a function that maps some event to a cost, or price that we pay. For example, a cost function in the real world is that I lose 5% of my grade for every homework assignment I don't do. 
+</div></div><ul>
+<li>Let's say that I'm trying to figure out without looking if an m&amp;m is green (\(\mathcal{H}_0\)) or red (\(\mathcal{H}_1\)). There's not really any consequence if my decision is wrong, so a reasonable cost function is </li>
 </ul>
-<p style="text-align:center">
-\[
+<p>\[
 C_{00} = C_{11} = 0 \\
 C_{01} = C_{10} = 1
-\]
-</p><ul>
-<li><p>But on the other hand, say I'm trying to determine if a patient is healthy (\(\mathcal{H}_0\)) or has cancer (\(\mathcal{H}_1\)). Then, our cost is no longer symmetric; it's much worse to decide that they are healthy when they have cancer than to decide that they have cancer when they are healthy (although neither is great). So a reasonable cost function might look like </p>
-</li>
+\]</p>
+<ul>
+<li>But on the other hand, say I'm trying to determine if a patient is healthy (\(\mathcal{H}_0\)) or has cancer (\(\mathcal{H}_1\)). Then, our cost is no longer symmetric; it's much worse to decide that they are healthy when they have cancer than to decide that they have cancer when they are healthy (although neither is great). So a reasonable cost function might look like </li>
 </ul>
-<p style="text-align:center">
-\[
+<p>\[
 \begin{aligned}
-C_{00} = C_{11} &amp;= 0 \\
-C_{10} &amp;= 1000 \\
-C_{01} &amp;= 10
+C_{00} = C_{11} &= 0 \\
+C_{10} &= 1000 \\
+C_{01} &= 10
 \end{aligned}
-\]
-</p><h3>Decision Rules </h3>
+\]</p>
+<h3>Decision Rules</h3>
 <p>We'll denote the hypothesis we choose as \(\hat{H}\) and the true hypothesis as \(H\). We want to choose \(\hat{H}\) to minimize expected cost:</p>
-<p style="text-align:center">
-\[
+<p>\[
 \hat{H}(\cdot) = \arg\min_{f(\cdot)} \mathbb{E}[\tilde{C}(f(y), H)]
 \]
-</p><p>Here, the \(\mathbb{E}\) stands for expectation- and we'll generally just think of that as what cost we would receive &ldquo;on average&rdquo;.</p>
-<div class="infoblock">
-<div class="blocktitle">Notation note</div>
-<div class="blockcontent">
-<p>The \(\arg \min\) of a function \(f(x)\) is the value (or set of values) \(x\) that results in the minimum value of \(f(x)\). For example, \(\arg\min x^2\) is \(x=0\). Identically, the \(\arg \max\) of a function \(f(x)\) is the value (or set of values) \(x\) that results in the maximum value of \(f(x)\). For example, \(\arg\max -x^2\) is \(x=0\). </p>
-</div></div>
-<p>where \(f\) is the space of all functions that map observations to a hypothesis conclusion. In words, we're just looking for the function that maps observations \(y\) to hypotheses \(H_0, H_1\) that minimizes the expected cost we'll receive. </p>
-<div class="infoblock">
-<div class="blocktitle">Notation note</div>
-<div class="blockcontent">
-<p>Don't worry too much about expectation notation, but if you're curious, the expected value of a random variable \(X\) with pmf \(p_X\) is computed as </p>
-<p style="text-align:center">
+Here, the \(\mathbb{E}\) stands for expectation- and we'll generally just think of that as what cost we would receive &quot;on average&quot;.</p>
+<div class="infoblock"><div class="blocktitle">Notation note</div><div class="blockcontent">
+The \(\arg \min\) of a function \(f(x)\) is the value (or set of values) \(x\) that results in the minimum value of \(f(x)\). For example, \(\arg\min x^2\) is \(x=0\). Identically, the \(\arg \max\) of a function \(f(x)\) is the value (or set of values) \(x\) that results in the maximum value of \(f(x)\). For example, \(\arg\max -x^2\) is \(x=0\). 
+</div></div><p>where \(f\) is the space of all functions that map observations to a hypothesis conclusion. In words, we're just looking for the function that maps observations \(y\) to hypotheses \(H_0, H_1\) that minimizes the expected cost we'll receive. </p>
+<div class="infoblock"><div class="blocktitle">Notation note</div><div class="blockcontent">
+Don't worry too much about expectation notation, but if you're curious, the expected value of a random variable \(X\) with pmf \(p_X\) is computed as
+
 \[
 \mathbb{E}[X] = \sum_x xp_X(x)
 \]
-</p></div></div>
-<p>Now, given a specific observation point \(y_0\), if we choose \(\hat{H}(y_0) = H_0\) then expected cost is </p>
-<p style="text-align:center">
-\[
+</div></div><p>Now, given a specific observation point \(y_0\), if we choose \(\hat{H}(y_0) = H_0\) then expected cost is </p>
+<p>\[
 C_{00}p_{H|y}(H_0|y_0) + C_{01}p_{H|y}(H_1|y_0)
-\]
-</p><p>Similarly, if we choose \(\hat{H}(y_0) = H_1\) then expected cost is </p>
-<p style="text-align:center">
-\[
+\]</p>
+<p>Similarly, if we choose \(\hat{H}(y_0) = H_1\) then expected cost is </p>
+<p>\[
 C_{10}p_{H|y}(H_0|y_0) + C_{11}p_{H|y}(H_1|y_0)
-\]
-</p><p>So we see that the hypothesis we choose is just the hypothesis that results in a lower expected cost: we choose \(H_1\) when </p>
-<p style="text-align:center">
+\]</p>
+<p>So we see that the hypothesis we choose is just the hypothesis that results in a lower expected cost: we choose \(H_1\) when
 \[
-p_{H|y}(H_1|y_0)(C_{01} - C_{11}) &gt; p_{H|y}(H_0|y_0)(C_{10} - C_{00})
-\]
-</p><p>and \(H_0\) otherwise. </p>
-<h3>Exercise: </h3>
+p_{H|y}(H_1|y_0)(C_{01} - C_{11}) > p_{H|y}(H_0|y_0)(C_{10} - C_{00})
+\]</p>
+<p>and \(H_0\) otherwise. </p>
+<h3>Exercise:</h3>
 <p>Using Bayes rule, rewrite this decision rule in terms of the measurement densities, i.e. using \(p_{y|H}(\cdot)\) rather than \(p_{H|y}(\cdot)\) as we have done above. Use that the probability \(H_0\) is the ground truth is \(P_0\), and the probability \(H_1\) is the ground truth is \(P_1\). </p>
+
 <div class="infoblock solutionblock">
-<div class="blocktitle">Solution<span class="solutionhelp"> (hover to show)</span>:</div>
-<div class="blockcontent">
-<p>We can rewrite our original form as </p>
-<p style="text-align:center">
+<div class="blocktitle">Solution<span class="solutionhelp"> (hover to show)</span>:</div><div class="blockcontent">
+We can rewrite our original form as
+
 \[
 L(y)=\frac{p_{H|y}(H_1|y)}{p_{H|y}(H_0|y)}\underset{H_0}{\overset{H_1}{\gtreqless}} \frac{(C_{10}-C_{00})}{(C_{01}-C_{11})}=\eta
 \]
-</p><p>Now, multiplying both sides by \(\frac{P_0}{P_1}\), we get </p>
-<p>\(L(y)=\frac{p_{y|H}(y|H_1)}{p_{y|H}(y|H_0)}\underset{H_0}{\overset{H_1}{\gtreqless}} \frac{P_0(C_{10}-C_{00})}{P_1(C_{01}-C_{11})}=\eta.\)</p>
-<p>This is called the Likelihood Ratio Test.</p>
-</div></div>
-<p>Looking at the form of the Likelihood Ratio test, </p>
-<p style="text-align:center">
-\[
+
+Now, multiplying both sides by \(\frac{P_0}{P_1}\), we get
+
+\($L(y)=\frac{p_{y|H}(y|H_1)}{p_{y|H}(y|H_0)}\underset{H_0}{\overset{H_1}{\gtreqless}} \frac{P_0(C_{10}-C_{00})}{P_1(C_{01}-C_{11})}=\eta.\)$
+
+This is called the Likelihood Ratio Test.
+</div></div><p>Looking at the form of the Likelihood Ratio test, </p>
+<p>\[
 L(y)=\frac{p_{y|H}(y|H_1)}{p_{y|H}(y|H_0)}\underset{H_0}{\overset{H_1}{\gtreqless}} \frac{P_0(C_{10}-C_{00})}{P_1(C_{01}-C_{11})}=\eta.
-\]
-</p><p>It is interesting to note that we don't actually require the observations \(y\) themselves to make the decision- it suffices to know the likelihood ratio \(L(y)\). We call quantities like \(L(y)\) sufficient statistics, because they contain all the information that we require to make decisions. </p>
+\]</p>
+<p>It is interesting to note that we don't actually require the observations \(y\) themselves to make the decision- it suffices to know the likelihood ratio \(L(y)\). We call quantities like \(L(y)\) sufficient statistics, because they contain all the information that we require to make decisions. </p>
 <h3>Frameworks for Decision Making</h3>
-<p>One way in which we could try to make decisions is by trying to minimize our probability of error. This corresponds to using the symmetric 0/1 cost function we introduced above: </p>
-<p style="text-align:center">
+<p>One way in which we could try to make decisions is by trying to minimize our probability of error. This corresponds to using the symmetric 0/1 cost function we introduced above:
 \[
 C_{00} = C_{11} = 0 \\
 C_{01} = C_{10} = 1
-\]
-</p><p>Substituting these cost functions into the generalized decision rule we created above, we see that this corresponds to choosing </p>
-<p style="text-align:center">
+\]</p>
+<p>Substituting these cost functions into the generalized decision rule we created above, we see that this corresponds to choosing
 \[
 \hat{H}(y) = \arg \max_{H \in \{H_0, H_1\}} p_{H|Y}(H|y)
-\]
-</p><p>This rule is known as the Maximum A Posteriori (MAP) decision rule. In the special case where the two hypotheses are equally likely, we can substitute \(P_0 = P_1 = \frac{1}{2}\) into the form of the Likelihood Ratio Test you derived in the exercise above, which results in the decision rule known as the Maximimum Likelihood decision rule: </p>
-<p style="text-align:center">
-\[
+\]</p>
+<p>This rule is known as the Maximum A Posteriori (MAP) decision rule. In the special case where the two hypotheses are equally likely, we can substitute \(P_0 = P_1 = \frac{1}{2}\) into the form of the Likelihood Ratio Test you derived in the exercise above, which results in the decision rule known as the Maximimum Likelihood decision rule: </p>
+<p>\[
 \hat{H}(y) = \arg \max_{H \in \{H_0, H_1\}} p_{y|H}(y|H)
-\]
-</p></td>
-</tr>
-</table>
+\]</p>
+</td>
+    </tr>
+    </table>
 </body>
 </html>
+    
