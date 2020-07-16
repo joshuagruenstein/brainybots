@@ -12,7 +12,12 @@
     <script src="https://cdn.jsdelivr.net/npm/roughjs@4.0.4/bundled/rough.min.js"></script>
     <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
-          TeX: { equationNumbers: { autoNumber: "AMS" } }
+    tex2jax: {
+          inlineMath: [['$','$']],
+          displayMath: [['$$','$$']],
+          processEscapes: true
+        },
+     
     });
     </script>
 </head>
@@ -28,17 +33,15 @@
 <div class="menu-item"><a href="../classes/three.html" >Markov Madness</a></div>
 <div class="menu-item"><a href="../classes/four.html" class="current">Particle Party</a></div>
 </td>
-        <td id="layout-content"><div id='toptitle'><h1>Particle Party</h1>
-</div>
+        <td id="layout-content"><h1>Particle Party</h1>
+<p><raw>
 <canvas class="illustration" id="discrete" style="height:400px"></canvas>
 <p class="caption">A rendering of our current state belief representation.</p>
 <script>
-(function() {
-
-make_maze("discrete", [], numbers=false);
-const rc = rough.canvas(document.getElementById("discrete"));
-
-for (let i=80; i<=320; i+=120) for (let j=80; j<=320; j+=120) {
+(function() {</p>
+<p>make_maze("discrete", [], numbers=false);
+const rc = rough.canvas(document.getElementById("discrete"));</p>
+<p>for (let i=80; i&lt;=320; i+=120) for (let j=80; j&lt;=320; j+=120) {
     rc.circle(
         i, j, Math.pow(Math.random()*7,2), 
         {roughness:5, fill:"green",stroke:"green", fillStyle:"cross-hatch"}
@@ -46,67 +49,64 @@ for (let i=80; i<=320; i+=120) for (let j=80; j<=320; j+=120) {
 }
 })();
 </script>
-
+</raw></p>
+<p><raw>
 <canvas class="illustration" id="gaussian" style="height:400px"></canvas>
 <p class="caption">A 2D gaussian state belief representation.</p>
 <script>
 (function() {
 make_maze("gaussian", [], numbers=false);
-const rc = rough.canvas(document.getElementById("gaussian"));
-
-const g = new Gaussian({mu:[180,180], sigma:[[5000, 2500], [2500, 5000]]});
-const grain = 10;
-
-const max = g.density(g.mu);
+const rc = rough.canvas(document.getElementById("gaussian"));</p>
+<p>const g = new Gaussian({mu:[180,180], sigma:[[5000, 2500], [2500, 5000]]});
+const grain = 10;</p>
+<p>const max = g.density(g.mu);
 const min = Math.min(
     g.density([0,0]),
     g.density([360,0]),
     g.density([0,360]),
     g.density([360,360])
-);
+);</p>
+<p>for (let x=20 + grain/2; x&lt;380; x+=grain) {
+    for (let y=20 + grain/2; y&lt;380; y+=grain) {
+        const p = (g.density([x-20,y-20])-min)/(max-min);</p>
+<pre><code>    rc.rectangle(x-grain/2,y-grain/2,grain,grain, {
+        roughness:2,
+        fill:tintedRgba(0,128,0,p),
+        stroke:"none",
+        fillStyle:"cross-hatch",
+    });
 
-for (let x=20 + grain/2; x<380; x+=grain) {
-    for (let y=20 + grain/2; y<380; y+=grain) {
-        const p = (g.density([x-20,y-20])-min)/(max-min);
-                
-        rc.rectangle(x-grain/2,y-grain/2,grain,grain, {
-            roughness:2,
-            fill:tintedRgba(0,128,0,p),
-            stroke:"none",
-            fillStyle:"cross-hatch",
-        });
-
-    }
 }
+</code></pre>
+<p>}
 })();
 </script>
-
+</raw></p>
+<p><raw>
 <canvas class="illustration" id="particle" style="height:400px"></canvas>
 <p class="caption">A particle state belief representation.</p>
 <script>
 (function() {
 make_maze("particle", [], numbers=false);
-const rc = rough.canvas(document.getElementById("particle"));
-
-const v = 50;
+const rc = rough.canvas(document.getElementById("particle"));</p>
+<p>const v = 50;
 const centers = [
     [20+60,20+60],
     [20+60,20+60+120],
     [20+60+240,20+60+240]
-];
-
-for (let [x,y] of centers) {
-    for (let i=0; i<5+Math.floor(Math.random()*5); i++) {
+];</p>
+<p>for (let [x,y] of centers) {
+    for (let i=0; i&lt;5+Math.floor(Math.random()<em>5); i++) {
         rc.circle(
-            x + v*(0.5-Math.random()),
-            y + v*(0.5-Math.random()), 5+10*Math.random(),
+            x + v</em>(0.5-Math.random()),
+            y + v<em>(0.5-Math.random()), 5+10</em>Math.random(),
             { stroke:"green" }
         )
     }
 }
 })();
 </script>
-</td>
+</raw></p></td>
     </tr>
     </table>
 </body>

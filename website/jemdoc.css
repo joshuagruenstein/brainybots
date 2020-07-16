@@ -379,25 +379,25 @@ table.imgtable, table.imgtable td {
 }
 
 /* Hidden solution block */
-.solutionblock .blockcontent {
+.solution .blockcontent {
     display:none;
 }
 
-.solutionblock:hover > .blockcontent {
+.solution:hover > .blockcontent {
     display:block;
 }
 
-.solutionblock:hover .solutionhelp {
+.solution:hover .solutionhelp {
     display:none;
 }
 
-div.solutionblock > div.blocktitle {
+div.solution > div.blocktitle {
 	font-weight: bold;
 	color: #006500;
     color: #52bd7b;
 }
 
-div.solutionblock > div.blockcontent {
+div.solution > div.blockcontent {
 	background: #eeffee;
 }
 

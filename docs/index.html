@@ -12,7 +12,12 @@
     <script src="https://cdn.jsdelivr.net/npm/roughjs@4.0.4/bundled/rough.min.js"></script>
     <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
-          TeX: { equationNumbers: { autoNumber: "AMS" } }
+    tex2jax: {
+          inlineMath: [['$','$']],
+          displayMath: [['$$','$$']],
+          processEscapes: true
+        },
+     
     });
     </script>
 </head>
@@ -28,48 +33,20 @@
 <div class="menu-item"><a href="classes/three.html" >Markov Madness</a></div>
 <div class="menu-item"><a href="classes/four.html" >Particle Party</a></div>
 </td>
-        <td id="layout-content"><div id='toptitle'><h1>Brainy Bots: Robotics and Probability Lab</h1>
-</div><p>In this class, we’ll develop ways to think about and solve probabilistic inference problems with robots.  Each week we'll introduce a new real-world challenge, and students will work in teams to reason about the math behind the task, design a method, and implement it in on physical robots!  Through this process, we’ll actually arrive at methods that are both fundamental and very modern, used as the basis for contemporary artificial intelligence, machine learning, signal processing and communication. </p>
+        <td id="layout-content"><h1>Brainy Bots: Robotics and Probability Lab</h1>
+<p>In this class, we’ll develop ways to think about and solve probabilistic inference problems with robots.  Each week we'll introduce a new real-world challenge, and students will work in teams to reason about the math behind the task, design a method, and implement it in on physical robots!  Through this process, we’ll actually arrive at methods that are both fundamental and very modern, used as the basis for contemporary artificial intelligence, machine learning, signal processing and communication. </p>
 <p>The course material will build from basic principles of probability to concepts such as hypothesis testing, the EM algorithm, and Bayesian filtering.  In parallel we'll develop methods for robot localization, optimal control, and planning.  The class will have minimal lecture, and will mostly consist of round-table discussion and programming with real robots.</p>
 <h3>Course Schedule</h3>
 <p>Spring HSSP is a six-week long program, and thus Brainy Bots is organized into six 1.5 hour classes.</p>
-<table>
-<thead>
-<tr>
-<th>Week</th>
-<th>Class Name</th>
-<th>Content</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Bayesian Bonanza</td>
-<td>Crash course in probability: random variables, conditional probability, Bayes rule.</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Decisions, Decisions</td>
-<td>Optimizal decision making, cost functions.  Localization lab in grid maze.</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Markov Madness</td>
-<td>Directed graphical models, hidden markov models.  Forward algorithm for robot localization with movement.</td>
-</tr>
-<tr>
-<td>4</td>
-<td>Particle Party</td>
-<td>Particle filters and monte-carlo localization in a continuous space maze.</td>
-</tr>
-<tr>
-<td>5</td>
-<td>SLAM Jam</td>
-<td>Rao-blackwellized particle filtering for simultaneous localization and mapping of the maze.</td>
-</tr>
-</tbody></table><h4>Course Prerequisites</h4>
-<p>Some prior programming experience in Python required for the lab component.  Mathematical enthusiasm and some prior exposure to probability will be helpful.</p>
-</td>
+<p>| Week | Class Name | Content |
+|------|-----------|----------------|
+| 1    | Bayesian Bonanza | Crash course in probability: random variables, conditional probability, Bayes rule.|
+| 2    | Decisions, Decisions | Optimizal decision making, cost functions.  Localization lab in grid maze. |
+| 3    | Markov Madness | Directed graphical models, hidden markov models.  Forward algorithm for robot localization with movement. |
+| 4    | Particle Party | Particle filters and monte-carlo localization in a continuous space maze.|
+| 5    | SLAM Jam | Rao-blackwellized particle filtering for simultaneous localization and mapping of the maze.|</p>
+<h4>Course Prerequisites</h4>
+<p>Some prior programming experience in Python required for the lab component.  Mathematical enthusiasm and some prior exposure to probability will be helpful.</p></td>
     </tr>
     </table>
 </body>

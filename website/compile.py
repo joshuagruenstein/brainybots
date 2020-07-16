@@ -18,7 +18,12 @@ def frame_html(root_link, title, menu, body):
     <script src="https://cdn.jsdelivr.net/npm/roughjs@4.0.4/bundled/rough.min.js"></script>
     <script type="text/x-mathjax-config">
     MathJax.Hub.Config({{
-          TeX: {{ equationNumbers: {{ autoNumber: "AMS" }} }}
+    tex2jax: {{
+          inlineMath: [['$','$']],
+          displayMath: [['$$','$$']],
+          processEscapes: true
+        }},
+     
     }});
     </script>
 </head>

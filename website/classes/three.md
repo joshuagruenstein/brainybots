@@ -2,15 +2,11 @@
 
 Imagine Alyssa P. Hacker has two friends: Ben Bitdiddle and Louis Reasoner.  Ben Bitdiddle is also friends with Joe Schmoe, but Joe Schmoe is not friends with either Alyssa or Louis.  One way we could represent this series of friendships is with a simple diagram like below,
 
-<raw>
 <img src="bbimages/friends.png" style="width:300px;height:auto;padding:1em;" class="illustration"/>
-</raw>
 
 where people are represented by circles, or *vertices*, and the relationships between them are lines, or *edges*.  In this case we chose to define an edge in our diagram as the presence of a friendship between two friends; however, we could have also constructed a diagram of just the opposite, where an edge means the lack of a friendship:
 
-<raw>
 <img src="bbimages/enemies.png" style="width:300px;height:auto;padding:1em;" class="illustration"/>
-</raw>
 
 These sorts of diagrams, called *graphs*, are incredibly versatile, and can be used both visually and mathematically to represent relationships between all sorts of things.  More formally, we define a graph $G = (V,E)$ as 
 - $V$: a set of vertices, also called /nodes/,
@@ -18,18 +14,14 @@ These sorts of diagrams, called *graphs*, are incredibly versatile, and can be u
 
 Note that graphs can contain either directed or undirected edges (but not both). For example, imagine if Alyssa was friends with Ben, but Ben wasn't friends with Alyssa, and all the other friendships remained bidirectional.  We could represent that with the following /directed/ graph:
 
-<raw>
 <img src="bbimages/difriends.png" style="width:300px;height:auto;padding:1em;" class="illustration"/>
-</raw>
 
 Graphs are a natural way in which humans present information: for example, we might represent a system of highways and roads as a directed graph, which an edge going in the direction that traffic flows in.
 
 We're going to try to encode information and their *dependencies* using directed graphs. Let's consider again the event that you're eating ice cream on a given day. We might say that perhaps this event depends on the season and whether you're hungry. Whether you're hungry might depend on whether you've eaten dinner. A naive way that we might try to encode this might be the graph on the left.
  
-<raw>
 <img src="bbimages/dgex.png" style="width:230px;height:auto; padding:1em" class="illustration"/>
 <p class="caption">A directed graphical model about eating ice cream.</p>
-</raw>
 
 ### Graphical Models
 
@@ -43,9 +35,7 @@ $$
 
 The intuition behind this is that $P(\text{dinner})$ is conditionally independent of all other variables; however, the likelyhood of being hungry *depends* on whether you've eaten dinner, and thus needs to be conditioned on $\text{dinner}$.  We can extend this example to three variables:
 
-<raw>
 <img src="bbimages/gm1.png" style="width:300px;height:auto;padding:2em" class="illustration"/>
-</raw>
 
 This graph represents the factorization of the joint as 
 
@@ -72,9 +62,7 @@ And simplifying, we find that $p_{z|y, x}(z|y, x) = p_{z|y}(z|y)$. In other word
 
 Let's look at another: 
 
-<raw>
 <img src="bbimages/gm2.png" style="width:180px;height:auto;padding-bottom:2em;" class="illustration"/>
-</raw>
 
 This case is called a common cause, because $x$ and $z$ both depend on this other variable, $y$, so they share that common cause. So here, we do something similar with the factorization- we know that given $y$, $x$ and $z$ only depend on $y$, so our factorization of the joint is: 
 
@@ -88,53 +76,44 @@ Now, armed with the knowledge of these two types of graph structures, we'll look
 
 For example, Harry Potter lives in a closet, and only knows what's happening in the outside world when Hermione sends him letters. Harry believes that the real world has two states (rainy and sunny), but Harry can't observe them himself. Hermione also doesn't tell him exactly what the weather is: she just tells him if she wore a sweater today or not.  We can represent this as the following simple graphical model:
 
-<raw>
 <img src="bbimages/hermione.png" style="width:300px;height:auto;padding-bottom:2em;" class="illustration"/>
-</raw>
 
 where Harry can observe Hermione's letters today, but not the weather.  Thus we can call the weather a \latent variable\.  If we extend this to multiple days, we can see even more dependencies emerge. If it's rainy today, it might be more likely to be rainy tomorrow and so on. But also, if it's rainy today, Hermione is probably more likely to wear a sweater. 
 
-<raw>
 <img src="bbimages/hermionehmm.png" style="width:500px;height:auto;padding:2em;padding-top:1em" class="illustration"/>
-</raw>
 
 This dependency structure is called a *Hidden Markov Model*, and is applicable to a wide range of inference tasks beyond Harry Potter.  In today's lab, we'll use it to localize our robot while exploring a maze!
 
-<raw>
 <img src="bbimages/hmm.png" style="height:auto;padding:1em" class="illustration"/>
 <p class="caption">Directed graphical model of an HMM, with xs as latent variables and ys as observations.</p>
-</raw>
 
 ### Exercise:
 Derive the factorization of the probability distribution $p_{x_1,...,x_N,y_1,...,y_N}(x_1,...,x_N,y_1,...,y_N)$ using the two graphical model structure types we learned above. 
 
-<solution>
-Since $x_1$ has no incoming edges (and is therefore dependent on no other nodes), we know there will be a $p_{x_1}(x_1)$ term. Then, we see that $y_1$ depends only on $x_1$, so we multiply by the term $p_{y_1|x_1}(y_1|x_1)$ to encode the graph that just consists of the nodes $x_1, y_1$. Now, let's add $x_2$. We see that it depends only on $x_1$, so we multiply by the term $p_{x_2|x_1}(x_2|x_1).$ Continuing in this manner through $y_n$ and $x_n$, we get the final factorization 
+!!! solution
+    Since $x_1$ has no incoming edges (and is therefore dependent on no other nodes), we know there will be a $p_{x_1}(x_1)$ term. Then, we see that $y_1$ depends only on $x_1$, so we multiply by the term $p_{y_1|x_1}(y_1|x_1)$ to encode the graph that just consists of the nodes $x_1, y_1$. Now, let's add $x_2$. We see that it depends only on $x_1$, so we multiply by the term $p_{x_2|x_1}(x_2|x_1).$ Continuing in this manner through $y_n$ and $x_n$, we get the final factorization 
 
+    $$
+    p_{x_1,...,x_N,y_1,...,y_N}(x_1,...,x_N,y_1,...,y_N) = p_{x_1}(x_1)\prod_{i=2}^N p_{x_i|x_{i-1}}(x_i|x_{i-1}) \prod_{j=1}^N p_{y_j|x_j}(y_j|x_j)
+    $$
 
-$$
-p_{x_1,...,x_N,y_1,...,y_N}(x_1,...,x_N,y_1,...,y_N) = p_{x_1}(x_1)\prod_{i=2}^N p_{x_i|x_{i-1}}(x_i|x_{i-1}) \prod_{j=1}^N p_{y_j|x_j}(y_j|x_j)
-$$
-</solution>
+!!! note "Note for rigor"
+    The general structure of our HMM development has been
 
-<block Note for Rigor:>
-The general structure of our HMM development has been
-    
-1. transferring some idea of latent variable and observations into a graphical model with a particular structure
-2. using that graphical model, and the properties that come from graphical models, to do some cool math and develop an algorithm
+    1. transferring some idea of latent variable and observations into a graphical model with a particular structure
+    2. using that graphical model, and the properties that come from graphical models, to do some cool math and develop an algorithm
 
-The second part of what we've done is rigorous- under the assumptions that the graphical model represents what we've told you it represents, all of the math follows very cleanly from properties of graphical models. The first part is where we've handwaved a little. 
+    The second part of what we've done is rigorous- under the assumptions that the graphical model represents what we've told you it represents, all of the math follows very cleanly from properties of graphical models. The first part is where we've handwaved a little. 
 
-It's not immediately obvious that this graph is  correct. In the Harry Potter example, couldn't Tuesday's letter encode a little bit about Monday's weather? Why isn't there an edge between Monday and Tuesday? The reason that we've been able to say that each latent variable depends only on the one prior, and that each observation depends on only one latent variable is due to the definition of Hidden Markov Models. 
+    It's not immediately obvious that this graph is  correct. In the Harry Potter example, couldn't Tuesday's letter encode a little bit about Monday's weather? Why isn't there an edge between Monday and Tuesday? The reason that we've been able to say that each latent variable depends only on the one prior, and that each observation depends on only one latent variable is due to the definition of Hidden Markov Models. 
 
-A Hidden Markov Model is defined to have the Markov Property, also sometimes known as memorylessness. This property encodes that the future, given the present, does not depend at all on the past. Another way to think about that is that the present fully encodes any of the information you may need from the past (this could be all of it, or none of it), and so when thinking about the past, it suffices to think only about the present. In math, we write 
+    A Hidden Markov Model is defined to have the Markov Property, also sometimes known as memorylessness. This property encodes that the future, given the present, does not depend at all on the past. Another way to think about that is that the present fully encodes any of the information you may need from the past (this could be all of it, or none of it), and so when thinking about the past, it suffices to think only about the present. In math, we write 
 
-$$
-\mathbb{P}(X_t = x_t | X_{t-1} = x_{t-1}, X_{t-2} = x_{t-2}, ..., X_1 = x_1) = \mathbb{P}(X_t = x_t | X_{t-1} = x_{t-1}
-$$
- 
-So given this mathematical factorization, we could actually derive the factorization of the joint distribution that we did above, and we'd find that it's equal to the factorization derived from the graphical model, demonstrating equivalence of the HMM and the graphical model. If you'd like to do this at home, the way to start is with the chain rule factorization of the joint that we showed in Lecture 2. 
-</block>
+    $$
+    \mathbb{P}(X_t = x_t | X_{t-1} = x_{t-1}, X_{t-2} = x_{t-2}, ..., X_1 = x_1) = \mathbb{P}(X_t = x_t | X_{t-1} = x_{t-1}
+    $$
+
+    So given this mathematical factorization, we could actually derive the factorization of the joint distribution that we did above, and we'd find that it's equal to the factorization derived from the graphical model, demonstrating equivalence of the HMM and the graphical model. If you'd like to do this at home, the way to start is with the chain rule factorization of the joint that we showed in Lecture 2. 
 
 ## Lab \#3: time to explore!
 
@@ -169,12 +148,12 @@ $$
 
 $$
 \begin{aligned}
-p_{x,y}(0,0) &= \frac{4}{36} \\ 
-p_{x,y}(0,1) &= \frac{5}{36} \\ 
-p_{x,y}(0,2) &= \frac{6}{36} \\ 
-p_{x,y}(1,0) &= \frac{6}{36} \\ 
-p_{x,y}(1,1) &= \frac{7}{36} \\ 
-p_{x,y}(1,2) &= \frac{8}{36} \\ 
+p_{x,y}(0,0) &= \frac{4}{36} \\\ 
+p_{x,y}(0,1) &= \frac{5}{36} \\\
+p_{x,y}(0,2) &= \frac{6}{36} \\\
+p_{x,y}(1,0) &= \frac{6}{36} \\\
+p_{x,y}(1,1) &= \frac{7}{36} \\\
+p_{x,y}(1,2) &= \frac{8}{36} \\\
 \end{aligned}
 $$
 
@@ -182,9 +161,9 @@ What would you do if I asked you for the probability that $x=0$? You'd look at t
 
 $$
 \begin{aligned}
-p_{x,y}(0,0) &= \frac{4}{36} \\ 
-p_{x,y}(0,1) &= \frac{5}{36} \\ 
-p_{x,y}(0,2) &= \frac{6}{36} \\ 
+p_{x,y}(0,0) &= \frac{4}{36} \\\
+p_{x,y}(0,1) &= \frac{5}{36} \\\
+p_{x,y}(0,2) &= \frac{6}{36} \\\
 \end{aligned}
 $$
 
@@ -192,7 +171,7 @@ Then you'd probably sum those probabilities, to get the answer
 
 $$
 \begin{aligned}
-p_x(0) &= \frac{4}{36} + \frac{5}{36} + \frac{6}{36} \\
+p_x(0) &= \frac{4}{36} + \frac{5}{36} + \frac{6}{36} \\\
 &= \frac{15}{36} 
 \end{aligned}
 $$
@@ -231,9 +210,9 @@ So we can write
 
 $$
 \begin{aligned}
-m_t(x_t) &= p(x_t, y_{1:t}) \\
-&= \sum_{x_{t-1}} p(x_t, x_{t-1}, y_{1:t}) \\
-&= \sum_{x_{t-1}} p(x_t, x_{t-1}, y_{1:t-1}, y_t) \\
+m_t(x_t) &= p(x_t, y_{1:t}) \\\
+&= \sum_{x_{t-1}} p(x_t, x_{t-1}, y_{1:t}) \\\
+&= \sum_{x_{t-1}} p(x_t, x_{t-1}, y_{1:t-1}, y_t) \\\
 \end{aligned}
 $$
 
@@ -247,7 +226,7 @@ But then, recall that $y_t$ depends only on $x_t$, and $x_t$ depends only on $x_
 
 $$
 \begin{aligned}
-p(y_t|x_t, x_{t-1}, y_{1:t-1}) &= p(y_t|x_t)\\
+p(y_t|x_t, x_{t-1}, y_{1:t-1}) &= p(y_t|x_t)\\\
 p(x_t|x_{t-1}, y_{1:t-1}) &= p(x_t|x_{t-1})
 \end{aligned}
 $$
@@ -257,7 +236,7 @@ and substituting these into the above, we get
 $$
 \begin{aligned}
 m_t(x_t) &= \sum_{x_{t-1}} p(y_t|x_t)p(x_t|x_{t-1})p(x_{t-1}, y_{1:t-1}) \\
-&= p(y_t|x_t) \sum_{x_{t-1}} p(x_t|x_{t-1})p(x_{t-1}, y_{1:t-1}) \\
+&= p(y_t|x_t) \sum_{x_{t-1}} p(x_t|x_{t-1})p(x_{t-1}, y_{1:t-1}) \\\
 &= p(y_t|x_t) \sum_{x_{t-1}} p(x_t|x_{t-1}) m_{t-1}(x_{t-1}) 
 \end{aligned}
 $$
